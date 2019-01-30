@@ -1,0 +1,16 @@
+/* Switch button */
+.btn-default.btn-on.active{background-color: #5BB75B;color: white; }
+.btn-default.btn-off.active{background-color: #3c8dbc;color: white;  }
+.btn-default{background-color: #E3E9EE;color: grey; border-radius: 5%!important }
+.btn-danger{background-color: #c00c0d; }
+.btn-default.btn-on-1.active{background-color: #006FFC;color: white;  }
+.btn-default.btn-off-1.active{background-color: #3c8dbc;color: white;  }
+
+.btn-default.btn-on-2.active{background-color: #00D590;color: white;  }
+.btn-default.btn-off-2.active{background-color: #A7A7A7;color: white;  }
+
+.btn-default.btn-on-3.active{color: #5BB75B;font-weight:bolder; }
+.btn-default.btn-off-3.active{color: #3c8dbc;font-weight:bolder; }
+
+.btn-default.btn-on-4.active{background-color: #006FFC;color: #5BB75B; }
+.btn-default.btn-off-4.active{background-color: #3c8dbc;color: #3c8dbc;  }

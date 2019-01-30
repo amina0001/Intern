@@ -1,0 +1,25 @@
+<nb-card>
+  <nb-card-header>
+  Scripts power shell  
+    </nb-card-header>
+  <nb-card-body>
+  	
+  	<a href="#/pages/scripts/add-script" class="btn btn-primary " style="float: right;margin-bottom: 1%" ><i class="fa fa-plus"></i> Add scripts</a>
+
+    <ng2-smart-table [settings]="settings" [source]="source" (custom)="onCustom($event)" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+  <!--**************************************Add***************************************-->
+<ng-template #contentTemplate let-data>
+  <p></p>
+</ng-template>
+
+<ng-template #disabledEsc>
+  do you really want to delete this script?
+  <br>
+  <br>
+  <div style="margin-left: 10%;">
+  <button class="btn btn-danger">yes</button>&nbsp;
+  <button class="btn ">Cancel</button>
+</div>
+</ng-template>
+  </nb-card-body>
+</nb-card>

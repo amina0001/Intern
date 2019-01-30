@@ -1,0 +1,205 @@
+<nb-card>
+  <nb-card-header>
+        New Resource
+  </nb-card-header>
+  <nb-card-body>
+<form>
+          <div class="row">
+            <div class="col-md-6">
+             <div class="row"  style="margin-bottom: 5px">
+                <div class="col-md-3">  
+                    <label for="name" >Status</label>
+                </div>
+                <div class="col-md-8">
+                    <div class="btn-group"  data-toggle="buttons" style="width:100%;" >        
+                        <label class="btn btn-default btn-off active"  style="width:50%;"> 
+                        <input type="radio" hidden style="width: 50%" data-ng-model="selection"  name="Status" value="Disabled" id="Disabled" >Disabled</label>
+                        <label class="btn btn-default btn-on "  style="width:50%;">
+                        <input type="radio"   hidden data-ng-model="selection"  name="Status" value="Enabled" id="Enabled" style="width: 50%" >Enabled</label>
+                    </div> 
+                </div>
+            </div>
+            </div> <!-- /.col-md-6 -->
+            <div class="col-md-6">
+                <div class="row"  style="margin-bottom: 5px">
+                   <div class="col-md-4">  
+                        <label for="name"> Categorize </label>
+                    </div>
+                    <div class="col-md-8">
+                        <select class="form-control" id="Categorize" name="Categorize" >
+                        <option value="Poste de travail">Poste de travail</option>
+                        </select>
+                    </div>
+                </div><!-- /.row -->
+            </div><!-- /.col-md-6 -->
+        </div> <!-- /.row1 -->
+        <div class="row">
+            <div class="col-md-6">  
+                <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-3">  
+                        <label for="name">Type</label>
+                     </div>
+                    <div class="col-md-8">
+                        <div class="btn-group" data-toggle="buttons" style="width:100%;" >
+                            <label class="btn btn-default btn-Hard active" style="width:30%;padding-left:1% " > 
+                            <input type="radio" hidden   name="Type" value="Hardware" id="Hardware">Hardware</label>
+                            <label class="btn btn-default btn-Soft" style="width:27%;padding-left:0%" >
+                            <input type="radio" hidden     name="Type" value="Software" id="Software"  >Software</label>
+                            <label class="btn btn-default btn-Access" style="width:20%;padding-left:1%"  >
+                            <input type="radio"  hidden    name="Type" value="Access" id="Access">Access</label>
+                            <label class="btn btn-default btn-Other" style="width:23%;padding-left:0%" >
+                            <input type="radio"  hidden name="Type" value="Other" id="Other" >Other</label>
+                        </div>
+                    </div>  
+                </div> <!-- /.row -->
+            </div><!-- /.col-md-6 -->
+            <div class="col-md-6">
+                <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-4">  
+                        <label for="name">Name </label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text"  class="form-control"  id="Name" name="Name" >  
+                    </div>
+                </div> <!-- /.row -->
+            </div><!-- /.col-md-6 -->
+        </div> <!-- /.row2 -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-3">  
+                        <label for="name">Description </label>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="form-control" aria-label="With textarea"  id="Description" name="Description" ></textarea>
+                    </div> 
+                </div>
+            </div><!-- /.col-md-6 -->
+            <div class="col-md-6">
+                <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-4">  
+                        <label for="name">Internal Information </label>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="form-control" aria-label="With textarea" id="InternalInformation" name="InternalInformation"></textarea>
+                     </div>
+                </div><!-- /.row -->
+            </div><!-- /.col-md-6 -->
+        </div><!-- /.row3 -->
+
+</form>
+<hr>
+<br>
+   <h4 class="box-title">More option</h4>
+       <div class="row"  style="margin-bottom: 5px">
+            <div class="col-md-4">
+                 
+               <div class="row">
+                    <div class="col-md-6" style="margin-left: 40%">  
+                         <div class="btn-group"  data-toggle="buttons" style="width:100%;" >    
+                        <label class="btn btn-default btn-off active" > 
+                        <input type="radio" hidden value="0"   data-ng-model="selection" name="NoDate" id="NoDate" value="No"   > No</label>    
+                        <label class="btn btn-default btn-on " st> 
+                        <input type="radio"  hidden  name="NoDate" data-ng-model="selection" value="Yes" id="YesDate" >Yes</label>
+                    </div>
+                    </div>
+               </div><!-- /.row -->
+            </div><!-- /.col-md-4 -->
+            <div class="col-md-8">
+                <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-4">
+                        <label  for="name">Expiration Date</label>
+                    </div>
+                    <div class="col-md-8"  >
+                    <input [disabled]="disabledDate"  type="date" class="form-control" id="ExpirationDate " name="ExpirationDate"  >  
+                    </div>
+                </div><!-- /.row -->
+            </div><!-- /.col-md-8 -->
+        </div><!-- /.row1 -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row"  style="margin-bottom: 5px;">
+                    <div class="col-md-6" style="margin-left: 40%">  
+                         <div class="btn-group"  data-toggle="buttons" style="width:100%;" >   
+                            <label class="btn btn-default btn-off active" style="width:50%;" > 
+                            <input type="radio" hidden value="0"   name="No" id="NoReference" value="No"  (click)="reference()"> No</label>    
+                            <label class="btn btn-default btn-on " style="width:50%;" > 
+                            <input type="radio"  hidden  name="No" value="Yes" id="YesReference" (click)="reference()" >Yes</label>
+                        </div>
+                    </div> 
+                </div><!-- /.row -->
+            </div><!-- /.col-md-4 -->
+            <div class="col-md-8">
+                <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-4">
+                     <label for="name">Reference </label>
+                    </div><!-- /.col-md-4 -->
+                    <div class="col-md-8">
+ 
+                             <input type="text" [disabled]="disabledReference" class="form-control" id="Reference " name="Reference"  >
+                    
+                    </div><!-- /.col-md-4 -->
+                </div><!-- /.row -->
+            </div><!-- /.col-md-8 -->
+        </div><!-- /.row2 -->
+        <div class="row">
+                <div class="col-md-4">
+                    <div class="row"  style="margin-bottom: 5px;">
+                        <div class="col-md-6" style="margin-left: 40%"> 
+                         <div class="btn-group"  data-toggle="buttons" style="width:100%;" >    
+                            <label class="btn btn-default btn-off active" style="width:50%;" > 
+                            <input type="radio" hidden value="0"   name="No" id="NoSerial" value="No" (click)="serial()" > No</label>    
+                            <label class="btn btn-default btn-on " style="width:50%;" > 
+                            <input type="radio"  hidden  name="No" value="Yes" id="YesSerial" (click)="serial()" >Yes</label>
+                        </div>
+                        </div> 
+                    </div><!-- /.row -->
+                </div><!-- /.col-md-4 -->
+                <div class="col-md-8">
+                    <div class="row"  style="margin-bottom: 5px">
+                        <div class="col-md-4">
+                             <label for="name">Serial Number </label>
+                        </div><!-- /.col-md-4 -->
+                        <div class="col-md-8">
+                             <input type="text" [disabled]="disabledSerial"  class="form-control" id="SerialNumber " name="SerialNumber" >
+                           
+                        </div><!-- /.col-md-4 -->
+                    </div><!-- /.row -->
+                </div><!-- /.col-md-8 -->
+            </div><!-- /.row3 -->
+            <div class="row">
+                    <div class="col-md-4">
+
+                        <div class="row"  style="margin-bottom: 5px;">
+                            <div class="col-md-6" style="margin-left: 40%">
+                             <div class="btn-group"  data-toggle="buttons" style="width:100%;" >     
+                                <label class="btn btn-default btn-off active" style="width:50%;" > 
+                                <input type="radio" hidden value="0"   name="No" id="Nocomment" value="No"  (click)="comment()"> No</label>    
+                                <label class="btn btn-default btn-on " style="width:50%;" > 
+                                <input type="radio"  hidden  name="No" value="Yes" id="Yescomment" (click)="comment()">Yes</label>
+                            </div>
+                            </div> 
+                        </div><!-- /.row -->
+                    </div><!-- /.col-md-4 -->
+                    <div class="col-md-8">
+                        <div class="row"  style="margin-bottom: 5px">
+                            <div class="col-md-4">
+                                 <label for="name">Comment </label>
+                            </div><!-- /.col-md-4 -->
+                            <div class="col-md-8"> 
+                            <textarea [disabled]="disabledComment" class="form-control" aria-label="With textarea" id="Comment " name="Comment"></textarea>  <br>
+                                  <a href="#/pages/resources/add-action-resources"  style="margin-left:  75%"><i class="fa fa-plus"></i><u> Add Action</u></a>
+                            </div><!-- /.col-md-4 -->
+                        </div><!-- /.row -->
+                    </div><!-- /.col-md-8 -->
+                </div><!-- /.row4 --><hr>
+                <div class="row">
+        <div class="col-md-12"  >
+        
+            <button type="submit" class="btn btn-primary" style="margin-left:  65%">Save</button>
+            <button type="submit" class="btn btn-primary" style="margin-left: 1%">Cancel</button>
+            <button type="submit" class="btn btn-danger" disabled style="margin-left: 1%">Delete</button>
+        </div>
+        </div> <!-- /.row -->
+  </nb-card-body>
+</nb-card>

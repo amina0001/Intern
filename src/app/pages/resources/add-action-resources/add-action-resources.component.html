@@ -1,0 +1,275 @@
+<nb-card>
+  <nb-card-header>
+        New Resource
+  </nb-card-header>
+  <nb-card-body>
+  <form  >
+  <div class="box-header with-border">
+      <h3 class="box-title">Provisioning Process</h3>
+           <br>
+
+ </div>
+ <!-- /.box-header -->
+ <div class="box-body"> 
+      <div class="row">
+      <div class="col-md-6"> 
+          <div class="row"  style="margin-bottom: 5px">
+              <div class="col-md-4">  
+                  <label for="name">Manager's Agreement</label>
+              </div> 
+              <div class="col-md-8">
+                  <div class="btn-group " data-toggle="buttons" style="width:100%;" >
+                      <label class="btn btn-default btn-off active" style="width:50%;"> 
+                      <input type="radio"  hidden name="Manager_agreement" value="Manadatory" id="Manadatory_Manager" checked="true" >Manadatory</label>
+                      <label class="btn btn-default btn-on " style="width:50%;" >
+                      <input type="radio"  hidden name="Manager_agreement" value="Optional" id="Optional_Manager"  >Optional</label>
+                  </div>
+                     
+              </div>
+          </div> 
+      </div>   <!-- /.fin col-md-6  -->
+      <div class="col-md-6">
+          <div class="row"  style="margin-bottom: 5px">
+              <div class="col-md-4">
+                  <label for="name"> Manager Name </label>
+              </div>
+              <div class="col-md-8">
+                  <select class="form-control" id="ManagerName " name="ManagerName"  >
+                  <option value="Manager">Manager</option>
+                  </select>
+                      </div>
+           </div>  <!-- /.row  -->
+      </div> <!-- /.fin col-md-6  -->
+  </div><!-- /.row1  -->
+  <div class="row">
+      <div class="col-md-6">
+           <div class="row"  style="margin-bottom: 5px">
+              <div class="col-md-4">  
+                 <label for="name">Owner's Agreement</label>
+              </div>
+              <div class="col-md-8">
+                  <div class="btn-group " id="status" data-toggle="buttons" style="width:100%;" >
+                   <label class="btn btn-default btn-off active" style="width:50%;" > 
+                   <input type="radio" hidden name="Owner_agreement" value="Manadatory" id="Manadatory_Owner">Manadatory</label>
+                   <label class="btn btn-default btn-on " style="width:50%;">
+                  <input type="radio" hidden name="Owner_agreement" value="Optional" id="Optional_Owner">Optional</label>
+                 </div>
+             </div>
+          </div>
+      </div> <!-- /.fin col-md-6  -->
+      <div class="col-md-6"> 
+           <div class="row"  style="margin-bottom: 5px">
+              <div class="col-md-4">  
+              <label for="name"> Owner Name </label>
+              </div>
+              <div class="col-md-8">
+                  <select class="form-control" id="OwnerName " name="OwnerName"   >
+                  <option value="OwnerName">OwnerName</option>
+                  </select>
+              </div>
+          </div><!-- /.row  -->
+      </div><!-- /.fin col-md-6  -->
+  </div><!-- /.fin row2 -->
+  <div class="row">
+      <div class="col-md-6"> 
+          <div class="row"  style="margin-bottom: 5px">
+                  <div class="col-md-4">  
+                    <label for="name">IT's  Agreement</label>
+                   </div>
+                   <div class="col-md-8">
+                       <div class="btn-group "  data-toggle="buttons" style="width:100%;" >
+                           <label class="btn btn-default btn-off active" style="width:50%;" > 
+                           <input type="radio" hidden name="IT_agreement" value="Manadatory" id="Manadatory_IT">Manadatory</label>
+                        
+                           <label class="btn btn-default btn-on " style="width:50%;" >
+                           <input type="radio" hidden name="IT_agreement" value="Optional" id="Optional_IT" >Optional</label>
+                       </div>
+                  </div>
+          </div><!-- /.fin row -->
+      </div><!-- /.fin col-md-6  -->
+      <div class="col-md-6"> 
+          <div class="row"  style="margin-bottom: 5px">
+              <div class="col-md-4">  
+                   <label for="name"> IT Name </label>
+              </div>
+              <div class="col-md-8">
+                  <select class="form-control" id="ITOwner " name="ITOwner" >
+                  <option value="ITOwner">ITname</option>
+                  </select>
+              </div>
+          </div><!-- /.fin row -->
+      </div><!-- /.fin col-md-6  -->
+  </div><!-- /.fin row3 -->
+  <div class="row">
+          <div class="col-md-6"> 
+              <div class="row"  style="margin-bottom: 5px">
+                  <div class="col-md-4">  
+                       <label for="name">Processus Type</label>
+                  </div>
+                  <div class="col-md-8">
+                      <div class="btn-group " data-toggle="buttons" style="width:100%;" >
+                      <label class="btn btn-default btn-off active" style="width: 50%" > 
+                      <input type="radio" hidden  name="Processus_type" value="script" id="_script"  >By script</label>
+                      <label class="btn btn-default btn-on " style="width: 50%" >
+                      <input type="radio" hidden name="Processus_type" value="process" id="_process"  >By process</label>
+                      </div> 
+                  </div>
+              </div><!-- /.fin row -->
+          </div><!-- /.fin col-md-6  -->
+          <div class="col-md-6"> 
+                  <div class="row"  style="margin-bottom: 5px">
+                      <div class="col-md-4">
+                          <label for="name">Process </label>
+                       </div>
+                      <div class="col-md-8">
+                          <input type="text"  class="form-control"   id="Process " name="Process" >  
+                      </div>
+                  </div><!-- /.fin row -->
+          </div><!-- /.fin col-md-6  -->
+  </div><!-- /.fin row4 -->
+  <div class="row">
+       <div class="col-md-6">
+              <div class="row"  style="margin-bottom: 5px">
+               <div class="col-md-4">
+                   <label for="name">Script</label>
+              </div>
+               <div class="col-md-8">
+               <input type="text"  class="form-control" id="Script " name="Script"  >  
+               </div>
+              </div>
+       </div><!-- /.fin col-md-6  -->
+  </div><!-- /.fin row5 -->
+ </div>
+ <br>
+ <div >
+  <hr>
+      <div class="row">
+        <div class="col-md-12"  >
+        <span style="margin-left: 90%">
+        <button type="submit" class="btn btn-primary"  >Save</button>
+         </span>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    </form>
+<br>
+                      <!--- /.Deprovisioning process -->
+
+  <div >
+      <h3 class="box-title">Deprovisioning Process</h3>
+     <br>
+   </div>
+  <!-- /.box-header -->
+  <div >
+          <div class="row">
+          <div class="col-md-6">
+              <div class="row"  style="margin-bottom: 5px">
+                      <div class="col-md-4">  
+                           <label for="name">Owner's Agreement</label>
+                      </div>
+                      <div class="col-md-8">
+                          <div class="btn-group " id="status" data-toggle="buttons" style="width: 100%" >
+                          <label class="btn btn-default btn-off active" style="width: 50%" > 
+                          <input type="radio" hidden value="0" name="multifeatured_module1" >Manadatory</label>
+                          <label class="btn btn-default btn-on " style="width: 50%" >
+                          <input type="radio"  hidden value="1" name="multifeatured_module2" checked="checked"  >Optional</label>
+                          </div>
+                     </div>
+              </div><!-- /.fin row -->
+          </div><!-- /.fin col-md-6  -->
+          <div class="col-md-6">
+              <div class="row"  style="margin-bottom: 5px">
+                      <div class="col-md-4">  
+                      <label for="name"> Owner Name </label>
+                      </div>
+                      <div class="col-md-8">
+                      <select class="form-control" id="exampleFormControlSelect1">
+                      <option value="Owner"></option>
+                      </select>
+                      </div>
+              </div><!-- /.fin row -->
+          </div><!-- /.fin col-md-6  -->
+           </div><!-- /.fin row1 -->
+           <div class="row">
+                  <div class="col-md-6">
+                      <div class="row"  style="margin-bottom: 5px">
+                          <div class="col-md-4">  
+                          <label for="name">IT's  Agreement</label>
+                          </div>
+                          <div class="col-md-8">
+                                  <div class="btn-group " id="status" data-toggle="buttons" style="width: 100%" >
+                                  <label class="btn btn-default btn-off active" style="width: 50%" > 
+                                  <input type="radio" hidden value="0" name="multifeatured_module3" >Manadatory</label>
+                                  <label class="btn btn-default btn-on " style="width: 50%" >
+                                  <input type="radio" hidden value="1" name="multifeatured_module4" checked="checked"  >Optional</label>
+                                  </div>
+                             </div>
+                      </div><!-- /.fin row -->
+                  </div><!-- /.fin col-md-6  -->
+                  <div class="col-md-6">
+                      <div class="row"  style="margin-bottom: 5px">
+                          <div class="col-md-4">  
+                              <label for="name"> IT Name </label>
+                          </div>
+                          <div class="col-md-8">
+                              <select class="form-control" id="exampleFormControlSelect1">
+                              <option></option>
+                              </select>
+                          </div>
+                      </div><!-- /.fin row -->
+                  </div><!-- /.fin col-md-6  -->
+           </div><!-- /.fin row2 -->
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="row"  style="margin-bottom: 5px">
+                       <div class="col-md-4">  
+                           <label for="name">Processus Type</label>
+                      </div>
+                      <div class="col-md-8">
+                              <div class="btn-group " id="status" data-toggle="buttons" style="width: 100%" >
+                              <label class="btn btn-default btn-off active" style="width: 50%" > 
+                              <input type="radio" hidden value="0" name="multifeatured_module5" >By script</label>
+                              <label class="btn btn-default btn-on " style="width: 50%" >
+                              <input type="radio" hidden value="1" name="multifeatured_module6" checked="checked"  >By process</label>
+                              </div>
+                         </div>
+                  </div><!-- /.fin row -->
+              </div><!-- /.fin col-md-6  -->
+              <div class="col-md-6">
+                  <div class="row"  style="margin-bottom: 5px">
+                      <div class="col-md-4">
+                      <label for="name">Process </label>
+                      </div>
+                      <div class="col-md-8" >
+                       <input type="text"  class="form-control" style="width: 100%"  >  
+                      </div>
+                  </div><!-- /.fin row -->
+              </div><!-- /.fin col-md-6  -->
+          </div><!-- /.fin row3 -->
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="row"  style="margin-bottom: 5px">
+                          <div class="col-md-4">
+                              <label for="name">Script</label>
+                          </div>
+                          <div class="col-md-8">
+                              <input type="text"  class="form-control" style="width: 100%">  
+                           </div> 
+                  </div><!-- /.fin row -->
+               </div><!-- /.fin col-md-6  -->
+          </div><!-- /.fin row4 -->
+  </div>
+  <br><hr>
+  <div >
+          <div class="row">
+            <div class="col-md-12"  >
+            <span style="margin-left: 90%">
+            <button type="submit" class="btn btn-primary">Save</button>
+             </span>
+            </div>
+          </div>
+          <!-- /.row -->
+        </div>
+  </nb-card-body>
+</nb-card>

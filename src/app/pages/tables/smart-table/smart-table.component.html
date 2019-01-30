@@ -1,0 +1,30 @@
+<nb-card>
+  <nb-card-header>
+    Users
+  </nb-card-header>
+  <nb-card-body>
+  	<style type="text/css">
+  	
+	</style>
+  	<a href="#/pages/tables/add" class="btn btn-primary " style="float: right;margin-bottom: 1%"  ><i class="fa fa-plus"></i> Add user</a>
+    <ng2-smart-table class="resize" [settings]="settings" [source]="source" (custom)="onCustomAction($event)" (deleteConfirm)="onDeleteConfirm($event)">
+    </ng2-smart-table>
+
+
+
+<ng-template #contentTemplate let-data>
+  <p></p>
+</ng-template>
+
+<ng-template #disabledEsc>
+  do you really want to delete this user?
+  <br>
+  <br>
+  <div style="margin-left: 10%;">
+  <button class="btn btn-danger">yes</button>&nbsp;
+  <button class="btn ">Cancel</button>
+</div>
+</ng-template>
+
+  </nb-card-body>
+</nb-card>

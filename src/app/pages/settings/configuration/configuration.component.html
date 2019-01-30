@@ -1,0 +1,165 @@
+<nb-card>
+  <nb-card-header>
+ <h3 class="box-title"> Settings</h3>
+    </nb-card-header>
+  <nb-card-body>
+   
+
+   
+    <form >
+            <div class="row">
+                    <div class="col-md-12">
+        <div class="box">   
+            <div class="box-header with-border">
+                <div class="row">
+                    <div class="col-md-6">
+                        <span class="pull-left"><h4 class="box-title">SMTP &nbsp; &nbsp;</h4></span>
+                    </div>  <!-- /.col-md-6 -->
+                    <div class="col-md-6"> 
+                        <span class="pull-right"><a  href="" data-toggle="modal" data-target="#Modal" style="margin-left: 70%"><i class="ion-checkmark-round"></i> Verify</a> </span>
+                    </div> <!-- /.col-md-6 -->
+                </div><!-- /.row -->
+            </div><!-- /.box-header with-border -->
+            
+            <div class="box-body">
+            
+                <div class="row" style="margin-bottom: 5px" >
+                      <div class="col-md-3">  
+                        <label for="name">Server Name </label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text"  class="form-control"  id="ServerName " name="Server_name" >  
+                      </div>
+                </div> <!-- /.row1 -->
+              
+                <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-3" >  
+                        <label for="name">Port </label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text"  class="form-control" id="Port " name="Port"  >  
+                    </div>
+                </div><!-- /.row2 -->
+
+                <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-3" >  
+                    <label for="name">User Account </label>
+                    </div>
+                    <div class="col-md-8">
+                    <input type="text"  class="form-control" id="UserAccount" name="User_account"  >  
+                    </div>
+              </div><!-- /.row3 -->
+
+              <div class="row"  style="margin-bottom: 5px">
+                  <div class="col-md-3">  
+                    <label for="name">Password </label>
+                  </div>
+                  <div class="col-md-8">
+                  <input type="password"  class="form-control" id="Password" name="Password" 
+                  >  
+                  </div>
+            </div><!-- /.row4 -->
+            </div>
+            </div> <!-- ./box-body --> 
+        </div>   <!-- ./box -->
+
+</div>
+<br>
+<div class="row">
+        <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-6"> <span class="pull-left"><h4 class="box-title">Admin Directory &nbsp; &nbsp; <label [hidden]="hiddenAD"></label></h4></span>
+                    </div> <!-- /.col-md-6 -->
+              
+                       <div class="col-md-6"> 
+                        <span class="pull-right"><a href="" data-toggle="modal" data-target="#Modal" style="margin-left: 70%"><i class="ion-checkmark-round"></i> Verify</a> </span>
+                    </div><!-- /.col-md-6 -->
+
+                </div><!-- /.row -->
+            </div><!-- /.box-header -->
+            <div class="box-body">
+            
+                <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-3">  
+                      <label for="name">Forest Name </label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text"  class="form-control" id="ForestName" name="Forest_name" >  
+                    </div>
+                </div>  <!-- /fin row 1 -->
+
+                <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-3">  
+                        <label for="name">service Account </label>
+                    </div>
+                    <div class="col-md-8">
+                    <input type="text"  class="form-control" id="ServiceAccount" name="Service_account" >  
+                    </div>
+                  </div><!-- /fin row 2 -->
+                  
+                  <div class="row"  style="margin-bottom: 5px">
+                      <div class="col-md-3">  
+                          <label for="name">Domaine </label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text"  class="form-control" id="Domaine" name="Domaine" >  
+                      </div>
+                  </div><!-- /fin row -->
+            
+                  <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-3">  
+                      <label for="name">Password </label>
+                    </div>
+                    <div class="col-md-8">
+                    <input type="password"  class="form-control" id="PasswordAD" name="passwordad" >  
+                    </div>
+              </div><!-- /.row4 -->
+            </div> <!-- /.box-body -->
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-12"  >
+                      <span class="pull-right">
+
+                        <button type="submit" class="btn btn-primary " style="margin-left: 82%" (click)="addSetting(SettingForm)"><i class="ion-checkmark-round"></i> Save</button>
+                      </span>
+                    </div>
+                  </div>
+            </div><!-- /.box-footer -->
+
+        </div>   <!-- ./box -->
+        </div>
+</div>
+        </form>
+    
+
+     <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              <h5 class="modal-title" id="exampleModalLabel">Please enter your e-mail address</h5>
+            </div>
+            <div class="modal-body">
+              <input type="email" class="form-control" placeholder="Email" required minlength="8" name="mail"  >
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+              <button type="submit" class="btn btn-primary"  data-dismiss="modal">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+  
+  
+  
+
+
+  </nb-card-body>
+</nb-card>
+
+  
