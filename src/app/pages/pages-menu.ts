@@ -19,7 +19,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
      
       {
-        title: 'extra-components',
+        title: 'Active access',
+        link: '/pages/extra-components/calendar',
+      },
+      {
+        title: 'Pending access',
         link: '/pages/extra-components/calendar',
       },
     
