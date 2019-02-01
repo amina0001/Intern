@@ -10,22 +10,12 @@ import { SmartTableService } from '../../../@core/data/smart-table.service';
     nb-card {
       transform: translate3d(0, 0, 0);
     }
-     :host /deep/ ng2-smart-table tbody > tr > td:last-child  {
-    height:30%!important;
+    :host  /deep/ ng2-st-tbody-custom a i {
+      font-size:17px;
     }
-   :host /deep/ ng2-smart-table tbody > tr > td:last-child a i{
-   padding-bottom:5%;
-    font-size:17px!important;
-    }
-  :host /deep/ ng2-smart-table tbody > tr > td:last-child a:last-child i:hover {
-    color:#2987e5!important;
-    font-size:20px!important;
-    }
-    :host /deep/ ng2-smart-table tbody > tr > td:last-child a:first-child i:hover:first-child {
-    color:#3f9684!important;
-    font-size:20px!important;
-    }
-
+    /deep/ .nb-theme-corporate ng2-smart-table .ng2-smart-actions ng2-st-tbody-custom a:nth-child(2) {
+          margin-left: 90%;
+  }
   `],
 })
 export class DeletedUserComponent {

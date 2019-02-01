@@ -7,13 +7,8 @@ import { NbWindowService } from '@nebular/theme';
 @Component({
   selector: 'active_resource',
   templateUrl: './active-resources.component.html',
-  styles: [`
-    nb-card {
-      transform: translate3d(0, 0, 0);
-    }
- 
+     styleUrls: ['./active-resources.component.css'],
 
-  `],
 })
 export class ActiveResourcesComponent {
 @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;

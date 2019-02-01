@@ -9,7 +9,8 @@ import * as $ from 'jquery';
 @Component({
   selector: 'ng-add-active-resources',
   templateUrl: './add-active-resources.component.html',
-  styleUrls: ['./add-active-resources.component.css']
+  styleUrls: ['./add-active-resources.component.css','./add-active-resources.component.scss'],
+
 })
 export class AddActiveResourcesComponent implements OnInit {
   

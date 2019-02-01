@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ScriptsComponent } from './scripts.component';
 import { ScriptsPowerShellComponent } from './scripts-power-shell/scripts-power-shell.component';
 import { AddScriptComponent } from './add-script/add-script.component';
+import { ExecuteScriptComponent } from './execute-scripts/execute-scripts.component';
 
 const routes: Routes = [{
   path: '',
@@ -15,6 +16,10 @@ const routes: Routes = [{
   {
     path: 'add-script',
     component: AddScriptComponent,
+  },
+  {
+    path: 'execute-scripts',
+    component: ExecuteScriptComponent,
   }],
 }];
 
@@ -27,5 +32,6 @@ export class ScriptsRoutingModule { }
 export const scriptsroutedComponents = [
   ScriptsComponent,
   ScriptsPowerShellComponent,
-  AddScriptComponent
+  AddScriptComponent,
+  ExecuteScriptComponent
 ];

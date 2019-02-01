@@ -1,0 +1,58 @@
+<nb-card>
+  <nb-card-header>
+    New Scripts
+    </nb-card-header>
+  <nb-card-body>
+          <h3 class="box-title"></h3>
+    
+      <div>
+                <div class="row">
+                        <div class="col-md-2"  style="text-align: center">
+                            <label> Command </label>
+                        </div>
+                           <div class="col-md-8">                 
+                                <div class="form-group" >    
+                               
+                                    <input  class="form-control"  id="script" name="Body" value="">                             
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-1" style="margin-left: -1%"> 
+                            <button id="BtnAdd" class="btn btn-danger"  title="Add Params" (click)="addNewRow(0)">Add parameter</button>                      
+                            </div>                           
+                </div>
+                <form [formGroup]="invoiceForm" >
+                    <div formArrayName="itemRows">
+                          <!-- Check the correct way to iterate your form array -->
+                        <div  *ngFor="let itemrow of invoiceForm.controls.itemRows.controls; let i=index"  [formGroupName]="i">
+                        <div class="row"  *ngIf="invoiceForm.controls.itemRows.controls.length> i+1">
+                        <div class="col-md-2" style="text-align: center;">
+                            <label> parameter  {{ i + 1 }}</label>
+                        </div>
+                           <div class="col-md-8">                 
+                                <div class="form-group" style="text-align: left">    
+                                    <input formControlName="itemname" class="form-control"  id="script{{i}}" name="Body">                             
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-1" style="text-align: right" > 
+                            <h4><i id="BtnAdd{{i}}" class="fa fa-plus-square" title="Add parameter" *ngIf="invoiceForm.controls.itemRows.controls.length> i+1" (click)="addNewRow(i)"></i></h4>                       
+                            </div>
+                            <div class="col-md-1" style="text-align: left">
+                                <h4><i id="BtnDelete{{i}}" class="fa fa-minus-square" *ngIf="invoiceForm.controls.itemRows.controls.length > 1" (click)="deleteRow(i)"></i></h4>      
+                            </div>
+                        </div>
+                          </div>
+                        </div>                                      
+                      </form>         
+      </div>
+      <div >
+          <div class="row">
+          <div class="col-md-12"  >
+              <button type="submit" class="btn btn-primary" style="margin-left: 60%">Execute</button>
+              <button type="reset" class="btn btn-default" style="margin-left: 1%">Cancel</button>
+             
+          </div>
+          </div> <!-- /.row -->
+      </div>  <!-- /.box-footer --> 
+ <nb-card-body>

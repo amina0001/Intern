@@ -8,11 +8,13 @@ import { NbWindowService } from '@nebular/theme';
   selector: 'ngx-add-user',
   templateUrl: './smart-table.component.html',
   styles: [`
-    nb-card {
-      transform: translate3d(0, 0, 0);
-    }
- 
+    :host /deep/ ng2-st-tbody-custom {
   
+   width: 50%!important;
+    padding-left: 5%
+    }
+
+
   `],
 })
 
@@ -35,8 +37,6 @@ export class SmartTableComponent {
 },
     columns: {
    
-
- 
       firstName: {
         title: 'First Name',
         type: 'string',

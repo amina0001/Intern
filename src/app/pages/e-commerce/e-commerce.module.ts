@@ -61,6 +61,8 @@ import { SettingsCardFrontComponent } from './settings-card/front-side/settings-
 
 import { ReportCardBackComponent } from './report-card/back-side/report-card-back.component';
 import { ReportCardFrontComponent } from './report-card/front-side/report-card-front.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkDragDropOverviewExample } from './drag-drop/drag-drop.component';
 
 @NgModule({
   imports: [
@@ -69,8 +71,10 @@ import { ReportCardFrontComponent } from './report-card/front-side/report-card-f
     NgxEchartsModule,
     NgxChartsModule,
     LeafletModule,
+    DragDropModule,
   ],
   declarations: [
+   CdkDragDropOverviewExample,
     ECommerceComponent,
     ECommerceChartsPanelComponent,
     ChartPanelHeaderComponent,
@@ -110,6 +114,7 @@ import { ReportCardFrontComponent } from './report-card/front-side/report-card-f
     ResourcesCardFrontComponent,
     ResourcesCardBackComponent,
     ResourcesCardComponent,
+   
   ],
   providers: [
     CountryOrdersMapService,
