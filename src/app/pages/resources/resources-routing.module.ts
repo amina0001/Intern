@@ -5,6 +5,7 @@ import { RecourcesComponent } from './resources.component';
 import { ActiveResourcesComponent } from './active-resources/active-resources.component';
 import { AddActiveResourcesComponent } from './add-active-resources/add-active-resources.component';
 import { AddActionResourcesComponent } from './add-action-resources/add-action-resources.component';
+import { ArchivedResourcesComponent } from './archived-resources/archived-resources.component';
 
 const routes: Routes = [{
   path: '',
@@ -18,7 +19,10 @@ const routes: Routes = [{
   },{
     path: 'add-action-resources',
     component: AddActionResourcesComponent,
-  }],
+  },{
+    path: 'archived-resources',
+    component: ArchivedResourcesComponent,
+  },],
 }];
 
 @NgModule({
@@ -32,4 +36,5 @@ export const resourcesroutedComponents = [
   ActiveResourcesComponent,
   AddActiveResourcesComponent,
   AddActionResourcesComponent,
+  ArchivedResourcesComponent
 ];

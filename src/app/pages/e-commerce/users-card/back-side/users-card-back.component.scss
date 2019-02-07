@@ -1,84 +1,51 @@
 @import '../../../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
 
 @include nb-install-component() {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-
-  /deep/ nb-card-header {
-    display: flex;
-    justify-content: space-between;
-
-    .header-container {
-      display: flex;
-      @include nb-rtl(flex-direction, row-reverse);
-    }
-
-    .title {
-      padding-left: 1rem;
-    }
+  nb-card-header {
+    flex-direction: row;
   }
 
-  /deep/ nb-card-body {
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
-
-    .info {
-      padding: 0.75rem;
-      padding-bottom: 0.5rem;
-      display: flex;
-      @include nb-rtl(flex-direction, row-reverse);
-    }
-
-    .period {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-
-      &.latest {
-        padding-left: 0.75rem;
-      }
-    }
-
-    .time-interval {
-      color: nb-theme(color-fg);
-    }
-
-    .value {
-      font-family: nb-theme(font-secondary), serif;
-      font-size: 1.25rem;
-      font-weight: nb-theme(font-weight-bold);
-      color: nb-theme(card-fg-heading);
-
-      @include nb-for-theme(default) {
-        color: nb-theme(color-success);
-      }
-
-      .currency {
-        color: nb-theme(color-success);
-
-        @include nb-for-theme(corporate) {
-          color: nb-theme(color-primary);
-        }
-      }
-    }
-  }
-
-  ngx-stats-ares-chart {
+  ngx-earning-pie-chart, .chart-info {
     flex: 1;
-    position: relative;
   }
 
-  /deep/ canvas {
-    border-bottom-left-radius: nb-theme(card-border-radius);
-    border-bottom-right-radius: nb-theme(card-border-radius);
+  .chart-info {
+    padding-top: 0.7rem;
+  }
+
+  .title {
+    font-size: nb-theme(font-size-xlg);
+  }
+
+  .time-period {
+    margin-top: 1.5rem;
+    color: nb-theme(color-fg);
+  }
+
+  .value {
+    margin-top: 0.2rem;
+    font-size: 1.5rem;
+    font-weight: nb-theme(font-weight-bold);
+    color: nb-theme(color-fg-heading);
   }
 
   .echart {
     position: absolute;
-    height: 100%;
-    width: 100%;
+    width: calc(50% - #{nb-theme(card-padding)});
+    height: calc(100% - 2 * #{nb-theme(card-padding)});
+  }
+
+  @include media-breakpoint-between(xl, xl) {
+    ngx-earning-pie-chart {
+      flex: 2;
+    }
+  }
+
+  @include media-breakpoint-between(sm, sm) {
+    ngx-earning-pie-chart {
+      flex: 2;
+    }
   }
 }

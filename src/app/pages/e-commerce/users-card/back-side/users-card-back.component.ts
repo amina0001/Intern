@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { EarningService, PieChart } from '../../../../@core/data/earning.service';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-users-card-back',
   styleUrls: ['./users-card-back.component.scss'],
   templateUrl: './users-card-back.component.html',
 })
-export class UsersCardBackComponent {
+export class UsersCardBackComponent implements OnDestroy {
+    private alive = true;
+
+  ngOnDestroy() {
+    this.alive = false;
+  }
 }

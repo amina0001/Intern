@@ -82,3 +82,4 @@ deleteRow(index: number)
       itemRows: this._fb.array([this.initItemRows()]) // here
     });
 }
+}

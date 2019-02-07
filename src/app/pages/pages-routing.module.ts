@@ -13,6 +13,9 @@ const routes: Routes = [{
     path: 'dashboard',
     component: ECommerceComponent,
   }, {
+    path: 'auth',
+    loadChildren: './auth/auth.module#AuthModule',
+  },  {
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {

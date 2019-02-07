@@ -25,7 +25,6 @@ import {
   ECommerceVisitorsStatisticsComponent,
 } from './visitors-analytics/visitors-statistics/visitors-statistics.component';
 import { ECommerceLegendChartComponent } from './legend-chart/legend-chart.component';
-import { ECommerceUserActivityComponent } from './user-activity/user-activity.component';
 import { ECommerceProgressSectionComponent } from './progress-section/progress-section.component';
 import { SlideOutComponent } from './slide-out/slide-out.component';
 
@@ -34,11 +33,7 @@ import { CountryOrdersMapComponent } from './country-orders/map/country-orders-m
 import { CountryOrdersMapService } from './country-orders/map/country-orders-map.service';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { CountryOrdersChartComponent } from './country-orders/chart/country-orders-chart.component';
-import { UsersCardComponent } from './users-card/users-card.component';
 import { ReportCardComponent } from './report-card/report-card.component';
-
-import { UsersCardBackComponent } from './users-card/back-side/users-card-back.component';
-import { UsersCardFrontComponent } from './users-card/front-side/users-card-front.component';
 
 
 import { AccessCardComponent } from './access-card/access-card.component';
@@ -58,6 +53,10 @@ import { ResourcesCardFrontComponent } from './resources-card/front-side/resourc
 import { SettingsCardComponent } from './settings-card/settings-card.component';
 import { SettingsCardBackComponent } from './settings-card/back-side/settings-card-back.component';
 import { SettingsCardFrontComponent } from './settings-card/front-side/settings-card-front.component';
+
+import { UsersCardComponent } from './users-card/users-card.component';
+import { UsersCardBackComponent } from './users-card/back-side/users-card-back.component';
+import { UsersCardFrontComponent } from './users-card/front-side/users-card-front.component';
 
 import { ReportCardBackComponent } from './report-card/back-side/report-card-back.component';
 import { ReportCardFrontComponent } from './report-card/front-side/report-card-front.component';
@@ -93,12 +92,10 @@ import { CdkDragDropOverviewExample } from './drag-drop/drag-drop.component';
     ECommerceVisitorsAnalyticsChartComponent,
     ECommerceVisitorsStatisticsComponent,
     ECommerceLegendChartComponent,
-    ECommerceUserActivityComponent,
+    
     ECommerceProgressSectionComponent,
     SlideOutComponent,
-    UsersCardComponent,
-    UsersCardFrontComponent,
-    UsersCardBackComponent,
+  
     ReportCardFrontComponent,
     ReportCardBackComponent,
     ReportCardComponent,
@@ -114,6 +111,10 @@ import { CdkDragDropOverviewExample } from './drag-drop/drag-drop.component';
     ResourcesCardFrontComponent,
     ResourcesCardBackComponent,
     ResourcesCardComponent,
+    UsersCardFrontComponent,
+    UsersCardBackComponent,
+    UsersCardComponent,
+   
    
   ],
   providers: [

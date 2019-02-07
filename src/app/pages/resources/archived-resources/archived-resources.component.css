@@ -1,0 +1,8 @@
+  nb-card {
+      transform: translate3d(0, 0, 0);
+    }
+ .nb-theme-corporate ng2-smart-table .ng2-smart-actions ng2-st-tbody-custom {
+  
+   width: 50%!important;
+  
+    }

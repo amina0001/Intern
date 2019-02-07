@@ -9,7 +9,7 @@ export class ResourcesCardComponent {
 
     flipped = false;
 
-  toggleView() {
+  toggleFlipView() {
     this.flipped = !this.flipped;
   }
 }

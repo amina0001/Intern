@@ -6,17 +6,22 @@
    
 
    
-    <form >
+    <form  #SettingForm="ngForm">
             <div class="row">
                     <div class="col-md-12">
         <div class="box">   
             <div class="box-header with-border">
+               <div [hidden]="hiddensmtp" class="alert alert-danger" role="alert">
+                        <strong>Oh snap!</strong> <a href="#" class="alert-link"> Change a few things up</a> and try submitting again.
+
+                   </div>
                 <div class="row">
+                   
                     <div class="col-md-6">
-                        <span class="pull-left"><h4 class="box-title">SMTP &nbsp; &nbsp;</h4></span>
+                        <span class="pull-left"><h4 class="box-title">SMTP &nbsp; &nbsp;<label [hidden]="hidden"><i   style="color: green" class="fa fa-check" aria-hidden="true"></i></label></h4></span>
                     </div>  <!-- /.col-md-6 -->
                     <div class="col-md-6"> 
-                        <span class="pull-right"><a  href="" data-toggle="modal" data-target="#Modal" style="margin-left: 70%"><i class="ion-checkmark-round"></i> Verify</a> </span>
+                        <span class="pull-right"><a href=""  data-toggle="modal" data-target="#Modal" style="margin-left: 70%"><i class="ion-checkmark-round"></i> Verify</a> </span>
                     </div> <!-- /.col-md-6 -->
                 </div><!-- /.row -->
             </div><!-- /.box-header with-border -->
@@ -28,7 +33,7 @@
                         <label for="name">Server Name </label>
                       </div>
                       <div class="col-md-8">
-                        <input type="text"  class="form-control"  id="ServerName " name="Server_name" >  
+                        <input type="text"  class="form-control"  id="ServerName " name="Server_name" #Server_Name="ngModel" [(ngModel)]="model.Server_name" placeholder="exemple : smtp.gmail.com" >  
                       </div>
                 </div> <!-- /.row1 -->
               
@@ -37,7 +42,7 @@
                         <label for="name">Port </label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text"  class="form-control" id="Port " name="Port"  >  
+                        <input type="text"  class="form-control" id="Port " name="Port" #Port="ngModel" [(ngModel)]="model.Port" placeholder="exemple : 465">  
                     </div>
                 </div><!-- /.row2 -->
 
@@ -46,7 +51,7 @@
                     <label for="name">User Account </label>
                     </div>
                     <div class="col-md-8">
-                    <input type="text"  class="form-control" id="UserAccount" name="User_account"  >  
+                    <input type="email"  class="form-control"id="UserAccount" name="User_account" #UserAccount="ngModel" [(ngModel)]="model.User_account"  placeholder="exemple : user@gmail.com">  
                     </div>
               </div><!-- /.row3 -->
 
@@ -55,7 +60,7 @@
                     <label for="name">Password </label>
                   </div>
                   <div class="col-md-8">
-                  <input type="password"  class="form-control" id="Password" name="Password" 
+                  <input type="password"  class="form-control" id="Password" name="Password" #Password="ngModel" [(ngModel)]="model.Password" 
                   >  
                   </div>
             </div><!-- /.row4 -->
@@ -69,12 +74,16 @@
         <div class="col-md-12">
         <div class="box">
             <div class="box-header with-border">
+                 <div [hidden]="hiddenADF" class="alert alert-danger" role="alert">
+                        <strong>Oh snap!</strong> <a href="#" class="alert-link"> Change a few things up</a> and try submitting again.
+
+                   </div>
                 <div class="row"  style="margin-bottom: 5px">
-                    <div class="col-md-6"> <span class="pull-left"><h4 class="box-title">Admin Directory &nbsp; &nbsp; <label [hidden]="hiddenAD"></label></h4></span>
+                    <div class="col-md-6"> <span class="pull-left"><h4 class="box-title">Admin Directory &nbsp; &nbsp; <label [hidden]="hiddenAD"><i   style="color: green" class="fa fa-check" aria-hidden="true"></i></label></h4></span>
                     </div> <!-- /.col-md-6 -->
               
                        <div class="col-md-6"> 
-                        <span class="pull-right"><a href="" data-toggle="modal" data-target="#Modal" style="margin-left: 70%"><i class="ion-checkmark-round"></i> Verify</a> </span>
+                        <span class="pull-right"><a   (click)="verifyAdminDirectory()" style="margin-left: 70%;     color: #5dcfe3;"><i class="ion-checkmark-round"></i> Verify</a> </span>
                     </div><!-- /.col-md-6 -->
 
                 </div><!-- /.row -->
@@ -86,7 +95,7 @@
                       <label for="name">Forest Name </label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text"  class="form-control" id="ForestName" name="Forest_name" >  
+                      <input type="text"  class="form-control" id="ForestName" name="Forest_name" #ForestNname="ngModel" [(ngModel)]="model.Forest_name"  placeholder="exemple : administrator@gmail.com">  
                     </div>
                 </div>  <!-- /fin row 1 -->
 
@@ -95,7 +104,7 @@
                         <label for="name">service Account </label>
                     </div>
                     <div class="col-md-8">
-                    <input type="text"  class="form-control" id="ServiceAccount" name="Service_account" >  
+                    <input type="text"  class="form-control" id="ServiceAccount" name="Service_account" #ServiceAccount="ngModel" [(ngModel)]="model.Service_account" placeholder="exemple : 0.0.0.0">  
                     </div>
                   </div><!-- /fin row 2 -->
                   
@@ -104,7 +113,7 @@
                           <label for="name">Domaine </label>
                       </div>
                       <div class="col-md-8">
-                        <input type="text"  class="form-control" id="Domaine" name="Domaine" >  
+                        <input type="text"  class="form-control" id="Domaine" name="Domaine" #Domaine="ngModel" [(ngModel)]="model.Domaine"   >  
                       </div>
                   </div><!-- /fin row -->
             
@@ -113,7 +122,7 @@
                       <label for="name">Password </label>
                     </div>
                     <div class="col-md-8">
-                    <input type="password"  class="form-control" id="PasswordAD" name="passwordad" >  
+                    <input type="password"  class="form-control" id="PasswordAD" name="passwordad" #Password="ngModel" [(ngModel)]="model.passwordad"  >  
                     </div>
               </div><!-- /.row4 -->
             </div> <!-- /.box-body -->
@@ -134,25 +143,6 @@
         </form>
     
 
-     <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-              <h5 class="modal-title" id="exampleModalLabel">Please enter your e-mail address</h5>
-            </div>
-            <div class="modal-body">
-              <input type="email" class="form-control" placeholder="Email" required minlength="8" name="mail"  >
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-              <button type="submit" class="btn btn-primary"  data-dismiss="modal">Enregistrer</button>
-            </div>
-          </div>
-        </div>
-      </div>
      
   
   
@@ -163,3 +153,22 @@
 </nb-card>
 
   
+     <div class="modal fade" id="Modal" >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              <h5 class="modal-title" id="exampleModalLabel">Please enter your e-mail address</h5>
+            </div>
+            <div class="modal-body">
+              <input type="email" class="form-control" placeholder="Email" required minlength="8" name="mail" [(ngModel)]="model.mail" placeholder="user@gmail.com"   >
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+              <button type="submit" class="btn btn-primary" (click)="saveSmtp() " data-dismiss="modal">Enregistrer</button>
+            </div>
+          </div>
+        </div>
+      </div>

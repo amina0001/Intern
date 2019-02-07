@@ -20,20 +20,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
      
       {
         title: 'Active access',
-        link: '/pages/extra-components/calendar',
+        link: '#',
       },
       {
         title: 'Pending access',
-        link: '/pages/extra-components/calendar',
+        link: '#',
       },
     
       {
         title: 'Deleted access',
-        link: '/pages/extra-components/infinite-list',
+        link: '#',
       },
       {
         title: 'To validate',
-        link: '/pages/extra-components/accordion',
+        link: '#',
       },
      
     ],
@@ -62,11 +62,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Pending Resources',
-        link: '/resources/pending',
+        link: '/pages/resources/resource',
       },
       {
         title: 'Archiveved Resources',
-        link: '/resources/archived',
+        link: '/pages/resources/archived-resources',
       },
      
     ],
@@ -77,7 +77,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'reports',
-        link: '/pages/modal-overlays/dialog',
+        link: '#',
       },
    
     ],

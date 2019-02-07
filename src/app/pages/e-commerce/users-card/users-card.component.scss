@@ -1,17 +1,21 @@
 @import '../../../@theme/styles/themes';
 
 @include nb-install-component() {
+  nb-card {
+    position: relative;
+  }
+
   .nb-arrow-right {
     position: absolute;
-    right: 0;
     top: 0;
+    right: 0;
     @include nb-rtl(right, auto);
     @include nb-rtl(left, 0);
     padding: 1.5rem;
     cursor: pointer;
   }
 
-  ::ng-deep .flipped {
+  /deep/ .flipped {
     .back-container {
       .nb-arrow-right {
         transform: scaleX(-1);
@@ -25,4 +29,21 @@
     }
   }
 
+  ngx-earning-card-back, ngx-earning-card-front {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  /deep/ nb-card-header {
+    display: flex;
+    justify-content: space-between;
+    @include nb-rtl(flex-direction, row-reverse);
+    padding-left: 1rem;
+  }
+
+  /deep/ nb-card-body {
+    overflow: hidden;
+    display: flex;
+  }
 }

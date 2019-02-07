@@ -1,18 +1,27 @@
-import { Component, TemplateRef, ViewChild  } from '@angular/core';
+import { Component, TemplateRef, ViewChild, OnInit   } from '@angular/core';
+declare var jquery:any;
+declare var $ :any;
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LocalDataSource } from 'ng2-smart-table';
 
-import { ActiveResourcesService } from '../../../@core/data/active-resources.service';
+import { ResourceService } from '../../../@core/data/resources.service';
+import { resource } from '../../../@core/models/resource.model';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { NbWindowService } from '@nebular/theme';
+import {BreadcrumbsService} from "ng6-breadcrumbs";
 
 @Component({
   selector: 'active_resource',
   templateUrl: './active-resources.component.html',
-     styleUrls: ['./active-resources.component.css'],
+  styleUrls: ['./active-resources.component.css'],
+  providers: [ ResourceService ]
 
 })
 export class ActiveResourcesComponent {
 @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
+  response: any=[];
   settings = {
   delete: {
       deleteButtonContent: '<i class="ion-trash-a"></i>',
@@ -30,27 +39,27 @@ export class ActiveResourcesComponent {
    
 
  
-      categorize: {
+      Categorize: {
         title: 'Categorize',
         type: 'string',
       },
-      status: {
+      Status: {
         title: 'status',
         type: 'string',
       },
-      type: {
+      Type: {
         title: 'type',
         type: 'string',
       },
-      name: {
+      Name  : {
         title: 'Name',
         type: 'string',
       },
-      description: {
+      Description: {
         title: 'Description',
         type: 'string',
       },
-      internal: {
+      Internal_information: {
         title: 'Internal informmation',
         type: 'string',
       },
@@ -59,14 +68,32 @@ export class ActiveResourcesComponent {
      
     },
   };
+   source: LocalDataSource = new LocalDataSource();
 
-  source: LocalDataSource = new LocalDataSource();
+constructor( private http: HttpClient,
+               private routers: Router,
+               private breadcrumbs:BreadcrumbsService,
+               private ResourceService : ResourceService,
+               private windowService: NbWindowService,
+               private route: ActivatedRoute) {
+             
+      
 
-  constructor(private service: ActiveResourcesService,private windowService: NbWindowService) {
-    const data = this.service.getData();
-    this.source.load(data);
+        
+      this.response =  this.ResourceService.getAllResources().subscribe(result => {
+                           this.response = result;
+                           console.log(this.response );
+                            this.source.load(this.response);
+                         });
+      console.log("hey"+this.response );
+  
+    }
+
+  ngOnInit() {
+   
+    
+ 
   }
-
   onCustomAction(event) {
   // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
   console.log("hey");
