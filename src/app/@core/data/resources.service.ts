@@ -72,12 +72,12 @@ export class ResourceService {
     }
     console.log(userResource)
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
-    return this.http.post('http://192.168.100.31:8081/formytek/public/api/Adduserressources', userResource,{headers : reqHeader});
+    return this.http.post(this.apiUrl+'/formytek/public/api/Adduserressources', userResource,{headers : reqHeader});
    }
    DeleteUserRessources(id)
    {
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
-    return this.http.get("http://192.168.100.31:8081/formytek/public/api/userressourcesDelete/"+id, { headers: reqHeader }) 
+    return this.http.get(this.apiUrl+"/formytek/public/api/userressourcesDelete/"+id, { headers: reqHeader }) 
    }
 }
 

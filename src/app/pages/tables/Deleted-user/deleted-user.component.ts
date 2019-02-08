@@ -1,7 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild   } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 
-import { SmartTableService } from '../../../@core/data/smart-table.service';
+import { NbWindowService } from '@nebular/theme';
+import {BreadcrumbsService} from "ng6-breadcrumbs";
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { UserService } from '../../../@core/data/users.service';
+import { user } from '../../../@core/models/user.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'deletd-user-table',
@@ -17,9 +23,12 @@ import { SmartTableService } from '../../../@core/data/smart-table.service';
           margin-left: 90%;
   }
   `],
+     providers: [ UserService ]
+
 })
 export class DeletedUserComponent {
-
+response: any=[];
+  event_id: any;
   settings = {
   
 
@@ -31,19 +40,17 @@ export class DeletedUserComponent {
   position: 'right'
 },
 
-    columns: {
-   
-
+     columns: {
  
-      firstName: {
+      FirstName: {
         title: 'First Name',
         type: 'string',
       },
-      lastName: {
+      LastName: {
         title: 'Last Name',
         type: 'string',
       },
-      username: {
+      Username: {
         title: 'Username',
         type: 'string',
       },
@@ -53,13 +60,26 @@ export class DeletedUserComponent {
     },
   };
 
-  source: LocalDataSource = new LocalDataSource();
+   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private service: SmartTableService) {
-    const data = this.service.getData();
-    this.source.load(data);
-  }
+constructor( private http: HttpClient,
+               private routers: Router,
+               private breadcrumbs:BreadcrumbsService,
+               private ResourceService : UserService,
+               private windowService: NbWindowService,
+               private route: ActivatedRoute) {
+             
+      
 
+        
+      this.response =  this.ResourceService.deleteUsers().subscribe(result => {
+                           this.response = result;
+                           console.log("s"+this.response.id );
+                            this.source.load(this.response);
+                         });
+      console.log("hey"+this.response );
+  
+    }
   onCustomAction(event) {
   // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
   console.log("shit");

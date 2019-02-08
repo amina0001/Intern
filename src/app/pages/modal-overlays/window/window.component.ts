@@ -34,9 +34,7 @@ export class WindowComponent {
     this.windowService.open(
       this.disabledEscTemplate,
       {
-        title: 'Window without backdrop',
-        hasBackdrop: false,
-        closeOnEsc: false,
+       
       },
     );
   }

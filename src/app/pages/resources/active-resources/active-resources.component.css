@@ -3,9 +3,11 @@
     }
  .nb-theme-corporate ng2-smart-table .ng2-smart-actions ng2-st-tbody-custom {
   
-   width: 50%!important;
+   width: 100%!important;
   
     }
+     
+  
 /*       .nb-theme-corporate ng2-smart-table .ng2-smart-actions ng2-st-tbody-custom a:nth-child(1) {
         width: 50%;
         position: absolute;

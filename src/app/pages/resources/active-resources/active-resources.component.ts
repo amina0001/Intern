@@ -15,29 +15,48 @@ import {BreadcrumbsService} from "ng6-breadcrumbs";
   selector: 'active_resource',
   templateUrl: './active-resources.component.html',
   styleUrls: ['./active-resources.component.css'],
+  styles: [`
+    :host /deep/ table th:nth-child(1){
+    display:none!important;
+
+    }
+    :host /deep/ table td:nth-child(1){
+    display:none!important;
+
+    }
+  :host /deep/ ng2-st-tbody-custom {
+  
+   width: 100%!important;
+   border-left:none!important;
+    }
+     
+  `],
   providers: [ ResourceService ]
 
 })
-export class ActiveResourcesComponent {
+export class ActiveResourcesComponent implements OnInit{
 @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
   response: any=[];
+  event_id: any;
   settings = {
-  delete: {
-      deleteButtonContent: '<i class="ion-trash-a"></i>',
-      confirmDelete: true
-    },
+ 
 
-      actions: {
+   actions: {
   add: false,
   edit: false,
+  delete: false,
 
   custom: [{ name: 'ourCustomAction', title: '<div><i class="nb-compose" >' },],
   position: 'right'
 },
     columns: {
    
-
+      id: {
+        title: 'id',
+     
+        show:false,
+      },
  
       Categorize: {
         title: 'Categorize',
@@ -82,7 +101,7 @@ constructor( private http: HttpClient,
         
       this.response =  this.ResourceService.getAllResources().subscribe(result => {
                            this.response = result;
-                           console.log(this.response );
+                           console.log("s"+this.response.id );
                             this.source.load(this.response);
                          });
       console.log("hey"+this.response );
@@ -99,7 +118,7 @@ constructor( private http: HttpClient,
   console.log("hey");
 }
 
- onDeleteConfirm(event): void {
+/* onDeleteConfirm(event): void {
   this.windowService.open(
       this.disabledEscTemplate,
       {
@@ -108,5 +127,14 @@ constructor( private http: HttpClient,
         closeOnEsc: true,
       },
     );
+  this.event_id = event.data.id;
 }
+deleteResource(id){
+ // console.log(id);
+this.ResourceService.DeleteUserRessources(id).subscribe();
+}
+ Back()
+  {
+     this.ngOnInit();
+  }*/
 }

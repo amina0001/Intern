@@ -6,8 +6,8 @@
   	
   	<a href="#/pages/resources/add-active-resources" class="btn btn-primary " style="float: right;margin-bottom: 1%"><i class="fa fa-plus"></i> Add resources</a>
 
-    <ng2-smart-table  [settings]="settings" [source]="source" (custom)="onCustom($event)" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
- 
+    <ng2-smart-table  [settings]="settings" [source]="source" (custom)="onCustom($event)"></ng2-smart-table>
+<!--  
 
 <ng-template #contentTemplate let-data>
   <p></p>
@@ -17,10 +17,12 @@
   Do you really want to delete this active resource?
   <br>
   <br>
+
+ <label></label>
   <div style="margin-left: 20%;">
-  <button class="btn btn-danger">yes</button>&nbsp;
-  <button class="btn ">Cancel</button>
+  <button class="btn btn-danger" (click)="deleteResource(event_id)">yes</button>&nbsp;
+  <button class="btn " (click)="Back()">Cancel</button>
 </div>
-</ng-template>
-  </nb-card-body>
+</ng-template>-->
+  </nb-card-body> 
 </nb-card>

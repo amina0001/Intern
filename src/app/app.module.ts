@@ -29,6 +29,7 @@ import {BreadcrumbsModule} from "ng6-breadcrumbs";
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
 
+        
 
    NbAuthModule.forRoot({
          strategies: [
