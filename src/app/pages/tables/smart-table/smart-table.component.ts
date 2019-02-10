@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../@core/data/users.service';
 import { user } from '../../../@core/models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import * as $ from 'jquery';
 @Component({
   selector: 'ngx-add-user',
   templateUrl: './smart-table.component.html',
@@ -28,7 +28,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class SmartTableComponent implements OnInit {
   response: any=[];
-  event_id: any;
+  event_id: string;
+
  @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
   settings = {
@@ -70,7 +71,7 @@ export class SmartTableComponent implements OnInit {
 constructor(  private http: HttpClient,
                private routers: Router,
                private breadcrumbs:BreadcrumbsService,
-               private ResourceService : UserService,
+               private UserService : UserService,
                private windowService: NbWindowService,
                private route: ActivatedRoute,
             ) {
@@ -78,7 +79,7 @@ constructor(  private http: HttpClient,
       
 
         
-      this.response =  this.ResourceService.activeUsers().subscribe(result => {
+      this.response =  this.UserService.activeUsers().subscribe(result => {
                            this.response = result;
                            console.log("s"+this.response.id );
                             this.source.load(this.response);
@@ -103,18 +104,28 @@ constructor(  private http: HttpClient,
       },
     );
 
+
   this.event_id = event.data.Username;
   console.log("event"+this.event_id);
 }
 
-deleteResource(id){
-  console.log(id);
-  this.ResourceService.deleteUser(id).subscribe();
+deleteUser(){
+  console.log("ssshhh"+this.event_id);
+  this.UserService.deleteUser(this.event_id).subscribe();
   this.source.refresh();
+   
+    $(".cdk-overlay-container").css('display','none');
+this.response =  this.UserService.activeUsers().subscribe(result => {
+                           this.response = result;
+                           console.log("s"+this.response.id );
+                            this.source.load(this.response);
+                         });
+ 
+
 }
 
  ngOnInit() {
-      this.response =  this.ResourceService.activeUsers().subscribe(result => {
+      this.response =  this.UserService.activeUsers().subscribe(result => {
                            this.response = result;
                            console.log("s"+this.response.id );
                             this.source.load(this.response);

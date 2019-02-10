@@ -11,6 +11,6 @@ export class user {
      fax :string ;
      cellphone :string ;
      ddi :string;
-     homephone :string;
+     homephone :string="1";
  }
  
