@@ -42,7 +42,7 @@ export class UserService {
   {  
     const body: userdeleted = {
       username:username,
-      homephone:2
+      homephone:1
     }
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
     return this.http.post(this.apiUrl+'/formytek/public/api/UpdateuserADPhoneNumber',body,{ headers: reqHeader }).pipe(map((response: Response) => {return response}));
@@ -74,7 +74,7 @@ export class UserService {
       firstname:user.firstname  != "" ? user.firstname : "0",
       department:user.department  != "" ? user.department : "0",
       company:user.company != "" ? user.company : "0",
-      JobTitle:"0",
+      JobTitle:user.JobTitle != "" ? user.JobTitle : "0",
       password:"0",
       mail:user.mail != "" ? user.mail : "0",
       officephone :user.officephone != "" ? user.officephone : "0",

@@ -71,34 +71,7 @@
                     </div> <!-- /.row -->
                 </div><!-- /.col-md-6 -->
             </div> <!-- /.row2 --> 
-            <div class="row">
-                <div class="col-md-6">
-                        <div class="row"  style="margin-bottom: 5px">
-                                   <div class="col-md-4">  
-                            <label for="name">Password* </label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="password"  class="form-control" [(ngModel)]="model.password" #password="ngModel" name="password"  required >
-                            <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
-                        <div [hidden]="!password.errors.required">
-                          password is required!
-                        </div>
-                    </div>   
-                        </div>
-                            </div> <!-- /.row -->
-                </div><!-- /.col-md-6 -->
-                <div class="col-md-6">
-                    <div class="row"  style="margin-bottom: 5px">
-                        <div class="col-md-4">  
-                            <label for="name" >Confirm Password* </label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="password"   [(ngModel)]="model.password" class="form-control"   name="confirmPassword"  required >  
-                         
-                        </div>
-                    </div> <!-- /.row -->
-                </div><!-- /.col-md-6 -->
-            </div> <!-- /.row2 -->
+    
             <div class="row">
                     <div class="col-md-6">
                             <div class="row"  style="margin-bottom: 5px">

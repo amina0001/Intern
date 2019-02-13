@@ -4,7 +4,8 @@
   </nb-card-header>
   <nb-card-body>
   	
-    <ng2-smart-table class="resize" [settings]="settings" [source]="source" (custom)="onCustomAction($event)" >
+    <ng2-smart-table class="resize" [settings]="settings" [source]="source" (custom)="onCustomAction($event)" (userRowSelect)="ouraddAction($event)"
+>
     </ng2-smart-table>
 
 

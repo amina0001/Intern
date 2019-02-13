@@ -19,8 +19,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
     :host  /deep/ ng2-st-tbody-custom a i {
       font-size:17px;
     }
-    /deep/ .nb-theme-corporate ng2-smart-table .ng2-smart-actions ng2-st-tbody-custom a:nth-child(2) {
-          margin-left: 90%;
+  :host /deep/ ng2-st-tbody-custom {
+  
+   width: 100%!important;
+   border-left:none!important;
+    }
   }
   `],
      providers: [ UserService ]
@@ -36,12 +39,13 @@ response: any=[];
   add: false,
   edit: false,
   delete:false,
-  custom: [{ name: 'ourCustomAction', title: '<i class="fa fa-eye"></i>' },{ name: 'ouraddAction', title: '<i class="fas fa-user-plus"></i>' },],
+  custom: [{ name: 'ourCustomAction', title: '<i class="fa fa-user-check"></i>' }],
+
   position: 'right'
 },
 
      columns: {
- 
+   
       FirstName: {
         title: 'First Name',
         type: 'string',
@@ -65,14 +69,14 @@ response: any=[];
 constructor( private http: HttpClient,
                private routers: Router,
                private breadcrumbs:BreadcrumbsService,
-               private ResourceService : UserService,
+               private UserService : UserService,
                private windowService: NbWindowService,
                private route: ActivatedRoute) {
              
       
 
         
-      this.response =  this.ResourceService.deleteUsers().subscribe(result => {
+      this.response =  this.UserService.deleteUsers().subscribe(result => {
                            this.response = result;
                            console.log("s"+this.response.id );
                             this.source.load(this.response);
@@ -81,11 +85,13 @@ constructor( private http: HttpClient,
   
     }
   onCustomAction(event) {
+    console.log(event.data.Username)
+  this.UserService.deleteUser(event.data.Username).subscribe();
   // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
   console.log("shit");
 }
-ourdeleteAction(event) {
+ouraddAction(event) {
   // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
-  console.log("shit");
+  console.log("hh");
 }
 }

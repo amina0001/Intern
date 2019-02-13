@@ -39,11 +39,10 @@ this.model.firstname =data[0].FirstName
 this.model.lastname =data[0].LastName
 this.model.company =data[0].Company
 this.model.officephone =data[0].OfficePhone
-//this.model.mail =data[0].E-MailAddress
+this.model.mail =data[0].EMailAddress
 this.model.department=data[0].Department
 this.model.cellphone=data[0].Mobile
 this.model.JobTitle=data[0].JobTitle
-this.model.password=data[0].Password
       console.log("usern"+data[0].Username);
 
   },
@@ -60,7 +59,7 @@ console.log(this.model)
   (error)=>
   {
   });
-          this.routers.navigate(['/pages/tables/smart-table']) 
+       //   this.routers.navigate(['/pages/tables/smart-table']) 
 
 }
  Back()
