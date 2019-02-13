@@ -5,6 +5,7 @@ import { TablesComponent } from './tables.component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
 import { DeletedUserComponent } from './Deleted-user/deleted-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 const routes: Routes = [{
   path: '',
@@ -18,6 +19,9 @@ const routes: Routes = [{
   },{
     path: 'add',
     component:AddUserComponent,
+  },{
+    path: 'update',
+    component:UpdateUserComponent,
   }],
 }];
 
@@ -31,5 +35,6 @@ export const routedComponents = [
   TablesComponent,
   SmartTableComponent,
   DeletedUserComponent,
-  AddUserComponent
+  AddUserComponent,
+  UpdateUserComponent
 ];

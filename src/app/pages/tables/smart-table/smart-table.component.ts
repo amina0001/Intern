@@ -89,8 +89,9 @@ constructor(  private http: HttpClient,
     }
 
   onCustomAction(event) {
-  // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
-  console.log("custom");
+            this.routers.navigate(['/pages/tables/update', {p1: event.data.Username}]) ;
+            console.log(event.data.Username);
+
 }
 
 
@@ -104,6 +105,7 @@ constructor(  private http: HttpClient,
       },
     );
 
+      $(".cdk-overlay-container").css('display','initial');
 
   this.event_id = event.data.Username;
   console.log("event"+this.event_id);

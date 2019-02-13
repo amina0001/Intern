@@ -17,10 +17,16 @@ export class UserService {
 
 
   constructor(private http: HttpClient) { }
-  public getUsers()
+/*  public getUsers()
   {  
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
     return this.http.get(this.apiUrl+'/formytek/public/api/userliste' ,{ headers: reqHeader });
+  }*/
+  public User(username)
+  {      console.log("user.."+username);
+
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
+    return this.http.get(this.apiUrl+`/formytek/public/api/User/${username}`).pipe(map((response: Response) => {return response}));
   }
   public activeUsers()
   {  
@@ -72,9 +78,7 @@ export class UserService {
       password:"0",
       mail:user.mail != "" ? user.mail : "0",
       officephone :user.officephone != "" ? user.officephone : "0",
-      fax :user.fax != "" ? user.fax : "0",
       cellphone :user.cellphone != "" ? user.cellphone : "0",
-      ddi :user.ddi != "" ? user.ddi : "0",
       homephone :user.homephone != "" ? user.homephone : "0",
     }
      

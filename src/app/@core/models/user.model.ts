@@ -8,9 +8,7 @@ export class user {
      JobTitle:string;
      mail:Date;
      officephone :string;
-     fax :string ;
      cellphone :string ;
-     ddi :string;
      homephone :string="1";
  }
  
