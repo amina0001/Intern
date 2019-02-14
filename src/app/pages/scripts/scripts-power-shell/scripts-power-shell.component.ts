@@ -1,9 +1,13 @@
-import { Component, TemplateRef, ViewChild,ViewEncapsulation   } from '@angular/core';
+import { Component, TemplateRef, ViewChild,ViewEncapsulation,OnInit     } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { ScriptsPowerShellService } from '../../../@core/data/scripts-power-shell.service';
 import { NbWindowService } from '@nebular/theme';
-import {Router} from '@angular/router';
+import { script } from '../../../@core/models/script.model';
+import { ButtonRenderComponent } from './button.render.component';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'scripts-power-shell',
@@ -11,22 +15,40 @@ import {Router} from '@angular/router';
   styles: [`
     :host /deep/ ng2-st-tbody-custom {
   
-   width: 70%!important;
+   width: 50%!important;
   
     }
- /deep/ .nb-theme-corporate ng2-smart-table .ng2-smart-actions ng2-st-tbody-custom a:nth-child(1) {
+ :host /deep/ ng2-st-tbody-custom a:nth-child(1) {
       width: 50%!important;
 
    position: absolute;
   }
- /deep/ .nb-theme-corporate ng2-smart-table .ng2-smart-actions ng2-st-tbody-custom a:nth-child(2) {
-          width: 50%!important;
-          margin-left: 50%;
+  :host /deep/ ng2-smart-table table tr.ng2-smart-titles th:nth-child(1) {
+      display:none!important;
+
   }
- 
+  :host /deep/ ng2-smart-table table tr td:nth-child(1) {
+      display:none!important;
+
+  }
+   :host /deep/  ng2-smart-table thead tr.ng2-smart-filters th:nth-child(1) {
+           display:none!important;
+
+   }
+  :host /deep/ ng2-smart-table table tr.ng2-smart-titles th:nth-child(3) {
+      width:10%!important;
+
+  }
+
+   :host /deep/ ng2-smart-table table tr.ng2-smart-titles td:nth-child(3) {
+      width: 10%!important;
+  }
   `],
 })
-export class ScriptsPowerShellComponent{
+export class ScriptsPowerShellComponent implements OnInit{
+    response: any=[];
+    script_id: string;
+    event_data:any;
   @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
   settings = {
@@ -39,23 +61,39 @@ export class ScriptsPowerShellComponent{
         add: false,
         edit: false,
 
-        custom: [{ name: 'executeConfirm', title: '<i class="nb-play " ></i>' },{ name: 'ourCustomAction', title: '<i class="nb-compose " >' }],
+        custom: [{ name: 'ourCustomAction', title: '<i class="nb-compose " >' }],
         position: 'right'
     },
     columns: {
+      id: {
+        title: 'id',
+        type: 'string',
+        filter:false
+      },
       Name: {
         title: 'Name',
         type: 'string',
-      }
+      },
+        button: {
+        title: 'Execute script',
+        type: 'custom',
+        renderComponent: ButtonRenderComponent,
+
+        filter:false
+      },
     },
   };
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private service: ScriptsPowerShellService,private windowService: NbWindowService,private router: Router) {
-    const data = this.service.getData();
-    this.source.load(data);
-  }
+  constructor( private http: HttpClient,
+               private router: Router,
+               private ScriptService : ScriptsPowerShellService,
+               private windowService: NbWindowService,
+               private route: ActivatedRoute,) {
+   
+       
+}
 
   onCustomAction(event) {
   // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
@@ -72,9 +110,32 @@ export class ScriptsPowerShellComponent{
         closeOnEsc: true,
       },
     );
-}
- onExecuteConfirm(event): void {
-     this.router.navigate(['pages/scripts/execute-scripts']);
+        $(".cdk-overlay-container").css('display','initial');
 
+  this.script_id=event.data.id;
+  this.event_data =event.data;
+}
+
+deleteScript(){
+  console.log("ssshhh"+this.script_id);
+  this.ScriptService.deleteScript(this.script_id).subscribe();
+  this.source.remove(this.event_data);
+    $(".cdk-overlay-container").css('display','none');
+
+ 
+}
+   onExecuteConfirm(event): void {
+   this.router.navigate(['pages/scripts/execute-scripts', {p1: event.data.id}]);
+     console.log("t"+event.data.id);
+
+  }
+
+  ngOnInit() {
+     this.response =  this.ScriptService.getAllScripts().subscribe(result => {
+                           this.response = result;
+                           console.log("onInit");
+                            this.source.load(this.response);
+                         });
+ 
   }
 }

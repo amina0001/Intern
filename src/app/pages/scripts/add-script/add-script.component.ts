@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component  } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { ScriptsPowerShellService } from '../../../@core/data/scripts-power-shell.service';
+import { script } from '../../../@core/models/script.model';
 
 @Component({
   selector: 'ng-add-script',
@@ -12,5 +16,29 @@ import { Component } from '@angular/core';
   `],
 })
 export class AddScriptComponent{
+	  model:script = new script();
+
+  constructor( private http: HttpClient,
+               private router: Router,
+               private ScriptService : ScriptsPowerShellService,
+               private route: ActivatedRoute,) {
+   
+     
+  }
+
+
+	save(){
+
+		this.ScriptService.addScript(this.model).subscribe(data => {
+    },
+  (error)=>
+  {
+  });
+	}
+	 Back()
+  {
+  this.router.navigate(['/pages/scripts/scripts-power-shell']) 
+  }
  
+   
 }

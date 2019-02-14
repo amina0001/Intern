@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, } from '@angular/common/http';
-import { script } from './models/script.model';
+import { script } from '../models/script.model';
 import { resolve } from 'url';
 import { Observer,Observable } from 'rxjs';
 @Injectable()

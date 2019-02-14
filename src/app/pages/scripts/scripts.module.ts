@@ -4,6 +4,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ScriptsRoutingModule, scriptsroutedComponents } from './scripts-routing.module';
 import { ScriptsPowerShellService } from '../../@core/data/scripts-power-shell.service';
+import { ButtonRenderComponent } from './scripts-power-shell/button.render.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,10 @@ import { ScriptsPowerShellService } from '../../@core/data/scripts-power-shell.s
   ],
   declarations: [ 
     ...scriptsroutedComponents,
+    ButtonRenderComponent
   ],
+    entryComponents: [ButtonRenderComponent,],
+
   providers: [
     ScriptsPowerShellService,
   ],

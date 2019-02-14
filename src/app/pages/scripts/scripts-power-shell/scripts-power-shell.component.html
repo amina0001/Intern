@@ -7,7 +7,7 @@
   	<a href="#/pages/scripts/add-script" class="btn btn-primary " style="float: right;margin-bottom: 1%" ><i class="fa fa-plus"></i> Add scripts</a>
 
     <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" 
-    (custom)="onExecuteConfirm($event)"></ng2-smart-table>
+    (custom)="onCustomAction($event)" (userRowSelect)="onExecuteConfirm($event)"></ng2-smart-table>
   <!--**************************************Add***************************************-->
 <ng-template #contentTemplate let-data>
   <p></p>
@@ -17,9 +17,8 @@
   do you really want to delete this script?
   <br>
   <br>
-  <div style="margin-left: 10%;">
-  <button class="btn btn-danger">yes</button>&nbsp;
-  <button class="btn ">Cancel</button>
+  <div style="margin-left: 70%;">
+  <button class="btn btn-danger" (click)="deleteScript()">yes</button>&nbsp;
 </div>
 </ng-template>
   </nb-card-body>

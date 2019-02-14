@@ -13,7 +13,7 @@
                            <div class="col-md-8">                 
                                 <div class="form-group" >    
                                
-                                    <input  class="form-control"  id="script" name="Body" value="">                             
+                                    <input  class="form-control"  id="script" name="Body" value={{model.Body}}>                             
                                 </div>
                             </div>
                            
@@ -49,8 +49,8 @@
       <div >
           <div class="row">
           <div class="col-md-12"  >
-              <button type="submit" class="btn btn-primary" style="margin-left: 60%">Execute</button>
-              <button type="reset" class="btn btn-default" style="margin-left: 1%">Cancel</button>
+              <button type="submit" class="btn btn-primary" style="margin-left: 60%" (click)="executeScript()">Execute</button>
+              <button type="reset" class="btn btn-default" style="margin-left: 1%" (click)="back()">Cancel</button>
              
           </div>
           </div> <!-- /.row -->

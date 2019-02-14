@@ -1,6 +1,9 @@
 import { Component, OnInit} from '@angular/core';
 import {FormControl, FormArray, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
+import { script } from '../../../@core/models/script.model';
+import { ScriptsPowerShellService } from '../../../@core/data/scripts-power-shell.service';
+
 import * as $ from 'jquery';
 
 @Component({
@@ -10,6 +13,8 @@ import * as $ from 'jquery';
 })
 export class ExecuteScriptComponent implements OnInit {
 	TotalLine:number=1;
+          sub:any;
+    model:script = new script();
 
   hidden:boolean=false
   hiddenAdd:Boolean=true
@@ -26,9 +31,9 @@ export class ExecuteScriptComponent implements OnInit {
     invoiceForm: FormGroup;
 
     constructor(
-               private _fb: FormBuilder,
-               private router: Router,
-            ) {
+               private _fb: FormBuilder,  private ScriptService : ScriptsPowerShellService,
+               private router: Router,private route:ActivatedRoute) {
+
               this.createForm();
             }
 
@@ -77,9 +82,50 @@ deleteRow(index: number)
  }
   control.removeAt(index);
 }
+executeScript()
+{  
+  if(this.TotalLine!=0)
+  {
+      $("#BtnAdd").hide();
+  }
+  this.allScript = "" 
+  if( $("#script").val()!=undefined)
+  {
+    this.Command =$("#script").val();
+    this.allScript= this.allScript +$("#script").val()
+  }
+   for(this.c=0; this.c<this.TotalLine;this.c++)
+   {     
+      if( $("#script"+this.c).val() != undefined)
+      {
+        this.allScript= this.allScript+" "+$("#script"+this.c).val()
+      } 
+   }
+    this.Laoder = true 
+    this.ScriptService.executeScript("powershell -command " +this.allScript).subscribe(data => {
+      console.log(data)    
+      },
+    (error)=>
+    { 
+     
+    });
+    
+  }   
  ngOnInit() {
     this.invoiceForm = this._fb.group({
       itemRows: this._fb.array([this.initItemRows()]) // here
     });
+      this.sub = this.route.snapshot.params['p1'];
+      this.id = this.sub;
+     this.ScriptService.getById(this.id).subscribe(
+      data=>{      
+        let result:any=data;
+        this.model.id = result.Id
+        this.model.Name = result.Name
+        this.model.Body = result.Body
+     
+      })
+ 
+
 }
 }

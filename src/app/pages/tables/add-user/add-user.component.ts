@@ -48,14 +48,7 @@ export class AddUserComponent {
     //  this.routers.navigate(['/pages/tables/smart-table']) 
 
 }
- updateUser(){ 
-console.log(this.model)
-    this.UserService.uptadeUser(this.model).subscribe(data =>  {
-  },
-  (error)=>
-  {
-  });
-}
+
  Back()
   {
   this.routers.navigate(['/pages/tables/smart-table']) 
