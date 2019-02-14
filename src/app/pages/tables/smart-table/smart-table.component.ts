@@ -29,6 +29,7 @@ import * as $ from 'jquery';
 export class SmartTableComponent implements OnInit {
   response: any=[];
   event_id: string;
+    event_data:any;
 
  @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
@@ -108,6 +109,8 @@ constructor(  private http: HttpClient,
       $(".cdk-overlay-container").css('display','initial');
 
   this.event_id = event.data.Username;
+    this.event_data =event.data;
+
   console.log("event"+this.event_id);
 }
 
@@ -115,13 +118,10 @@ deleteUser(){
   console.log("ssshhh"+this.event_id);
   this.UserService.deleteUser(this.event_id).subscribe();
   this.source.refresh();
-   
+     this.source.remove(this.event_data);
+
     $(".cdk-overlay-container").css('display','none');
-this.response =  this.UserService.activeUsers().subscribe(result => {
-                           this.response = result;
-                           console.log("s"+this.response.id );
-                            this.source.load(this.response);
-                         });
+
  
 
 }

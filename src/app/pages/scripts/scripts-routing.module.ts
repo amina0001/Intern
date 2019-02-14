@@ -5,6 +5,7 @@ import { ScriptsComponent } from './scripts.component';
 import { ScriptsPowerShellComponent } from './scripts-power-shell/scripts-power-shell.component';
 import { AddScriptComponent } from './add-script/add-script.component';
 import { ExecuteScriptComponent } from './execute-scripts/execute-scripts.component';
+import { UpdateScriptComponent } from './update-script/update-script.component';
 
 const routes: Routes = [{
   path: '',
@@ -20,6 +21,9 @@ const routes: Routes = [{
   {
     path: 'execute-scripts',
     component: ExecuteScriptComponent,
+  },{
+    path: 'update-script',
+    component: UpdateScriptComponent,
   }],
 }];
 
@@ -33,5 +37,6 @@ export const scriptsroutedComponents = [
   ScriptsComponent,
   ScriptsPowerShellComponent,
   AddScriptComponent,
-  ExecuteScriptComponent
+  ExecuteScriptComponent,
+  UpdateScriptComponent
 ];

@@ -31,6 +31,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class DeletedUserComponent {
 response: any=[];
+    event_data:any;
+
   event_id: any;
   settings = {
   
@@ -87,8 +89,11 @@ constructor( private http: HttpClient,
   onCustomAction(event) {
     console.log(event.data.Username)
   this.UserService.deleteUser(event.data.Username).subscribe();
+      this.event_data =event.data;
+
+       this.source.remove(this.event_data);
+
   // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
-  console.log("shit");
 }
 ouraddAction(event) {
   // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);

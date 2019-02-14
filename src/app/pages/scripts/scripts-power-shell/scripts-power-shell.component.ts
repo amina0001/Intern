@@ -96,8 +96,7 @@ export class ScriptsPowerShellComponent implements OnInit{
 }
 
   onCustomAction(event) {
-  // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
-  console.log("shit");
+  this.router.navigate(['pages/scripts/update-script', {p1: event.data.id}]);
 }
 
  

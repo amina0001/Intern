@@ -13,7 +13,12 @@
                            <div class="col-md-8">                 
                                 <div class="form-group" >    
                                
-                                    <input  class="form-control"  id="script" name="Body" value={{model.Body}}>                             
+                                 <input  class="form-control"  id="script" name="Body" value={{model.Body}}  [(ngModel)]="model.Body" required #Body="ngModel">
+                                 <div *ngIf="Body.errors && (Body.dirty || Body.touched)" class="alert alert-danger">
+                                      <div [hidden]="!Body.errors.required">
+                                        script body is required!
+                                      </div> 
+                                  </div>
                                 </div>
                             </div>
                            
