@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
 export class userdeleted {
   username;
   homephone;
- 
 }
 @Injectable()
 
@@ -42,16 +41,19 @@ export class UserService {
   {  
     const body: userdeleted = {
       username:username,
-      homephone:1
+  
+
+      homephone:2
     }
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
     return this.http.post(this.apiUrl+'/formytek/public/api/UpdateuserADPhoneNumber',body,{ headers: reqHeader }).pipe(map((response: Response) => {return response}));
   }
   public ReactiveUser(username)
-  {  
+  {      console.log("derf"+username)
+
     const body: userdeleted = {
       username:username,
-      homephone:0
+      homephone:1
     }
     console.log("body")
     console.log(body)
@@ -65,11 +67,10 @@ export class UserService {
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
     return this.http.post(this.apiUrl+'/formytek/public/api/AddusertoAD',JSON.stringify(user),{ headers: reqHeader });
    }
-   public uptadeUser(user)
+   public uptadeUser(user,oldusername)
    {   
     const body: user = {
       username :user.username,
-  
       lastname:user.lastname  != "" ? user.lastname : "0",
       firstname:user.firstname  != "" ? user.firstname : "0",
       department:user.department  != "" ? user.department : "0",

@@ -14,8 +14,13 @@ import * as $ from 'jquery';
   templateUrl: './scripts-power-shell.component.html',
   styles: [`
     :host /deep/ ng2-st-tbody-custom {
-  
+      padding-left: 10%!important;
+
    width: 50%!important;
+  
+    }
+    :host /deep/ Button.btn-exec:hover{
+      color:blue!important;
   
     }
  :host /deep/ ng2-st-tbody-custom a:nth-child(1) {
@@ -92,7 +97,8 @@ export class ScriptsPowerShellComponent implements OnInit{
                private windowService: NbWindowService,
                private route: ActivatedRoute,) {
    
-       
+                 $(".cdk-overlay-container").css('display','none');
+
 }
 
   onCustomAction(event) {

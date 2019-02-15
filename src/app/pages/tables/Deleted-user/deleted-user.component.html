@@ -4,11 +4,29 @@
   </nb-card-header>
   <nb-card-body>
   	
-    <ng2-smart-table class="resize" [settings]="settings" [source]="source" (custom)="onCustomAction($event)" (userRowSelect)="ouraddAction($event)"
->
+    <ng2-smart-table class="resize" [settings]="settings" [source]="source" (custom)="onCustomAction($event)" (userRowSelect)="ourshowAction($event)">
     </ng2-smart-table>
 
 
+<ng-template #contentTemplate let-data >
+  <p></p>
+</ng-template>
+
+<ng-template #disabledEsc >
+  <h3>User Information:</h3>
+  <br>
+  <br>
+<h5>Username: <span style="font-size: 13px;"> {{model.username}}</span></h5><br>
+<h5>Firstname: <span style="font-size: 13px;"> {{model.firstname}}</span></h5><br>
+<h5>Lastname: <span style="font-size: 13px;"> {{model.lastname}}</span></h5><br>
+<h5>Company: <span style="font-size: 13px;"> {{model.company}}</span></h5><br>
+<h5>Officephone: <span style="font-size: 13px;"> {{model.officephone}}</span></h5><br>
+<h5>Mail: <span style="font-size: 13px;"> {{model.mail}}</span></h5><br>
+<h5>Department: <span style="font-size: 13px;"> {{model.department}}</span></h5><br>
+<h5>Cellphone: <span style="font-size: 13px;"> {{model.cellphone}}</span></h5><br>
+<h5>JobTitle: <span style="font-size: 13px;"> {{model.JobTitle}}</span></h5><br>
+
+</ng-template>
 
   </nb-card-body>
 </nb-card>

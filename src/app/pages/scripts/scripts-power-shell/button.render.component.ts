@@ -8,8 +8,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   template: `
-    <button ><i class="nb-play " ></i> {{renderValue}}</button>
+    <button style="background:transparent;border:none;font-size:30px;color:gray" class="btn-exec"><i class="nb-play " ></i></button>
   `,
+   styles: [`
+  
+
+
+  `],
 })
 export class ButtonRenderComponent implements OnInit {
 

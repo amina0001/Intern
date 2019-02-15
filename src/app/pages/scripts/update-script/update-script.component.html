@@ -11,7 +11,7 @@
 
           <div class="row">
                   <div class="col-md-2">  
-                      <label for="name" > Name </label>
+                      <label for="name" > Name<span style="color: red">(*)</span></label>
                   </div>
                   <div class="col-md-10">  
                    <input type="text" class="form-control"  [(ngModel)]="model.Name" name="Name" required #Name="ngModel"/>
@@ -32,7 +32,7 @@
 
           <div class="row">
                     <div class="col-md-1">  
-                        <label for="name" > Script </label>
+                        <label for="name" > Script<span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-11">  
                         <textarea class="form-control" aria-label="With textarea"  [(ngModel)]="model.Body"  name="Body"  required #Body="ngModel" ></textarea>

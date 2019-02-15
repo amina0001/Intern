@@ -8,6 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../@core/data/users.service';
 import { user } from '../../../@core/models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import * as $ from 'jquery';
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
 @Component({
   selector: 'deletd-user-table',
@@ -30,10 +32,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 })
 export class DeletedUserComponent {
-response: any=[];
+    response: any=[];
     event_data:any;
+    event_id: any;
+    model:user = new user();
 
-  event_id: any;
+ @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;
+  @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
   settings = {
   
 
@@ -83,20 +88,49 @@ constructor( private http: HttpClient,
                            console.log("s"+this.response.id );
                             this.source.load(this.response);
                          });
-      console.log("hey"+this.response );
+       
+      $(".cdk-overlay-container").css('display','none');
+
   
     }
   onCustomAction(event) {
     console.log(event.data.Username)
-  this.UserService.deleteUser(event.data.Username).subscribe();
+  this.UserService.ReactiveUser(event.data.Username).subscribe();
       this.event_data =event.data;
 
        this.source.remove(this.event_data);
 
   // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
 }
-ouraddAction(event) {
-  // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
-  console.log("hh");
-}
+ourshowAction(event) {
+
+    this.windowService.open(
+      this.disabledEscTemplate,
+      {
+        title: 'User:',
+        hasBackdrop: true,
+        closeOnEsc: true,
+      },
+    );
+          $(".cdk-overlay-container").css('display','initial');
+
+   this.model.username=event.data.Username
+ 
+this.UserService.User( this.model.username).subscribe(data =>  {
+   console.log("hey"+data[0]);
+this.model.username=data[0].Username
+this.model.firstname =data[0].FirstName
+this.model.lastname =data[0].LastName
+this.model.company =data[0].Company
+this.model.officephone =data[0].OfficePhone
+this.model.mail =data[0].EMailAddress
+this.model.department=data[0].Department
+this.model.cellphone=data[0].Mobile
+this.model.JobTitle=data[0].JobTitle
+
+  },
+  (error)=>
+  {
+  });
+ }
 }

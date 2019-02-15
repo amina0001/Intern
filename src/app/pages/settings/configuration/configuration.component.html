@@ -30,38 +30,55 @@
             
                 <div class="row" style="margin-bottom: 5px" >
                       <div class="col-md-3">  
-                        <label for="name">Server Name </label>
+                        <label for="name">Server Name <span style="color: red">(*)</span> </label>
                       </div>
                       <div class="col-md-8">
-                        <input type="text"  class="form-control"  id="ServerName " name="Server_name" #Server_Name="ngModel" [(ngModel)]="model.Server_name" placeholder="exemple : smtp.gmail.com" >  
+                        <input type="text"  class="form-control"  id="ServerName " name="Server_name" #Server_Name="ngModel" [(ngModel)]="model.Server_name" placeholder="exemple : smtp.gmail.com" required>  
+                        <div *ngIf="Server_Name.errors && (Server_Name.dirty || Server_Name.touched)" class="alert alert-danger">
+                    <div [hidden]="!Server_Name.errors.required">
+                     Server name is required!
+                    </div></div>
+
                       </div>
                 </div> <!-- /.row1 -->
               
                 <div class="row"  style="margin-bottom: 5px">
                     <div class="col-md-3" >  
-                        <label for="name">Port </label>
+                        <label for="name">Port <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text"  class="form-control" id="Port " name="Port" #Port="ngModel" [(ngModel)]="model.Port" placeholder="exemple : 465">  
+                        <input type="text"  class="form-control" id="Port " name="Port" #Port="ngModel" [(ngModel)]="model.Port" placeholder="exemple : 465" required>  
+                        <div *ngIf="Port.errors && (Port.dirty || Port.touched)" class="alert alert-danger">
+                    <div [hidden]="!Port.errors.required">
+                     Port is required!
+                    </div></div>
                     </div>
                 </div><!-- /.row2 -->
 
                 <div class="row"  style="margin-bottom: 5px">
                     <div class="col-md-3" >  
-                    <label for="name">User Account </label>
+                    <label for="name">User Account <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-8">
-                    <input type="email"  class="form-control"id="UserAccount" name="User_account" #UserAccount="ngModel" [(ngModel)]="model.User_account"  placeholder="exemple : user@gmail.com">  
+                    <input type="email"  class="form-control"id="UserAccount" name="User_account" #UserAccount="ngModel" [(ngModel)]="model.User_account"  placeholder="exemple : user@gmail.com" required>  
+                    <div *ngIf="UserAccount.errors && (UserAccount.dirty || UserAccount.touched)" class="alert alert-danger">
+                    <div [hidden]="!UserAccount.errors.required">
+                     User account is required!
+                    </div></div>
                     </div>
               </div><!-- /.row3 -->
 
               <div class="row"  style="margin-bottom: 5px">
                   <div class="col-md-3">  
-                    <label for="name">Password </label>
+                    <label for="name">Password <span style="color: red">(*)</span></label>
                   </div>
                   <div class="col-md-8">
-                  <input type="password"  class="form-control" id="Password" name="Password" #Password="ngModel" [(ngModel)]="model.Password" 
-                  >  
+                  <input type="password"  class="form-control" id="Password" name="Password" #Password="ngModel" [(ngModel)]="model.Password" required >
+                    
+                  <div *ngIf="Password.errors && (Password.dirty || Password.touched)" class="alert alert-danger">
+                    <div [hidden]="!Password.errors.required">
+                     Password is required!
+                    </div></div>
                   </div>
             </div><!-- /.row4 -->
             </div>
@@ -92,19 +109,27 @@
             
                 <div class="row"  style="margin-bottom: 5px">
                     <div class="col-md-3">  
-                      <label for="name">Forest Name </label>
+                      <label for="name">Forest Name <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text"  class="form-control" id="ForestName" name="Forest_name" #ForestNname="ngModel" [(ngModel)]="model.Forest_name"  placeholder="exemple : administrator@gmail.com">  
+                      <input type="text"  class="form-control" id="ForestName" name="Forest_name" #ForestNname="ngModel" [(ngModel)]="model.Forest_name"  placeholder="exemple : administrator@gmail.com" required>  
+                        <div *ngIf="ForestNname.errors && (ForestNname.dirty || ForestNname.touched)" class="alert alert-danger">
+                    <div [hidden]="!ForestNname.errors.required">
+                     Forest name is required!
+                    </div></div>
                     </div>
                 </div>  <!-- /fin row 1 -->
 
                 <div class="row"  style="margin-bottom: 5px">
                     <div class="col-md-3">  
-                        <label for="name">service Account </label>
+                        <label for="name">service Account <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-8">
-                    <input type="text"  class="form-control" id="ServiceAccount" name="Service_account" #ServiceAccount="ngModel" [(ngModel)]="model.Service_account" placeholder="exemple : 0.0.0.0">  
+                    <input type="text"  class="form-control" id="ServiceAccount" name="Service_account" #ServiceAccount="ngModel" [(ngModel)]="model.Service_account" placeholder="exemple : 0.0.0.0" required>  
+                     <div *ngIf="ServiceAccount.errors && (ServiceAccount.dirty || ServiceAccount.touched)" class="alert alert-danger">
+                    <div [hidden]="!ServiceAccount.errors.required">
+                     Service Account is required!
+                    </div></div>
                     </div>
                   </div><!-- /fin row 2 -->
                   
@@ -119,10 +144,14 @@
             
                   <div class="row"  style="margin-bottom: 5px">
                     <div class="col-md-3">  
-                      <label for="name">Password </label>
+                      <label for="name">Password <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-8">
-                    <input type="password"  class="form-control" id="PasswordAD" name="passwordad" #Password="ngModel" [(ngModel)]="model.passwordad"  >  
+                    <input type="password"  class="form-control" id="PasswordAD" name="passwordad" #Password="ngModel" [(ngModel)]="model.passwordad"  required>  
+                    <div *ngIf="Password.errors && (Password.dirty || Password.touched)" class="alert alert-danger">
+                    <div [hidden]="!Password.errors.required">
+                     Active directory password is required!
+                    </div></div>
                     </div>
               </div><!-- /.row4 -->
             </div> <!-- /.box-body -->
@@ -131,7 +160,7 @@
                     <div class="col-md-12"  >
                       <span class="pull-right">
 
-                        <button type="submit" class="btn btn-primary " style="margin-left: 82%" (click)="addSetting(SettingForm)"><i class="ion-checkmark-round"></i> Save</button>
+                        <button type="submit" class="btn btn-primary " style="margin-left: 82%" (click)="addSetting(SettingForm)" [disabled]="!SettingForm.form.valid"><i class="ion-checkmark-round"></i> Save</button>
                       </span>
                     </div>
                   </div>

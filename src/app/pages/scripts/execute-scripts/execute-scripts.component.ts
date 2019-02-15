@@ -3,6 +3,7 @@ import {FormControl, FormArray, FormGroupDirective, NgForm, Validators, FormGrou
 import { Router,ActivatedRoute } from '@angular/router';
 import { script } from '../../../@core/models/script.model';
 import { ScriptsPowerShellService } from '../../../@core/data/scripts-power-shell.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
 import * as $ from 'jquery';
 
@@ -27,13 +28,18 @@ export class ExecuteScriptComponent implements OnInit {
   global:number
   Command:string=""
   allScript:string=""
+  errooorSC:string=""
+  hiddenSCP:boolean
+    hiddenNull:boolean
+
   c:number=0
     invoiceForm: FormGroup;
 
     constructor(
                private _fb: FormBuilder,  private ScriptService : ScriptsPowerShellService,
-               private router: Router,private route:ActivatedRoute) {
-
+               private router: Router,private route:ActivatedRoute,private ngxService: NgxUiLoaderService) {
+           this.hiddenSCP=true
+           this.hiddenNull=true
               this.createForm();
             }
 
@@ -83,7 +89,9 @@ deleteRow(index: number)
   control.removeAt(index);
 }
 executeScript()
-{  
+{             this.hiddenSCP=true
+             this.hiddenNull=true
+
   if(this.TotalLine!=0)
   {
       $("#BtnAdd").hide();
@@ -103,14 +111,46 @@ executeScript()
    }
     this.Laoder = true 
     this.ScriptService.executeScript("powershell -command " +this.allScript).subscribe(data => {
-      console.log(data)    
+      console.log(data)   
+        if (data==null){
+            this.hiddenNull=false
+        } 
       },
-    (error)=>
-    { 
-     
-    });
+   error=>{
+    if(error['error'].text)
+        {           this.hiddenSCP=false
+
+               
+            console.log("not null")
+
+          this.errooorSC=(error['error'].text)
+         
+        }
+      })
+    this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
+    // Stop the foreground loading after 5s
+    setTimeout(() => {
+      this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
+    }, 1000);
+ 
+    // OR
+    this.ngxService.startBackground('do-background-things');
+    // Do something here...
+    this.ngxService.stopBackground('do-background-things');
+ 
+    this.ngxService.startLoader('loader-01'); // start foreground spinner of the loader "loader-01" with 'default' taskId
+    // Stop the foreground loading after 5s
+    setTimeout(() => {
+      this.ngxService.stopLoader('loader-01'); // stop foreground spinner of the loader "loader-01" with 'default' taskId
+    }, 1000);
+      this.router.navigate(['/pages/scripts/scripts-power-shell']) 
+
     
   }   
+  back()
+  {
+  this.router.navigate(['/pages/scripts/scripts-power-shell']) 
+  }
  ngOnInit() {
     this.invoiceForm = this._fb.group({
       itemRows: this._fb.array([this.initItemRows()]) // here
@@ -128,4 +168,5 @@ executeScript()
  
 
 }
+ 
 }

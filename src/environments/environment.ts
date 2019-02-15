@@ -10,7 +10,7 @@
 
 export const environment = {
   production: false,  
-  apiUrl: 'http://41.230.17.28:8081',
+  apiUrl: 'http://192.168.100.31:8081',
 };
 //192.168.100.31
 //41.230.17.28

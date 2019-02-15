@@ -7,6 +7,8 @@ import { SettingService } from '../../../@core/data/settings.service';
 import { FormsModule ,ReactiveFormsModule}   from '@angular/forms';
 import { AdminDirectory } from '../../../@core/models/AdminDirectory.model';
 import {BreadcrumbsService} from "ng6-breadcrumbs";
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
+import { Router,ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-configuration',
@@ -30,8 +32,8 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   hiddenADF:boolean 
   hiddenAD:boolean
   
-  constructor(  private breadcrumbs:BreadcrumbsService,private settingService: SettingService) { 
-            
+  constructor(  private router: Router, private breadcrumbs:BreadcrumbsService,private settingService: SettingService,private ngxService: NgxUiLoaderService) { 
+           
                }
   saveSmtp()
   {  this.hidden=true
@@ -42,6 +44,22 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
     this.smtp.port=this.model.Port
     this.smtp.servername = this.model.Server_name
     this.smtp.account = this.model.User_account
+     this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
+    // Stop the foreground loading after 5s
+    setTimeout(() => {
+      this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
+    }, 1000);
+ 
+    // OR
+    this.ngxService.startBackground('do-background-things');
+    // Do something here...
+    this.ngxService.stopBackground('do-background-things');
+ 
+    this.ngxService.startLoader('loader-01'); // start foreground spinner of the loader "loader-01" with 'default' taskId
+    // Stop the foreground loading after 5s
+    setTimeout(() => {
+      this.ngxService.stopLoader('loader-01'); // stop foreground spinner of the loader "loader-01" with 'default' taskId
+    }, 1000);
     this.settingService.addSmtp(this.smtp).subscribe(
       data =>{
         this.hidden=false
@@ -59,6 +77,8 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
       }
     })   
+
+
   }
   verifyAdminDirectory()
   {  this.hiddenAD=true

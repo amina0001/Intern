@@ -18,9 +18,10 @@ import * as $ from 'jquery';
 
     :host /deep/ ng2-st-tbody-custom {
      width: 50%!important;
-    padding-left: 0%;
+   
     }
 
+       
 
   `],
    providers: [ UserService]

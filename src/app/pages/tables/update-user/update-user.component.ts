@@ -4,6 +4,7 @@ import { UserService } from '../../../@core/data/users.service';
 import { user } from '../../../@core/models/user.model';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
 @Component({
   selector: 'ng-update-user',
@@ -23,13 +24,16 @@ export class UpdateUserComponent implements OnInit{
     model:user = new user();
         sub:any;
         usernames:string;
- constructor(  private routers: Router,private UserService :UserService,private route:ActivatedRoute)
+        oldusername:string;
+
+ constructor(  private routers: Router,private UserService :UserService,private route:ActivatedRoute,private ngxService: NgxUiLoaderService)
  {
 
 }
   ngOnInit() {
     this.sub = this.route.snapshot.params['p1'];
       this.usernames = this.sub;
+      this.oldusername=this.sub;
     console.log("fff"+this.sub);
  this.UserService.User(this.sub).subscribe(data =>  {
    console.log("hey"+data[0]);
@@ -54,13 +58,29 @@ this.model.JobTitle=data[0].JobTitle
 
  updateUser(){ 
 console.log(this.model)
-    this.UserService.uptadeUser(this.model).subscribe(data =>  {
+    this.UserService.uptadeUser(this.model,this.oldusername).subscribe(data =>  {
   },
   (error)=>
   {
   });
        //   this.routers.navigate(['/pages/tables/smart-table']) 
-
+     
+this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
+    // Stop the foreground loading after 5s
+    setTimeout(() => {
+      this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
+    }, 1000);
+ 
+    // OR
+    this.ngxService.startBackground('do-background-things');
+    // Do something here...
+    this.ngxService.stopBackground('do-background-things');
+ 
+    this.ngxService.startLoader('loader-01'); // start foreground spinner of the loader "loader-01" with 'default' taskId
+    // Stop the foreground loading after 5s
+    setTimeout(() => {
+      this.ngxService.stopLoader('loader-01'); // stop foreground spinner of the loader "loader-01" with 'default' taskId
+    }, 1000);
 }
  Back()
   {

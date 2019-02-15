@@ -1,14 +1,16 @@
+
 <nb-card>
   <nb-card-header>
     New User
   </nb-card-header>
   <nb-card-body>
+
     <form  #UserForm="ngForm" >
   	      <div class="row">
                 <div class="col-md-6">
                  <div class="row"  style="margin-bottom: 5px">
                     <div class="col-md-4">  
-                        <label for="name" >First Name*</label>
+                        <label for="name" >First Name <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-8">
                       <input type="text"  class="form-control" [(ngModel)]="model.firstname" #firstname="ngModel" name="firstname" required >  
@@ -24,7 +26,7 @@
                 <div class="col-md-6">
                     <div class="row"  style="margin-bottom: 5px">
                        <div class="col-md-4">  
-                            <label for="name"> Last Name* </label>
+                            <label for="name"> Last Name <span style="color: red">(*)</span> </label>
                         </div>
                         <div class="col-md-8">
                           <input type="text"  class="form-control" [(ngModel)]="model.lastname"  #lastname="ngModel"  name="lastname" required >  
@@ -41,7 +43,7 @@
                 <div class="col-md-6">
                     <div class="row"  style="margin-bottom: 5px">
                         <div class="col-md-4">  
-                            <label for="name">User Name*</label>
+                            <label for="name">User Name <span style="color: red">(*)</span></label>
                          </div>
                         <div class="col-md-8">
                           <input type="text"  class="form-control" [(ngModel)]="model.username" name="username" #username="ngModel" required > 
@@ -49,7 +51,10 @@
                         <div [hidden]="!username.errors.required">
                           username is required!
                         </div>
-                    </div>   
+                    </div>  
+                    <div [hidden]="hiddenUS" class="alert alert-danger" role="alert">
+                        <strong>Oh snap!</strong> <a href="#" class="alert-link"> Change the username </a> it's aleardy used
+                   </div> 
                         </div>
                         
                     </div> <!-- /.row -->
@@ -58,7 +63,7 @@
                     <div class="row"  style="margin-bottom: 5px">
                     
                                 <div class="col-md-4">  
-                                    <label for="name">Mail* </label>
+                                    <label for="name">Mail <span style="color: red">(*)</span> </label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="email"  class="form-control" [(ngModel)]="model.mail" name="mail" #mail="ngModel" required >  
@@ -75,7 +80,7 @@
                 <div class="col-md-6">
                         <div class="row"  style="margin-bottom: 5px">
                                    <div class="col-md-4">  
-                            <label for="name">Password* </label>
+                            <label for="name">Password <span style="color: red">(*)</span> </label>
                         </div>
                         <div class="col-md-8">
                             <input type="password"  class="form-control" [(ngModel)]="model.password" #password="ngModel" name="password"  required >
@@ -90,7 +95,7 @@
                 <div class="col-md-6">
                     <div class="row"  style="margin-bottom: 5px">
                         <div class="col-md-4">  
-                            <label for="name" >Confirm Password* </label>
+                            <label for="name" >Confirm Password <span style="color: red">(*)</span> </label>
                         </div>
                         <div class="col-md-8">
                             <input type="password"   [(ngModel)]="confirmPassword" class="form-control"   name="confirmPassword"  required >  
@@ -103,7 +108,7 @@
                     <div class="col-md-6">
                             <div class="row"  style="margin-bottom: 5px">
                                     <div class="col-md-4">  
-                                        <label for="name">Company* </label>
+                                        <label for="name">Company <span style="color: red">(*)</span> </label>
                                     </div>
                                     <div class="col-md-8">
                                         <input type="text"  class="form-control" [(ngModel)]="model.company"  #company="ngModel" name="company"
@@ -119,7 +124,7 @@
                     <div class="col-md-6">
                         <div class="row"  style="margin-bottom: 5px">
                             <div class="col-md-4">  
-                                <label for="name">Department* </label>
+                                <label for="name">Department <span style="color: red">(*)</span> </label>
                             </div>
                             <div class="col-md-8">
                                 <input type="text"  class="form-control" [(ngModel)]="model.department" name="department"  #department="ngModel"required >  
@@ -138,7 +143,7 @@
                          <div class="col-md-6">
                         <div class="row"  style="margin-bottom: 5px">
                             <div class="col-md-4">  
-                                <label for="name">job title* </label>
+                                <label for="name">job title <span style="color: red">(*)</span> </label>
                             </div>
                             <div class="col-md-8">
                                 <input type="text"  class="form-control" [(ngModel)]="model.JobTitle" name="JobTitle" #JobTitle="ngModel" required > 
@@ -153,7 +158,7 @@
                          <div class="col-md-6">
                             <div class="row"  style="margin-bottom: 5px">
                                <div class="col-md-4">  
-                                                <label for="name">Mobile* </label>
+                                                <label for="name">Mobile <span style="color: red">(*)</span> </label>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text"  class="form-control" [(ngModel)]="model.cellphone" #cellphone="ngModel" name="cellphone" required >  
@@ -189,5 +194,6 @@
           </div>
         </div>
     </form>
+
   </nb-card-body>
 </nb-card>

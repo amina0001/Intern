@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbsModule} from "ng6-breadcrumbs";
+import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from  'ngx-ui-loader';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,8 +29,11 @@ import {BreadcrumbsModule} from "ng6-breadcrumbs";
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
-
-        
+ HttpClientModule, // import HttpClientModule
+    NgxUiLoaderModule, // import NgxUiLoaderModule
+    NgxUiLoaderHttpModule, // import NgxUiLoaderHttpModule. By default, it will show background loader.
+    // If you need to show foreground spinner, do as follow:
+    // NgxUiLoaderHttpModule.forRoot({ showForeground: true })
 
    NbAuthModule.forRoot({
          strategies: [
