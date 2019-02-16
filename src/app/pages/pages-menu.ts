@@ -44,11 +44,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Actives Users',
-        link: '/pages/tables/smart-table',
+        link: '/pages/users/active-user',
       },
       {
         title: 'Deleted Users',
-        link: '/pages/tables/deleted',
+        link: '/pages/users/deleted',
       }
     ],
   },

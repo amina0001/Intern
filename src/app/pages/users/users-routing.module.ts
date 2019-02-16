@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TablesComponent } from './tables.component';
-import { SmartTableComponent } from './smart-table/smart-table.component';
+import { UsersComponent } from './users.component';
+import { ActiveUserComponent } from './active-user/active-user.component';
 import { DeletedUserComponent } from './Deleted-user/deleted-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 
 const routes: Routes = [{
   path: '',
-  component: TablesComponent,
+  component: UsersComponent,
   children: [{
-    path: 'smart-table',
-    component: SmartTableComponent,
+    path: 'active-user',
+    component: ActiveUserComponent,
   },{
     path: 'deleted',
     component:DeletedUserComponent,
@@ -29,11 +29,11 @@ const routes: Routes = [{
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class TablesRoutingModule { }
+export class UsersRoutingModule { }
 
 export const routedComponents = [
-  TablesComponent,
-  SmartTableComponent,
+  UsersComponent,
+  ActiveUserComponent,
   DeletedUserComponent,
   AddUserComponent,
   UpdateUserComponent

@@ -6,6 +6,8 @@
   flex: 1;
 
   /deep/ nb-card-header {
+    background: white;
+
     display: flex;
     justify-content: space-between;
 
@@ -20,41 +22,29 @@
   }
 
   /deep/ nb-card-body {
-    overflow: hidden;
-
     display: flex;
-    flex-direction: column;
-
-    .info {
-      padding: 0.75rem;
-      padding-bottom: 0.5rem;
-      display: flex;
-      @include nb-rtl(flex-direction, row-reverse);
-    }
+    position: relative;
+    flex: 1;
+    padding: 0;
+    overflow: hidden;
 
     .period {
       display: flex;
       flex-direction: column;
       flex: 1;
-
-      &.latest {
-        padding-left: 0.75rem;
-      }
+      justify-content: flex-end;
     }
 
     .time-interval {
+      font-size: nb-theme(font-size-sm);
       color: nb-theme(color-fg);
+      white-space: nowrap;
     }
 
     .value {
       font-family: nb-theme(font-secondary), serif;
-      font-size: 1.25rem;
       font-weight: nb-theme(font-weight-bold);
       color: nb-theme(card-fg-heading);
-
-      @include nb-for-theme(default) {
-        color: nb-theme(color-success);
-      }
 
       .currency {
         color: nb-theme(color-success);
@@ -64,21 +54,27 @@
         }
       }
     }
-  }
 
-  ngx-stats-ares-chart {
-    flex: 1;
-    position: relative;
-  }
+    .start-period {
+      .time-interval, .value {
+        text-align: right;
+      }
+    }
 
-  /deep/ canvas {
-    border-bottom-left-radius: nb-theme(card-border-radius);
-    border-bottom-right-radius: nb-theme(card-border-radius);
-  }
+    .end-period {
+      .time-interval, .value {
+        text-align: left;
+      }
+    }
 
-  .echart {
-    position: absolute;
-    height: 100%;
-    width: 100%;
+    ngx-stats-bar-animation-chart {
+      flex: 1;
+      position: relative;
+
+      .echart {
+        height: 100%;
+        width: 100%;
+      }
+    }
   }
 }

@@ -43,8 +43,8 @@ const routes: Routes = [{
     path: 'settings',
     loadChildren: './settings/settings.module#SettingsModule',
   }, {
-    path: 'tables',
-    loadChildren: './tables/tables.module#TablesModule',
+    path: 'users',
+    loadChildren: './users/users.module#UsersModule',
   }, {
     path: 'miscellaneous',
     loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',

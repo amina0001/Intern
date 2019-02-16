@@ -103,17 +103,19 @@ constructor( private http: HttpClient,
   // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
 }
 ourshowAction(event) {
+         $(".cdk-overlay-container").css('display','none');
 
     this.windowService.open(
       this.disabledEscTemplate,
       {
         title: 'User:',
+        
         hasBackdrop: true,
         closeOnEsc: true,
       },
     );
           $(".cdk-overlay-container").css('display','initial');
-
+          
    this.model.username=event.data.Username
  
 this.UserService.User( this.model.username).subscribe(data =>  {

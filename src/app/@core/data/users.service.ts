@@ -67,7 +67,7 @@ export class UserService {
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
     return this.http.post(this.apiUrl+'/formytek/public/api/AddusertoAD',JSON.stringify(user),{ headers: reqHeader });
    }
-   public uptadeUser(user,oldusername)
+   public uptadeUser(user)
    {   
     const body: user = {
       username :user.username,

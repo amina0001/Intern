@@ -3,14 +3,14 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {  NbWindowModule } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
-import { TablesRoutingModule, routedComponents } from './tables-routing.module';
+import { UsersRoutingModule, routedComponents } from './users-routing.module';
 import { SmartTableService } from '../../@core/data/smart-table.service';
 import { NgxLoadingModule,ngxLoadingAnimationTypes  } from 'ngx-loading';
 
 @NgModule({
   imports: [
     ThemeModule,
-    TablesRoutingModule,
+    UsersRoutingModule,
     Ng2SmartTableModule,
     NgxLoadingModule,
   ],
@@ -22,4 +22,4 @@ import { NgxLoadingModule,ngxLoadingAnimationTypes  } from 'ngx-loading';
   ],
  
 })
-export class TablesModule { }
+export class UsersModule { }

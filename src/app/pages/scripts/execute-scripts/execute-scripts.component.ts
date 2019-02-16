@@ -38,6 +38,22 @@ export class ExecuteScriptComponent implements OnInit {
     constructor(
                private _fb: FormBuilder,  private ScriptService : ScriptsPowerShellService,
                private router: Router,private route:ActivatedRoute,private ngxService: NgxUiLoaderService) {
+       this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
+    // Stop the foreground loading after 5s
+    setTimeout(() => {
+      this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
+    }, 1000);
+ 
+    // OR
+    this.ngxService.startBackground('do-background-things');
+    // Do something here...
+    this.ngxService.stopBackground('do-background-things');
+ 
+    this.ngxService.startLoader('loader-01'); // start foreground spinner of the loader "loader-01" with 'default' taskId
+    // Stop the foreground loading after 5s
+    setTimeout(() => {
+      this.ngxService.stopLoader('loader-01'); // stop foreground spinner of the loader "loader-01" with 'default' taskId
+    }, 1000);
            this.hiddenSCP=true
            this.hiddenNull=true
               this.createForm();
@@ -143,7 +159,6 @@ executeScript()
     setTimeout(() => {
       this.ngxService.stopLoader('loader-01'); // stop foreground spinner of the loader "loader-01" with 'default' taskId
     }, 1000);
-      this.router.navigate(['/pages/scripts/scripts-power-shell']) 
 
     
   }   

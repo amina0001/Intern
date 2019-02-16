@@ -12,7 +12,7 @@
         <div class="box">   
             <div class="box-header with-border">
                <div [hidden]="hiddensmtp" class="alert alert-danger" role="alert">
-                        <strong>Oh snap!</strong> <a href="#" class="alert-link"> Change a few things up</a> and try submitting again.
+                        <strong>Sorry!</strong> <a href="#" class="alert-link"> Change a few things up</a> and try submitting again.
 
                    </div>
                 <div class="row">
@@ -92,7 +92,7 @@
         <div class="box">
             <div class="box-header with-border">
                  <div [hidden]="hiddenADF" class="alert alert-danger" role="alert">
-                        <strong>Oh snap!</strong> <a href="#" class="alert-link"> Change a few things up</a> and try submitting again.
+                        <strong>Sorry!</strong> <a href="#" class="alert-link"> Change a few things up</a> and try submitting again.
 
                    </div>
                 <div class="row"  style="margin-bottom: 5px">
@@ -100,7 +100,8 @@
                     </div> <!-- /.col-md-6 -->
               
                        <div class="col-md-6"> 
-                        <span class="pull-right"><a   (click)="verifyAdminDirectory()" style="margin-left: 70%;     color: #5dcfe3;"><i class="ion-checkmark-round"></i> Verify</a> </span>
+                        <style type="text/css">.curslink:hover {cursor:pointer;}</style>
+                        <span class="pull-right"><a class="curslink" (click)="verifyAdminDirectory()" style="margin-left: 70%;color: #5dcfe3;"><i class="ion-checkmark-round"></i> Verify</a> </span>
                     </div><!-- /.col-md-6 -->
 
                 </div><!-- /.row -->
@@ -147,9 +148,9 @@
                       <label for="name">Password <span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-8">
-                    <input type="password"  class="form-control" id="PasswordAD" name="passwordad" #Password="ngModel" [(ngModel)]="model.passwordad"  required>  
-                    <div *ngIf="Password.errors && (Password.dirty || Password.touched)" class="alert alert-danger">
-                    <div [hidden]="!Password.errors.required">
+                    <input type="password"  class="form-control" id="PasswordAD" name="passwordad" #PasswordAD="ngModel" [(ngModel)]="model.passwordad"  required>  
+                    <div *ngIf="PasswordAD.errors && (PasswordAD.dirty || PasswordAD.touched)" class="alert alert-danger">
+                    <div [hidden]="!PasswordAD.errors.required">
                      Active directory password is required!
                     </div></div>
                     </div>
@@ -160,7 +161,7 @@
                     <div class="col-md-12"  >
                       <span class="pull-right">
 
-                        <button type="submit" class="btn btn-primary " style="margin-left: 82%" (click)="addSetting(SettingForm)" [disabled]="!SettingForm.form.valid"><i class="ion-checkmark-round"></i> Save</button>
+                        <button type="submit" class="btn btn-primary " style="margin-left: 81%" (click)="addSetting(SettingForm)" [disabled]="!SettingForm.form.valid"><i class="ion-checkmark-round"></i> Save</button>
                       </span>
                     </div>
                   </div>
@@ -195,9 +196,85 @@
               <input type="email" class="form-control" placeholder="Email" required minlength="8" name="mail" [(ngModel)]="model.mail" placeholder="user@gmail.com"   >
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-              <button type="submit" class="btn btn-primary" (click)="saveSmtp() " data-dismiss="modal">Enregistrer</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+              <button type="submit" class="btn btn-primary" (click)="saveSmtp() " data-dismiss="modal">save</button>
             </div>
           </div>
         </div>
       </div>
+
+  <style type="text/css">#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+#snackbar2 {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar2.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}</style>
+<div id="snackbar">Settings Saved successfully</div>
+<div id="snackbar2">Sorry something went wrong</div>

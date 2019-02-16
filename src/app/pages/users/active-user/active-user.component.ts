@@ -1,3 +1,4 @@
+
 import { Component, TemplateRef, ViewChild,OnInit   } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 
@@ -13,7 +14,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as $ from 'jquery';
 @Component({
   selector: 'ngx-add-user',
-  templateUrl: './smart-table.component.html',
+  templateUrl: './active-user.component.html',
   styles: [`
 
     :host /deep/ ng2-st-tbody-custom {
@@ -27,7 +28,7 @@ import * as $ from 'jquery';
    providers: [ UserService]
 })
 
-export class SmartTableComponent implements OnInit {
+export class ActiveUserComponent implements OnInit {
   response: any=[];
   event_id: string;
     event_data:any;
@@ -86,18 +87,22 @@ constructor(  private http: HttpClient,
                            console.log("s"+this.response.id );
                             this.source.load(this.response);
                          });
+            $(".cdk-overlay-container").css('display','none');
+
       console.log("hey"+this.response );
   
     }
 
   onCustomAction(event) {
-            this.routers.navigate(['/pages/tables/update', {p1: event.data.Username}]) ;
+            this.routers.navigate(['/pages/users/update', {p1: event.data.Username}]) ;
             console.log(event.data.Username);
 
 }
 
 
  onDeleteConfirm(event): void {
+         $(".cdk-overlay-container").css('display','none');
+
   this.windowService.open(
       this.disabledEscTemplate,
       {
