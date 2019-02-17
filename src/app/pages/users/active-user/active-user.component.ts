@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../@core/data/users.service';
 import { user } from '../../../@core/models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import * as $ from 'jquery';
 @Component({
   selector: 'ngx-add-user',
@@ -129,6 +130,11 @@ deleteUser(){
     $(".cdk-overlay-container").css('display','none');
 
  
+
+}
+fade(){
+     $(".cdk-overlay-container").css('display','none');
+
 
 }
 

@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../../@core/data/users.service';
 import { user } from '../../../@core/models/user.model';
+import { FormsModule } from '@angular/forms';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
+
   selector: 'ng-add-user',
   templateUrl: './add-user.component.html',
   styles: [`
@@ -21,12 +24,16 @@ import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 })
 export class AddUserComponent {
 
-
+    confirmPassword:string="";
     model:user = new user();
       hiddenUS:boolean
 
  constructor(  private routers: Router,private UserService :UserService,private ngxService: NgxUiLoaderService)
- { this.hiddenUS=true
+ {       this.confirmPassword="";
+
+
+   this.hiddenUS=true
+  
  
 }
   addUser()
@@ -43,6 +50,7 @@ export class AddUserComponent {
     },
      error=>{
          console.log(error['error'].text)
+         this.hiddenUS=true
          this.ngxService.start(); 
           setTimeout(() => {
             this.ngxService.stop(); 
@@ -58,8 +66,8 @@ export class AddUserComponent {
             this.ngxService.stopLoader('loader-01');
           }, 700);
         if(error['error'].text=='Success')
-        {
-                this.hiddenUS=false
+        {this.hiddenUS=true
+                
 
           var x = document.getElementById("snackbar");
           x.className = "show";
@@ -74,8 +82,8 @@ export class AddUserComponent {
         }else{
            var x = document.getElementById("snackbar2");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);
-                 
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);  
+          console.log(error['error'].text)
         }
       })
 

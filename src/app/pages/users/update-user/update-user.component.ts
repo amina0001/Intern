@@ -64,7 +64,8 @@ console.log(this.model)
      
   },
   (error)=>
-  {     console.log(error['error'].text);
+  { 
+      console.log(error['error'].text);
 this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
     // Stop the foreground loading after 5s
     setTimeout(() => {
