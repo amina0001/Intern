@@ -36,7 +36,7 @@ export class UpdateUserComponent implements OnInit{
       this.oldusername=this.sub;
     console.log("fff"+this.sub);
  this.UserService.User(this.sub).subscribe(data =>  {
-   console.log("hey"+data[0]);
+   console.log(data);
    this.usernames=data[0].Username;
    this.model.username=data[0].Username
 this.model.firstname =data[0].FirstName

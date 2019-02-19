@@ -113,9 +113,10 @@ constructor( private http: HttpClient,
     
  
   }
-  onCustomAction(event) {
-  // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
-  console.log("hey");
+onCustomAction(event) {
+            this.routers.navigate(['/pages/resources/update', {p1: event.data.id}]) ;
+            console.log(event.data.Username);
+
 }
 
 /* onDeleteConfirm(event): void {

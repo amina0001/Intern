@@ -19,7 +19,7 @@ export class ResourceService {
       Status:resource.Status,
       Categorize:resource.Categorize,
       Name:resource.Name,
-      Description:resource.Name,
+      Description:resource.Description,
       Internal_information:resource.InternalInformation,
       Expiration_date :resource.ExpirationDate != null ? resource.ExpirationDate : null,
       Reference :resource.Reference != null ? resource.Reference : null,
@@ -34,7 +34,7 @@ export class ResourceService {
    getResource(id)
    {
      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
-     return this.http.get(this.apiUrl+"/formytek/public/api/Ressource/"+id, { headers: reqHeader });
+     return this.http.get(this.apiUrl+`/formytek/public/api/Ressource/${id}`, { headers: reqHeader });
    }
    getAllResources()
    {

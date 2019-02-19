@@ -134,7 +134,11 @@ deleteScript(){
      console.log("t"+event.data.id);
 
   }
+fade(){
+     $(".cdk-overlay-container").css('display','none');
 
+
+}
   ngOnInit() {
      this.response =  this.ScriptService.getAllScripts().subscribe(result => {
                            this.response = result;

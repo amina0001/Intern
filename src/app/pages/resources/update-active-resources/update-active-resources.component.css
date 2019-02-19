@@ -1,0 +1,35 @@
+/* Switch button */
+.btn-default.btn-on.active{background-color: #5BB75B;color: white;font-size: 10px;
+}
+.btn-default.btn-off.active{background-color: #e62739;color: white;font-size: 10px;
+}
+.btn-default{background-color: #E3E9EE;color: grey; border-radius: 5%!important }
+.btn-danger{background-color: #c00c0d; }
+
+.btn-default.btn-on-1.active{background-color: #3c8dbc;color: white;  }
+.btn-default.btn-off-1.active{background-color: #e62739;color: white;  }
+
+.btn-default.btn-on-2.active{background-color: #00D590;color: white;  }
+.btn-default.btn-off-2.active{background-color: #A7A7A7;color: white;  }
+
+.btn-default.btn-on-3.active{color: #5BB75B; }
+.btn-default.btn-off-3.active{color: #e62739;}
+
+.btn-default.btn-on-4.active{background-color: #3c8dbc;color: #5BB75B; }
+.btn-default.btn-off-4.active{background-color: #e62739;color: #e62739;  }
+
+
+.btn-default.btn-Hard.active{background-color: #3c8dbc;color: white; }
+.btn-default.btn-Hard.active{background-color: #3c8dbc;color: white; }
+
+.btn-default.btn-Soft.active{background-color: #3c8dbc;color: white;  }
+.btn-default.btn-Soft.active{background-color: #3c8dbc;color: white;  }
+
+.btn-default.btn-Access.active{background-color: #3c8dbc;color: white;  }
+.btn-default.btn-Access.active{background-color: #3c8dbc;color: white;  }
+
+.btn-default.btn-Other.active{background-color: #3c8dbc;color: white;  }
+.btn-default.btn-Other.active{background-color: #3c8dbc;color: white;  }
+
+
+

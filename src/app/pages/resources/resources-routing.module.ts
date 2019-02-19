@@ -6,6 +6,7 @@ import { ActiveResourcesComponent } from './active-resources/active-resources.co
 import { AddActiveResourcesComponent } from './add-active-resources/add-active-resources.component';
 import { AddActionResourcesComponent } from './add-action-resources/add-action-resources.component';
 import { ArchivedResourcesComponent } from './archived-resources/archived-resources.component';
+import { UpdateActiveResourcesComponent } from './update-active-resources/update-active-resources.component';
 
 const routes: Routes = [{
   path: '',
@@ -22,6 +23,9 @@ const routes: Routes = [{
   },{
     path: 'archived-resources',
     component: ArchivedResourcesComponent,
+  },{
+    path: 'update',
+    component: UpdateActiveResourcesComponent,
   },],
 }];
 
@@ -36,5 +40,6 @@ export const resourcesroutedComponents = [
   ActiveResourcesComponent,
   AddActiveResourcesComponent,
   AddActionResourcesComponent,
-  ArchivedResourcesComponent
+  ArchivedResourcesComponent,
+  UpdateActiveResourcesComponent
 ];

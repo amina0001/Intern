@@ -3,7 +3,7 @@
         New Resource
   </nb-card-header>
   <nb-card-body>
-<form>
+<form  #ResourceForm="ngForm">
           <div class="row">
             <div class="col-md-6">
              <div class="row"  style="margin-bottom: 5px">
@@ -13,9 +13,10 @@
                 <div class="col-md-8">
                     <div class="btn-group"  data-toggle="buttons" style="width:100%;" >        
                         <label class="btn btn-default btn-off active"  style="width:50%;"> 
-                        <input type="radio" hidden style="width: 50%" data-ng-model="selection"  name="Status" value="Disabled" id="Disabled" >Disabled</label>
+                        <input type="radio" hidden style="width: 50%" [(ngModel)]="model.Status"  data-ng-model="selection"  name="Status" value="Disabled" id="Disabled" >Disabled</label>
                         <label class="btn btn-default btn-on "  style="width:50%;">
-                        <input type="radio"   hidden data-ng-model="selection"  name="Status" value="Enabled" id="Enabled" style="width: 50%" >Enabled</label>
+                        
+                        <input type="radio" [(ngModel)]="model.Status"   hidden data-ng-model="selection"  name="Status" value="Enabled" id="Enabled" style="width: 50%" >Enabled</label>
                     </div> 
                 </div>
             </div>
@@ -26,9 +27,14 @@
                         <label for="name"> Categorize </label>
                     </div>
                     <div class="col-md-8">
-                        <select class="form-control" id="Categorize" name="Categorize" >
+                         <select class="form-control" id="Categorize" name="Categorize" #Categorize="ngModel" [(ngModel)]="model.Categorize" required >
+                         <option value="Poste de travail" disabled="">--Choose Category--</option>
+
                         <option value="Poste de travail">Poste de travail</option>
                         </select>
+                         <div *ngIf="Categorize.errors && (Categorize.dirty || Categorize.touched)" class="alert alert-danger">
+                           Required (Please select category).
+                                </div>
                     </div>
                 </div><!-- /.row -->
             </div><!-- /.col-md-6 -->
@@ -42,13 +48,14 @@
                     <div class="col-md-8">
                         <div class="btn-group" data-toggle="buttons" style="width:100%;" >
                             <label class="btn btn-default btn-Hard active" style="width:25%;padding-left: 2%" > 
-                            <input type="radio" hidden   name="Type" value="Hardware" id="Hardware">Hardware</label>
+                            <input type="radio" hidden [(ngModel)]="model.Type"  name="Type" value="Hardware" id="Hardware">Hardware</label>
                             <label class="btn btn-default btn-Soft" style="width:25%;padding-left: 2%" >
-                            <input type="radio" hidden     name="Type" value="Software" id="Software"  >Software</label>
+                            <input type="radio" hidden     [(ngModel)]="model.Type"  name="Type" value="Software" id="Software"  >Software</label>
                             <label class="btn btn-default btn-Access" style="width:25%;padding-left: 3%"  >
-                            <input type="radio"  hidden    name="Type" value="Access" id="Access">Access</label>
+                            <input type="radio"  hidden     [(ngModel)]="model.Type" name="Type" value="Access" id="Access">Access</label>
                             <label class="btn btn-default btn-Other" style="width:25%;" >
-                            <input type="radio"  hidden name="Type" value="Other" id="Other" >Other</label>
+
+                            <input type="radio"  [(ngModel)]="model.Type" hidden name="Type" value="Other" id="Other" >Other</label>
                         </div>
                     </div>  
                 </div> <!-- /.row -->
@@ -59,7 +66,18 @@
                         <label for="name">Name </label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text"  class="form-control"  id="Name" name="Name" >  
+                        <input type="text"   class="form-control"  id="Name" name="Name" #Name="ngModel" [(ngModel)]="model.Name"  required minlength="3" maxlength="20"  #Name="ngModel" >  
+                        <div *ngIf="Name.errors && (Name.dirty || Name.touched)" class="alert alert-danger">
+                        <div [hidden]="!Name.errors.required">
+                          Name is required!
+                        </div>
+                           <div [hidden]="!Name.errors.minlength">
+                           Name must be at least 3 characters long.
+                        </div>
+                        <div [hidden]="!Name.errors.maxlength">
+                          Name cannot be more than 20 characters long.
+                        </div>
+                    </div>
                     </div>
                 </div> <!-- /.row -->
             </div><!-- /.col-md-6 -->
@@ -71,7 +89,18 @@
                         <label for="name">Description </label>
                     </div>
                     <div class="col-md-8">
-                        <textarea class="form-control" aria-label="With textarea"  id="Description" name="Description" ></textarea>
+                        <textarea  class="form-control" aria-label="With textarea"  id="Description" name="Description"  [(ngModel)]="model.Description" required minlength="3" maxlength="20"  #Description="ngModel"></textarea>
+                        <div *ngIf="Description.errors && (Description.dirty || Description.touched)" class="alert alert-danger">
+                        <div [hidden]="!Description.errors.required">
+                          Description is required!
+                        </div>
+                           <div [hidden]="!Description.errors.minlength">
+                           Description must be at least 3 characters long.
+                        </div>
+                        <div [hidden]="!Description.errors.maxlength">
+                          Description cannot be more than 20 characters long.
+                        </div>
+                    </div>
                     </div> 
                 </div>
             </div><!-- /.col-md-6 -->
@@ -81,7 +110,18 @@
                         <label for="name">Internal Information </label>
                     </div>
                     <div class="col-md-8">
-                        <textarea class="form-control" aria-label="With textarea" id="InternalInformation" name="InternalInformation"></textarea>
+                        <textarea  class="form-control" aria-label="With textarea" id="InternalInformation " name="InternalInformation" #InternalInformation="ngModel" [(ngModel)]="model.InternalInformation" required minlength="3" maxlength="20"  ></textarea>
+                        <div *ngIf="InternalInformation.errors && (InternalInformation.dirty || InternalInformation.touched)" class="alert alert-danger">
+                        <div [hidden]="!InternalInformation.errors.required">
+                          Internal Information  is required!
+                        </div>
+                           <div [hidden]="!InternalInformation.errors.minlength">
+                           Internal Information  must be at least 3 characters long.
+                        </div>
+                        <div [hidden]="!InternalInformation.errors.maxlength">
+                          Internal Information  cannot be more than 20 characters long.
+                        </div>
+                    </div>
                      </div>
                 </div><!-- /.row -->
             </div><!-- /.col-md-6 -->
@@ -96,11 +136,12 @@
                  
                <div class="row">
                     <div class="col-md-6" style="margin-left: 40%">  
-                         <div class="btn-group"  data-toggle="buttons" style="width:100%;" >    
+                         <div   style="width:100%;" >    
                         <label class="btn btn-default btn-off active" > 
-                        <input type="radio" hidden value="0"   data-ng-model="selection" name="NoDate" id="NoDate" value="No"   > No</label>    
-                        <label class="btn btn-default btn-on " st> 
-                        <input type="radio"  hidden  name="NoDate" data-ng-model="selection" value="Yes" id="YesDate" >Yes</label>
+                        <input type="radio"   hidden  name="NoDate" id="NoDate" value="No" (click)="gg()"  > No</label>    
+                        <label class="btn btn-default btn-on " > 
+
+                        <input   type="radio"  hidden  name="NoDate" value="Yes" id="YesDate" (click)="gg()">Yes</label>
                     </div>
                     </div>
                </div><!-- /.row -->
@@ -111,7 +152,7 @@
                         <label  for="name">Expiration Date</label>
                     </div>
                     <div class="col-md-8"  >
-                    <input [disabled]="disabledDate"  type="date" class="form-control" id="ExpirationDate " name="ExpirationDate"  >  
+                    <input  disabled type="date" class="form-control ExpirationDateClass" id="ExpirationDate " name="ExpirationDate" #ExpirationDate="ngModel" [(ngModel)]="model.ExpirationDate"  >  
                     </div>
                 </div><!-- /.row -->
             </div><!-- /.col-md-8 -->
@@ -120,7 +161,7 @@
             <div class="col-md-4">
                 <div class="row"  style="margin-bottom: 5px;">
                     <div class="col-md-6" style="margin-left: 40%">  
-                         <div class="btn-group"  data-toggle="buttons" style="width:100%;" >   
+                         <div  style="width:100%;" >   
                             <label class="btn btn-default btn-off active"  > 
                             <input type="radio" hidden value="0"   name="No" id="NoReference" value="No"  (click)="reference()"> No</label>    
                             <label class="btn btn-default btn-on " > 
@@ -136,7 +177,7 @@
                     </div><!-- /.col-md-4 -->
                     <div class="col-md-8">
  
-                             <input type="text" [disabled]="disabledReference" class="form-control" id="Reference " name="Reference"  >
+                             <input type="text"  disabled class="form-control ReferenceClass" id="Reference " name="Reference" #Reference="ngModel" [(ngModel)]="model.Reference"  >
                     
                     </div><!-- /.col-md-4 -->
                 </div><!-- /.row -->
@@ -146,7 +187,7 @@
                 <div class="col-md-4">
                     <div class="row"  style="margin-bottom: 5px;">
                         <div class="col-md-6" style="margin-left: 40%"> 
-                         <div class="btn-group"  data-toggle="buttons" style="width:100%;" >    
+                         <div style="width:100%;" >    
                             <label class="btn btn-default btn-off active" > 
                             <input type="radio" hidden value="0"   name="No" id="NoSerial" value="No" (click)="serial()" > No</label>    
                             <label class="btn btn-default btn-on " > 
@@ -161,7 +202,7 @@
                              <label for="name">Serial Number </label>
                         </div><!-- /.col-md-4 -->
                         <div class="col-md-8">
-                             <input type="text" [disabled]="disabledSerial"  class="form-control" id="SerialNumber " name="SerialNumber" >
+                             <input type="text" disabled   class="form-control SerialNumberClass" id="SerialNumber " name="SerialNumber" #SerialNumber="ngModel" [(ngModel)]="model.SerialNumber" >
                            
                         </div><!-- /.col-md-4 -->
                     </div><!-- /.row -->
@@ -172,7 +213,7 @@
 
                         <div class="row"  style="margin-bottom: 5px;">
                             <div class="col-md-6" style="margin-left: 40%">
-                             <div class="btn-group"  data-toggle="buttons" style="width:100%;" >     
+                             <div style="width:100%;" >     
                                 <label class="btn btn-default btn-off active" > 
                                 <input type="radio" hidden value="0"   name="No" id="Nocomment" value="No"  (click)="comment()"> No</label>    
                                 <label class="btn btn-default btn-on " > 
@@ -187,7 +228,7 @@
                                  <label for="name">Comment </label>
                             </div><!-- /.col-md-4 -->
                             <div class="col-md-8"> 
-                            <textarea [disabled]="disabledComment" class="form-control" aria-label="With textarea" id="Comment " name="Comment"></textarea>  <br>
+                            <textarea disabled class="form-control CommentClass" aria-label="With textarea" id="Comment " name="Comment" #Comment="ngModel" [(ngModel)]="model.Comment"></textarea>  <br>
                                   <a href="#/pages/resources/add-action-resources"  style="margin-left:  75%"><i class="fa fa-plus"></i><u> Add Action</u></a>
                             </div><!-- /.col-md-4 -->
                         </div><!-- /.row -->
@@ -196,10 +237,78 @@
                 <div class="row">
         <div class="col-md-12"  >
         
-            <button type="submit" class="btn btn-primary" style="margin-left:  65%">Save</button>
-            <button type="submit" class="btn btn-primary" style="margin-left: 1%">Cancel</button>
+            <button type="submit" class="btn btn-primary" style="margin-left:  65%" (click)="addResource(ResourceForm)" [disabled]="!ResourceForm.form.valid">Save</button>
+            <button type="submit" class="btn btn-default" style="margin-left: 1%;background:grey!important;color: white!important;border-radius: 0.75rem!important" (click)="Back()" >Cancel</button>
             <button type="submit" class="btn btn-danger" disabled style="margin-left: 1%">Delete</button>
         </div>
         </div> <!-- /.row -->
   </nb-card-body>
 </nb-card>
+<style type="text/css">#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+#snackbar2 {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar2.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}</style>
+<div id="snackbar">Resource added successfully</div>
+<div id="snackbar2">Sorry something went wrong</div>

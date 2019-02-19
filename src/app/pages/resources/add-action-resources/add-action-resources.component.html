@@ -1,6 +1,6 @@
 <nb-card>
   <nb-card-header>
-        New Resource
+        Process
   </nb-card-header>
   <nb-card-body>
   <form  >
@@ -18,11 +18,12 @@
                   <label for="name">Manager's Agreement</label>
               </div> 
               <div class="col-md-8">
-                  <div class="btn-group " data-toggle="buttons" style="width:100%;" >
+                  <div style="width:100%;" >
                       <label class="btn btn-default btn-off active" style="width:50%;"> 
-                      <input type="radio"  hidden name="Manager_agreement" value="Manadatory" id="Manadatory_Manager" checked="true" >Manadatory</label>
+
+                      <input  type="radio" hidden  [(ngModel)]="model.Manager_agreement" name="Manager_agreement" value="Manadatory" id="Manadatory_Manager" checked="true" >Manadatory</label>
                       <label class="btn btn-default btn-on " style="width:50%;" >
-                      <input type="radio"  hidden name="Manager_agreement" value="Optional" id="Optional_Manager"  >Optional</label>
+                      <input  type="radio" hidden [(ngModel)]="model.Manager_agreement"  name="Manager_agreement" value="Optional" id="Optional_Manager" s>Optional</label>
                   </div>
                      
               </div>
@@ -34,7 +35,7 @@
                   <label for="name"> Manager Name </label>
               </div>
               <div class="col-md-8">
-                  <select class="form-control" id="ManagerName " name="ManagerName"  >
+                  <select class="form-control" id="ManagerName " name="ManagerName" #ManagerName="ngModel" [(ngModel)]="model.ManagerName"  >
                   <option value="Manager">Manager</option>
                   </select>
                       </div>
@@ -48,11 +49,11 @@
                  <label for="name">Owner's Agreement</label>
               </div>
               <div class="col-md-8">
-                  <div class="btn-group " id="status" data-toggle="buttons" style="width:100%;" >
+                  <div  id="status"  style="width:100%;" >
                    <label class="btn btn-default btn-off active" style="width:50%;" > 
-                   <input type="radio" hidden name="Owner_agreement" value="Manadatory" id="Manadatory_Owner">Manadatory</label>
+                   <input type="radio" hidden [(ngModel)]="model.Owner_agreement" name="Owner_agreement" value="Manadatory" id="Manadatory_Owner">Manadatory</label>
                    <label class="btn btn-default btn-on " style="width:50%;">
-                  <input type="radio" hidden name="Owner_agreement" value="Optional" id="Optional_Owner">Optional</label>
+                  <input type="radio" hidden [(ngModel)]="model.Owner_agreement" name="Owner_agreement" value="Optional" id="Optional_Owner">Optional</label>
                  </div>
              </div>
           </div>
@@ -63,7 +64,7 @@
               <label for="name"> Owner Name </label>
               </div>
               <div class="col-md-8">
-                  <select class="form-control" id="OwnerName " name="OwnerName"   >
+                  <select class="form-control" id="OwnerName " name="OwnerName" #OwnerName="ngModel" [(ngModel)]="model.Owner_name"  >
                   <option value="OwnerName">OwnerName</option>
                   </select>
               </div>
@@ -77,12 +78,12 @@
                     <label for="name">IT's  Agreement</label>
                    </div>
                    <div class="col-md-8">
-                       <div class="btn-group "  data-toggle="buttons" style="width:100%;" >
+                       <div style="width:100%;" >
                            <label class="btn btn-default btn-off active" style="width:50%;" > 
-                           <input type="radio" hidden name="IT_agreement" value="Manadatory" id="Manadatory_IT">Manadatory</label>
+                           <input  type="radio" hidden [(ngModel)]="model.IT_agreement" name="IT_agreement" value="Manadatory" id="Manadatory_IT">Manadatory</label>
                         
                            <label class="btn btn-default btn-on " style="width:50%;" >
-                           <input type="radio" hidden name="IT_agreement" value="Optional" id="Optional_IT" >Optional</label>
+                           <input type="radio" hidden [(ngModel)]="model.IT_agreement" name="IT_agreement" value="Optional" id="Optional_IT">Optional</label>
                        </div>
                   </div>
           </div><!-- /.fin row -->
@@ -93,7 +94,7 @@
                    <label for="name"> IT Name </label>
               </div>
               <div class="col-md-8">
-                  <select class="form-control" id="ITOwner " name="ITOwner" >
+                  <select cclass="form-control" id="ITOwner " name="ITOwner" #ITOwner="ngModel" [(ngModel)]="model.IT_owner" >
                   <option value="ITOwner">ITname</option>
                   </select>
               </div>
@@ -107,11 +108,11 @@
                        <label for="name">Processus Type</label>
                   </div>
                   <div class="col-md-8">
-                      <div class="btn-group " data-toggle="buttons" style="width:100%;" >
+                      <div style="width:100%;" >
                       <label class="btn btn-default btn-off active" style="width: 50%" > 
-                      <input type="radio" hidden  name="Processus_type" value="script" id="_script"  >By script</label>
+                      <input type="radio" hidden [(ngModel)]="model.Processus_type" name="Processus_type" value="script" id="_script">By script</label>
                       <label class="btn btn-default btn-on " style="width: 50%" >
-                      <input type="radio" hidden name="Processus_type" value="process" id="_process"  >By process</label>
+                      <input type="radio" hidden [(ngModel)]="model.Processus_type" name="Processus_type" value="process" id="_process">By process</label>
                       </div> 
                   </div>
               </div><!-- /.fin row -->
@@ -122,7 +123,7 @@
                           <label for="name">Process </label>
                        </div>
                       <div class="col-md-8">
-                          <input type="text"  class="form-control"   id="Process " name="Process" >  
+                          <input  type="text"  class="form-control"   id="Process " name="Process" #Process="ngModel" [(ngModel)]="model.Process">  
                       </div>
                   </div><!-- /.fin row -->
           </div><!-- /.fin col-md-6  -->
@@ -134,7 +135,7 @@
                    <label for="name">Script</label>
               </div>
                <div class="col-md-8">
-               <input type="text"  class="form-control" id="Script " name="Script"  >  
+               <input type="text"  class="form-control" id="Script " name="Script" #Script="ngModel" [(ngModel)]="model.Script"   >  
                </div>
               </div>
        </div><!-- /.fin col-md-6  -->
@@ -146,7 +147,7 @@
       <div class="row">
         <div class="col-md-12"  >
         <span style="margin-left: 90%">
-        <button type="submit" class="btn btn-primary"  >Save</button>
+        <button type="submit" class="btn btn-primary"   (click)="addProcessus(ProcessusForm)">Save</button>
          </span>
         </div>
       </div>
@@ -169,11 +170,11 @@
                            <label for="name">Owner's Agreement</label>
                       </div>
                       <div class="col-md-8">
-                          <div class="btn-group " id="status" data-toggle="buttons" style="width: 100%" >
+                          <div  style="width: 100%" >
                           <label class="btn btn-default btn-off active" style="width: 50%" > 
-                          <input type="radio" hidden value="0" name="multifeatured_module1" >Manadatory</label>
+                          <input  type="radio" value="0" name="multifeatured_module[module_id][status]" >Manadatory</label>
                           <label class="btn btn-default btn-on " style="width: 50%" >
-                          <input type="radio"  hidden value="1" name="multifeatured_module2" checked="checked"  >Optional</label>
+                          <input type="radio" value="1" name="multifeatured_module[module_id][status]" checked="checked"  >Optional</label>
                           </div>
                      </div>
               </div><!-- /.fin row -->
@@ -198,11 +199,11 @@
                           <label for="name">IT's  Agreement</label>
                           </div>
                           <div class="col-md-8">
-                                  <div class="btn-group " id="status" data-toggle="buttons" style="width: 100%" >
+                                  <div  id="status" style="width: 100%" >
                                   <label class="btn btn-default btn-off active" style="width: 50%" > 
-                                  <input type="radio" hidden value="0" name="multifeatured_module3" >Manadatory</label>
+                                  <input type="radio" value="0" name="multifeatured_module[module_id][status]" >Manadatory</label>
                                   <label class="btn btn-default btn-on " style="width: 50%" >
-                                  <input type="radio" hidden value="1" name="multifeatured_module4" checked="checked"  >Optional</label>
+                                  <input type="radio" value="1" name="multifeatured_module[module_id][status]" checked="checked">Optional</label>
                                   </div>
                              </div>
                       </div><!-- /.fin row -->
@@ -227,11 +228,11 @@
                            <label for="name">Processus Type</label>
                       </div>
                       <div class="col-md-8">
-                              <div class="btn-group " id="status" data-toggle="buttons" style="width: 100%" >
+                              <div id="status" style="width: 100%" >
                               <label class="btn btn-default btn-off active" style="width: 50%" > 
-                              <input type="radio" hidden value="0" name="multifeatured_module5" >By script</label>
+                              <input type="radio" value="0" name="multifeatured_module[module_id][status]" >By script</label>
                               <label class="btn btn-default btn-on " style="width: 50%" >
-                              <input type="radio" hidden value="1" name="multifeatured_module6" checked="checked"  >By process</label>
+                              <input type="radio" value="1" name="multifeatured_module[module_id][status]" checked="checked"  >By process</label>
                               </div>
                          </div>
                   </div><!-- /.fin row -->
@@ -273,3 +274,71 @@
         </div>
   </nb-card-body>
 </nb-card>
+<style type="text/css">#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+#snackbar2 {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar2.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}</style>
+<div id="snackbar">Process added successfully</div>
+<div id="snackbar2">Sorry something went wrong</div>
