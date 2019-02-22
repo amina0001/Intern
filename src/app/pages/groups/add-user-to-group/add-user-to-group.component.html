@@ -1,36 +1,50 @@
-<nb-card>
-  <nb-card-header>
-    Users
-  </nb-card-header>
-  <nb-card-body>
-  	<style type="text/css">
-  	
-	</style>
-  	<a href="#/pages/users/add" class="btn btn-primary " style="float: right;margin-bottom: 1%"  ><i class="fa fa-plus"></i> Add user</a>
-    <ng2-smart-table class="resize" [settings]="settings" [source]="source" (custom)="onCustomAction($event)" (deleteConfirm)="onDeleteConfirm($event)">
-    </ng2-smart-table>
+<!-- <ngx-list-user-groups></ngx-list-user-groups>
+ -->
+ <nb-card>
+ 	<nb-card-body><style>
+  #sortable1, .sortable2, #sortable3,#id_1 {
+    border: 1px solid #eee;
+    width: 200px;
+    min-height: 200px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+    background:#F0F4F7;
+  }
+  #sortable1 li, .sortable2 li, #sortable3 li,#id_1 li {
+    margin: 0 5px 5px 5px;
 
+    font-size: 1.2em;
+    width: 180px;
+    word-wrap: break-word;
+  }
+  </style>
 
-<div >
-<ng-template #contentTemplate let-data >
-  <p></p>
-</ng-template>
+<div class="row">
+ <div class="col-md-3">
+<ul id="sortable1" class="connectedSortable">
+  <li class="ui-state-default" *ngFor="let item of todo" (click)="sortable($event)">{{item}}</li>
 
-<ng-template #disabledEsc >
-  Do you really want to delete this user?
-  <br>
-  <br>
-   <div class="row">
-  <div style="margin-left: 40%;">
-   
-  <button class="btn btn-danger" (click)="deleteUser()">yes</button>&nbsp;
-   <button class="btn btn-default" (click)="fade()"  style="margin-left: 1%;background:#bfbdbd;color: white">no</button>&nbsp;
+</ul>
+</div>
+<div class="col-md-9">
+<div class=" col-md-3 "  *ngFor="let group of done, let i=index">
+    <h6>{{group.Name}}</h6>
+
+<ul id="id_{{i+1}}"  class="connectedSortable sortable2" >
+	<li class="ui-state-highlight" style="background: #F0F4F7;position: fixed;top:0px">{{group.Name}}</li>
+  <li class="ui-state-highlight"  *ngFor="let item of group.Member" (click)="sortable($event)">{{item}}</li>
+
+</ul>
 </div>
 </div>
-</ng-template>
 </div>
-  </nb-card-body>
-</nb-card>
+</nb-card-body>
+ </nb-card>
+ <script>
+</script>
 <style type="text/css">#snackbar {
   visibility: hidden; /* Hidden by default. Visible on click */
   min-width: 250px; /* Set a default minimum width */
@@ -97,5 +111,5 @@
   from {bottom: 30px; opacity: 1;}
   to {bottom: 0; opacity: 0;}
 }</style>
-<div id="snackbar">User deleted successfully</div>
+<div id="snackbar">User added to group successfully</div>
 <div id="snackbar2">Sorry something went wrong</div>

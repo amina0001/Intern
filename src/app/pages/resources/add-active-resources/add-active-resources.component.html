@@ -28,7 +28,7 @@
                     </div>
                     <div class="col-md-8">
                          <select class="form-control" id="Categorize" name="Categorize" #Categorize="ngModel" [(ngModel)]="model.Categorize" required >
-                         <option value="Poste de travail" disabled="">--Choose Category--</option>
+                         <option value="#" disabled="" selected>--Choose Category--</option>
 
                         <option value="Poste de travail">Poste de travail</option>
                         </select>
@@ -237,9 +237,8 @@
                 <div class="row">
         <div class="col-md-12"  >
         
-            <button type="submit" class="btn btn-primary" style="margin-left:  65%" (click)="addResource(ResourceForm)" [disabled]="!ResourceForm.form.valid">Save</button>
-            <button type="submit" class="btn btn-default" style="margin-left: 1%;background:grey!important;color: white!important;border-radius: 0.75rem!important" (click)="Back()" >Cancel</button>
-            <button type="submit" class="btn btn-danger" disabled style="margin-left: 1%">Delete</button>
+            <button type="submit" class="btn btn-primary" style="margin-left:  75%" (click)="addResource(ResourceForm)" [disabled]="!ResourceForm.form.valid">Save</button>
+            <button type="submit" class="btn btn-default" style="margin-left: 1%;background:grey!important;color: white!important;border-radius: 0.75rem!important" (click)="back()"  >Cancel</button>
         </div>
         </div> <!-- /.row -->
   </nb-card-body>

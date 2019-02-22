@@ -18,12 +18,12 @@
                   <label for="name">Manager's Agreement</label>
               </div> 
               <div class="col-md-8">
-                  <div style="width:100%;" >
+                  <div  class="btn-group " data-toggle="buttons" style="width:100%;" >
                       <label class="btn btn-default btn-off active" style="width:50%;"> 
 
                       <input  type="radio" hidden  [(ngModel)]="model.Manager_agreement" name="Manager_agreement" value="Manadatory" id="Manadatory_Manager" checked="true" >Manadatory</label>
                       <label class="btn btn-default btn-on " style="width:50%;" >
-                      <input  type="radio" hidden [(ngModel)]="model.Manager_agreement"  name="Manager_agreement" value="Optional" id="Optional_Manager" s>Optional</label>
+                      <input  type="radio" hidden [(ngModel)]="model.Manager_agreement"  name="Manager_agreement" value="Optional" id="Optional_Manager" >Optional</label>
                   </div>
                      
               </div>
@@ -38,6 +38,9 @@
                   <select class="form-control" id="ManagerName " name="ManagerName" #ManagerName="ngModel" [(ngModel)]="model.ManagerName"  >
                   <option value="Manager">Manager</option>
                   </select>
+                  <div *ngIf="ManagerName.errors && (ManagerName.dirty || ManagerName.touched)" class="alert alert-danger">
+                           Required (Please select manager name ).
+                                </div>
                       </div>
            </div>  <!-- /.row  -->
       </div> <!-- /.fin col-md-6  -->
@@ -49,7 +52,7 @@
                  <label for="name">Owner's Agreement</label>
               </div>
               <div class="col-md-8">
-                  <div  id="status"  style="width:100%;" >
+                  <div  class="btn-group " data-toggle="buttons" id="status"  style="width:100%;" >
                    <label class="btn btn-default btn-off active" style="width:50%;" > 
                    <input type="radio" hidden [(ngModel)]="model.Owner_agreement" name="Owner_agreement" value="Manadatory" id="Manadatory_Owner">Manadatory</label>
                    <label class="btn btn-default btn-on " style="width:50%;">
@@ -67,6 +70,9 @@
                   <select class="form-control" id="OwnerName " name="OwnerName" #OwnerName="ngModel" [(ngModel)]="model.Owner_name"  >
                   <option value="OwnerName">OwnerName</option>
                   </select>
+                       <div *ngIf="OwnerName.errors && (OwnerName.dirty || OwnerName.touched)" class="alert alert-danger">
+                           Required (Please select owner name ).
+                                </div>
               </div>
           </div><!-- /.row  -->
       </div><!-- /.fin col-md-6  -->
@@ -78,7 +84,7 @@
                     <label for="name">IT's  Agreement</label>
                    </div>
                    <div class="col-md-8">
-                       <div style="width:100%;" >
+                       <div  class="btn-group " data-toggle="buttons" style="width:100%;" >
                            <label class="btn btn-default btn-off active" style="width:50%;" > 
                            <input  type="radio" hidden [(ngModel)]="model.IT_agreement" name="IT_agreement" value="Manadatory" id="Manadatory_IT">Manadatory</label>
                         
@@ -94,9 +100,12 @@
                    <label for="name"> IT Name </label>
               </div>
               <div class="col-md-8">
-                  <select cclass="form-control" id="ITOwner " name="ITOwner" #ITOwner="ngModel" [(ngModel)]="model.IT_owner" >
+                  <select class="form-control" id="ITOwner " name="ITOwner" #ITOwner="ngModel" [(ngModel)]="model.IT_owner" >
                   <option value="ITOwner">ITname</option>
                   </select>
+                         <div *ngIf="ITOwner.errors && (ITOwner.dirty || ITOwner.touched)" class="alert alert-danger">
+                           Required (Please select IT owner  ).
+                                </div>
               </div>
           </div><!-- /.fin row -->
       </div><!-- /.fin col-md-6  -->
@@ -107,7 +116,7 @@
                   <div class="col-md-4">  
                        <label for="name">Processus Type</label>
                   </div>
-                  <div class="col-md-8">
+                  <div  class="btn-group " data-toggle="buttons" class="col-md-8">
                       <div style="width:100%;" >
                       <label class="btn btn-default btn-off active" style="width: 50%" > 
                       <input type="radio" hidden [(ngModel)]="model.Processus_type" name="Processus_type" value="script" id="_script">By script</label>
@@ -123,7 +132,10 @@
                           <label for="name">Process </label>
                        </div>
                       <div class="col-md-8">
-                          <input  type="text"  class="form-control"   id="Process " name="Process" #Process="ngModel" [(ngModel)]="model.Process">  
+                          <input  type="text"  class="form-control"   id="Process " name="Process" #Process="ngModel" [(ngModel)]="model.Process" required minlength="3" maxlength="20" >  
+                            <div *ngIf="Process.errors && (Process.dirty || Process.touched)" class="alert alert-danger">
+                           Required (Please select Process  ).
+                                </div>  
                       </div>
                   </div><!-- /.fin row -->
           </div><!-- /.fin col-md-6  -->
@@ -136,6 +148,9 @@
               </div>
                <div class="col-md-8">
                <input type="text"  class="form-control" id="Script " name="Script" #Script="ngModel" [(ngModel)]="model.Script"   >  
+               <div *ngIf="Script.errors && (Script.dirty || Script.touched)" class="alert alert-danger">
+                           Required (Please select Script  ).
+                                </div>
                </div>
               </div>
        </div><!-- /.fin col-md-6  -->
@@ -146,8 +161,10 @@
   <hr>
       <div class="row">
         <div class="col-md-12"  >
-        <span style="margin-left: 90%">
+        <span style="margin-left: 80%">
         <button type="submit" class="btn btn-primary"   (click)="addProcessus(ProcessusForm)">Save</button>
+          <button type="submit" class="btn btn-default" (click)="back()" style="margin-left: 1%;background:grey!important;color: white!important;border-radius: 0.75rem!important">back</button>
+
          </span>
         </div>
       </div>
@@ -169,12 +186,12 @@
                       <div class="col-md-4">  
                            <label for="name">Owner's Agreement</label>
                       </div>
-                      <div class="col-md-8">
+                      <div  class="btn-group " data-toggle="buttons" class="col-md-8">
                           <div  style="width: 100%" >
                           <label class="btn btn-default btn-off active" style="width: 50%" > 
-                          <input  type="radio" value="0" name="multifeatured_module[module_id][status]" >Manadatory</label>
+                          <input  hidden type="radio" value="0"  [(ngModel)]="model.Owner_agreement" name="multifeatured_module[module_id][status]" >Manadatory</label>
                           <label class="btn btn-default btn-on " style="width: 50%" >
-                          <input type="radio" value="1" name="multifeatured_module[module_id][status]" checked="checked"  >Optional</label>
+                          <input hidden type="radio" value="1"  [(ngModel)]="model.Owner_agreement"  name="multifeatured_module[module_id][status]" checked="checked"  >Optional</label>
                           </div>
                      </div>
               </div><!-- /.fin row -->
@@ -185,9 +202,9 @@
                       <label for="name"> Owner Name </label>
                       </div>
                       <div class="col-md-8">
-                      <select class="form-control" id="exampleFormControlSelect1">
-                      <option value="Owner"></option>
-                      </select>
+                       <select class="form-control" id="OwnerName " name="OwnerName" >
+                  <option value="OwnerName">OwnerName</option>
+                  </select>
                       </div>
               </div><!-- /.fin row -->
           </div><!-- /.fin col-md-6  -->
@@ -199,11 +216,11 @@
                           <label for="name">IT's  Agreement</label>
                           </div>
                           <div class="col-md-8">
-                                  <div  id="status" style="width: 100%" >
+                                  <div  class="btn-group " data-toggle="buttons"  id="status" style="width: 100%" >
                                   <label class="btn btn-default btn-off active" style="width: 50%" > 
-                                  <input type="radio" value="0" name="multifeatured_module[module_id][status]" >Manadatory</label>
+                                  <input hidden type="radio" value="0" [(ngModel)]="model.IT_agreement" name="multifeatured_module[module_id][status]" >Manadatory</label>
                                   <label class="btn btn-default btn-on " style="width: 50%" >
-                                  <input type="radio" value="1" name="multifeatured_module[module_id][status]" checked="checked">Optional</label>
+                                  <input hidden type="radio" value="1"  [(ngModel)]="model.IT_agreement"  name="multifeatured_module[module_id][status]" checked="checked">Optional</label>
                                   </div>
                              </div>
                       </div><!-- /.fin row -->
@@ -214,9 +231,9 @@
                               <label for="name"> IT Name </label>
                           </div>
                           <div class="col-md-8">
-                              <select class="form-control" id="exampleFormControlSelect1">
-                              <option></option>
-                              </select>
+                               <select class="form-control" id="ITOwner " name="ITOwner" >
+                  <option value="ITOwner">ITname</option>
+                  </select>
                           </div>
                       </div><!-- /.fin row -->
                   </div><!-- /.fin col-md-6  -->
@@ -227,12 +244,12 @@
                        <div class="col-md-4">  
                            <label for="name">Processus Type</label>
                       </div>
-                      <div class="col-md-8">
+                      <div  class="btn-group " data-toggle="buttons" class="col-md-8">
                               <div id="status" style="width: 100%" >
                               <label class="btn btn-default btn-off active" style="width: 50%" > 
-                              <input type="radio" value="0" name="multifeatured_module[module_id][status]" >By script</label>
+                              <input hidden type="radio" value="0" [(ngModel)]="model.Processus_type"  name="multifeatured_module[module_id][status]" >By script</label>
                               <label class="btn btn-default btn-on " style="width: 50%" >
-                              <input type="radio" value="1" name="multifeatured_module[module_id][status]" checked="checked"  >By process</label>
+                              <input hidden type="radio" value="1" [(ngModel)]="model.Processus_type"  name="multifeatured_module[module_id][status]" checked="checked"  >By process</label>
                               </div>
                          </div>
                   </div><!-- /.fin row -->
@@ -243,8 +260,7 @@
                       <label for="name">Process </label>
                       </div>
                       <div class="col-md-8" >
-                       <input type="text"  class="form-control" style="width: 100%"  >  
-                      </div>
+<input  type="text"  class="form-control"   id="Process " name="Process" >                        </div>
                   </div><!-- /.fin row -->
               </div><!-- /.fin col-md-6  -->
           </div><!-- /.fin row3 -->
@@ -255,7 +271,7 @@
                               <label for="name">Script</label>
                           </div>
                           <div class="col-md-8">
-                              <input type="text"  class="form-control" style="width: 100%">  
+               <input type="text"  class="form-control" id="Script " name="Script"  >  
                            </div> 
                   </div><!-- /.fin row -->
                </div><!-- /.fin col-md-6  -->
@@ -265,13 +281,17 @@
   <div >
           <div class="row">
             <div class="col-md-12"  >
-            <span style="margin-left: 90%">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <span style="margin-left: 80%">
+            <button type="submit" class="btn btn-primary" (click)="addProcessus(ProcessusForm)">Save</button>
+            <button type="submit" class="btn btn-primary" (click)="back()" style="margin-left: 1%;background:grey!important;color: white!important;border-radius: 0.75rem!important">back</button>
+
              </span>
             </div>
           </div>
           <!-- /.row -->
         </div>
+        <hr>
+
   </nb-card-body>
 </nb-card>
 <style type="text/css">#snackbar {

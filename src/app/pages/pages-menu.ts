@@ -52,6 +52,21 @@ export const MENU_ITEMS: NbMenuItem[] = [
       }
     ],
   },
+   
+   {
+    title: 'Groups',
+    icon: 'nb-list',
+    children: [
+      {
+        title: 'Manage Groups',
+        link: '/pages/groups/users',
+      },
+      {
+        title: 'Add users To group ',
+        link: '/pages/groups/add-users',
+      }
+    ],
+  },
   {
     title: 'Resources',
     icon: 'nb-e-commerce',
@@ -62,7 +77,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Pending Resources',
-        link: '/pages/resources/resource',
+        link: '/pages/resources/pending-resources',
       },
       {
         title: 'Archiveved Resources',

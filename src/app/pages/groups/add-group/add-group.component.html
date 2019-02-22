@@ -1,0 +1,134 @@
+
+<nb-card>
+  <nb-card-header>
+    New Group
+  </nb-card-header>
+  <nb-card-body>
+
+    <form  #UserForm="ngForm" novalidate>
+  	      <div class="row">
+                <div class="col-md-6">
+                 <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-4">  
+                        <label for="name" >Name <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text"  class="form-control" [(ngModel)]="model.Name" #Name="ngModel" name="Name" required minlength="3" maxlength="20" >  
+                       <div *ngIf="Name.errors && (Name.dirty || Name.touched)" class="alert alert-danger">
+                        <div [hidden]="!Name.errors.required">
+                          Name is required!
+                        </div>
+                           <div [hidden]="!Name.errors.minlength">
+                          Name must be at least 3 characters long.
+                        </div>
+                        <div [hidden]="!Name.errors.maxlength">
+                          Name cannot be more than 20 characters long.
+                        </div>
+                    </div>  
+                      
+                </div>
+            </div>
+                </div> <!-- /.col-md-6 -->
+                 <div class="col-md-6">
+                 <div class="row"  style="margin-bottom: 5px">
+                    <div class="col-md-4">  
+                        <label for="name" >Description  <span style="color: red">(*)</span></label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text"  class="form-control" [(ngModel)]="model.Description " #Description ="ngModel" name="Description " required minlength="3" maxlength="20" >  
+                       <div *ngIf="Description .errors && (Description .dirty || Description .touched)" class="alert alert-danger">
+                        <div [hidden]="!Description .errors.required">
+                          Description  is required!
+                        </div>
+                           <div [hidden]="!Description .errors.minlength">
+                          Description  must be at least 3 characters long.
+                        </div>
+                        <div [hidden]="!Description .errors.maxlength">
+                          Description  cannot be more than 20 characters long.
+                        </div>
+                    </div>  
+                      
+                </div>
+            </div>
+                </div> <!-- /.col-md-6 -->
+            </div> <!-- /.row1 -->
+         
+                           <div class="row">
+          <div class="col-md-12"  >
+              <button type="submit" class="btn btn-primary" [disabled]="!UserForm.form.valid" (click)="addGroup()" style="margin-left: 79%;margin-right:1%">Save</button>
+              <button type="submit" class="btn btn-default" (click)="Back()" style="background:grey!important;color: white!important">Cancel</button>
+            
+          </div>
+        </div>
+    </form>
+
+  </nb-card-body>
+</nb-card>
+<style type="text/css">#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+#snackbar2 {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar2.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}</style>
+<div id="snackbar">User added successfully</div>
+<div id="snackbar2">Sorry something went wrong</div>

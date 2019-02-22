@@ -1,12 +1,13 @@
+
+
+
 <nb-card>
   <nb-card-header>
-    Users
+    Groups
   </nb-card-header>
   <nb-card-body>
-  	<style type="text/css">
   	
-	</style>
-  	<a href="#/pages/users/add" class="btn btn-primary " style="float: right;margin-bottom: 1%"  ><i class="fa fa-plus"></i> Add user</a>
+  	<a href="#/pages/groups/add" class="btn btn-primary " style="float: right;margin-bottom: 1%"  ><i class="fa fa-plus"></i> Add group</a>
     <ng2-smart-table class="resize" [settings]="settings" [source]="source" (custom)="onCustomAction($event)" (deleteConfirm)="onDeleteConfirm($event)">
     </ng2-smart-table>
 
@@ -17,13 +18,13 @@
 </ng-template>
 
 <ng-template #disabledEsc >
-  Do you really want to delete this user?
+  Do you really want to delete this group?
   <br>
   <br>
    <div class="row">
   <div style="margin-left: 40%;">
    
-  <button class="btn btn-danger" (click)="deleteUser()">yes</button>&nbsp;
+  <button class="btn btn-danger" (click)="deleteGroup()">yes</button>&nbsp;
    <button class="btn btn-default" (click)="fade()"  style="margin-left: 1%;background:#bfbdbd;color: white">no</button>&nbsp;
 </div>
 </div>
@@ -97,5 +98,5 @@
   from {bottom: 30px; opacity: 1;}
   to {bottom: 0; opacity: 0;}
 }</style>
-<div id="snackbar">User deleted successfully</div>
+<div id="snackbar">Group deleted successfully</div>
 <div id="snackbar2">Sorry something went wrong</div>

@@ -94,14 +94,41 @@ constructor( private http: HttpClient,
   
     }
   onCustomAction(event) {
-    console.log(event.data.Username)
-  this.UserService.ReactiveUser(event.data.Username).subscribe();
-      this.event_data =event.data;
+ this.windowService.open(
+      this.disabledEscTemplate,
+      {
+        title: 'Delete user',
+        hasBackdrop: true,
+        closeOnEsc: true,
+      },
+    );
+
+      $(".cdk-overlay-container").css('display','initial');
+
+  
+  this.event_id = event.data.Username;
+    this.event_data =event.data;
+}
+
+deleteUser(){
+   
+  this.UserService.ReactiveUser(this.event_id ).subscribe();
 
        this.source.remove(this.event_data);
 
-  // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
+    $(".cdk-overlay-container").css('display','none');
+
+ var x = document.getElementById("snackbar");
+          x.className = "show";
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);
+
 }
+fade(){
+     $(".cdk-overlay-container").css('display','none');
+
+
+}
+
 ourshowAction(event) {
          $(".cdk-overlay-container").css('display','none');
 

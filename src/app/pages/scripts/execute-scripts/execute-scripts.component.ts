@@ -38,22 +38,12 @@ export class ExecuteScriptComponent implements OnInit {
     constructor(
                private _fb: FormBuilder,  private ScriptService : ScriptsPowerShellService,
                private router: Router,private route:ActivatedRoute,private ngxService: NgxUiLoaderService) {
-       this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
-    // Stop the foreground loading after 5s
-    setTimeout(() => {
-      this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
-    }, 1000);
- 
-    // OR
-    this.ngxService.startBackground('do-background-things');
-    // Do something here...
-    this.ngxService.stopBackground('do-background-things');
- 
-    this.ngxService.startLoader('loader-01'); // start foreground spinner of the loader "loader-01" with 'default' taskId
-    // Stop the foreground loading after 5s
-    setTimeout(() => {
-      this.ngxService.stopLoader('loader-01'); // stop foreground spinner of the loader "loader-01" with 'default' taskId
-    }, 1000);
+        this.ngxService.start(); 
+          setTimeout(() => {
+            this.ngxService.stop(); 
+          }, 300);
+       
+         
            this.hiddenSCP=true
            this.hiddenNull=true
               this.createForm();
@@ -129,7 +119,9 @@ executeScript()
     this.ScriptService.executeScript("powershell -command " +this.allScript).subscribe(data => {
       console.log(data)   
         if (data==null){
-            this.hiddenNull=false
+             var x = document.getElementById("snackbar");
+          x.className = "show";
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
         } 
       },
    error=>{
@@ -143,22 +135,11 @@ executeScript()
          
         }
       })
-    this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
-    // Stop the foreground loading after 5s
-    setTimeout(() => {
-      this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
-    }, 1000);
- 
-    // OR
-    this.ngxService.startBackground('do-background-things');
-    // Do something here...
-    this.ngxService.stopBackground('do-background-things');
- 
-    this.ngxService.startLoader('loader-01'); // start foreground spinner of the loader "loader-01" with 'default' taskId
-    // Stop the foreground loading after 5s
-    setTimeout(() => {
-      this.ngxService.stopLoader('loader-01'); // stop foreground spinner of the loader "loader-01" with 'default' taskId
-    }, 1000);
+   this.ngxService.start(); 
+          setTimeout(() => {
+            this.ngxService.stop(); 
+          }, 300);
+
 
     
   }   

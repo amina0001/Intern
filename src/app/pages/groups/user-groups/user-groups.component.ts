@@ -7,15 +7,13 @@ import { NbWindowRef } from '@nebular/theme';
 
 import {BreadcrumbsService} from "ng6-breadcrumbs";
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { UserService } from '../../../@core/data/users.service';
-import { user } from '../../../@core/models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { GroupService } from '../../../@core/data/group.service';
 
 import * as $ from 'jquery';
 @Component({
-  selector: 'ngx-add-user',
-  templateUrl: './active-user.component.html',
+  selector: 'ngx-user-groups',
+  templateUrl: './user-groups.component.html',
   styles: [`
 
     :host /deep/ ng2-st-tbody-custom {
@@ -26,11 +24,13 @@ import * as $ from 'jquery';
        
 
   `],
-   providers: [ UserService]
+    providers: [ GroupService ]
+
 })
 
-export class ActiveUserComponent implements OnInit {
-  response: any=[];
+export class UserGroupsComponent {
+ 
+ response: any=[];
   event_id: string;
     event_data:any;
 
@@ -52,19 +52,16 @@ export class ActiveUserComponent implements OnInit {
 },
     columns: {
  
-      FirstName: {
-        title: 'First Name',
+      Name: {
+        title: 'Name',
         type: 'string',
       },
-      LastName: {
-        title: 'Last Name',
+     
+       Description: {
+        title: 'Description',
         type: 'string',
       },
-      Username: {
-        title: 'Username',
-        type: 'string',
-      },
-      
+   
      
      
     },
@@ -75,30 +72,26 @@ export class ActiveUserComponent implements OnInit {
 constructor(  private http: HttpClient,
                private routers: Router,
                private breadcrumbs:BreadcrumbsService,
-               private UserService : UserService,
                private windowService: NbWindowService,
+               private GroupService : GroupService,
                private route: ActivatedRoute,
             ) {
              
       
-
-        
-      this.response =  this.UserService.activeUsers().subscribe(result => {
+    
+      this.response =  this.GroupService.Group().subscribe(result => {
                            this.response = result;
                            console.log("s"+this.response.id );
                             this.source.load(this.response);
                          });
-            $(".cdk-overlay-container").css('display','none');
-
-      console.log("hey"+this.response );
-  
+   
     }
-
   onCustomAction(event) {
-            this.routers.navigate(['/pages/users/update', {p1: event.data.Username}]) ;
+            this.routers.navigate(['/pages/groups/update-groupe', {p1: event.data.Name}]) ;
             console.log(event.data.Username);
 
 }
+
 
 
  onDeleteConfirm(event): void {
@@ -115,15 +108,15 @@ constructor(  private http: HttpClient,
 
       $(".cdk-overlay-container").css('display','initial');
 
-  this.event_id = event.data.Username;
+  this.event_id = event.data.Name;
     this.event_data =event.data;
 
   console.log("event"+this.event_id);
 }
 
-deleteUser(){
-  console.log("ssshhh"+this.event_id);
-  this.UserService.deleteUser(this.event_id).subscribe();
+deleteGroup(){
+   console.log("ssshhh"+this.event_id);
+  this.GroupService.deleteGroup(this.event_id).subscribe();
   this.source.refresh();
      this.source.remove(this.event_data);
 
@@ -141,12 +134,7 @@ fade(){
 }
 
  ngOnInit() {
-      this.response =  this.UserService.activeUsers().subscribe(result => {
-                           this.response = result;
-                           console.log("s"+this.response.id );
-                            this.source.load(this.response);
-                         });
- 
+  
   }
 
 }

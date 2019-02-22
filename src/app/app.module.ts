@@ -17,6 +17,7 @@ import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbsModule} from "ng6-breadcrumbs";
 import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from  'ngx-ui-loader';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +35,7 @@ import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from  'ngx-ui-loader';
     NgxUiLoaderHttpModule, // import NgxUiLoaderHttpModule. By default, it will show background loader.
     // If you need to show foreground spinner, do as follow:
     // NgxUiLoaderHttpModule.forRoot({ showForeground: true })
-
+    DragDropModule,
    NbAuthModule.forRoot({
          strategies: [
            NbPasswordAuthStrategy.setup({

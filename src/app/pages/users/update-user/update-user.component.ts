@@ -58,6 +58,8 @@ this.model.JobTitle=data[0].JobTitle
 
  updateUser(){ 
 console.log(this.model)
+      this.ngxService.start(); 
+
     this.UserService.uptadeUser(this.model).subscribe(data =>  {
 
 
@@ -66,31 +68,18 @@ console.log(this.model)
   (error)=>
   { 
       console.log(error['error'].text);
-this.ngxService.start(); // start foreground spinner of the master loader with 'default' taskId
-    // Stop the foreground loading after 5s
-    setTimeout(() => {
-      this.ngxService.stop(); // stop foreground spinner of the master loader with 'default' taskId
-    }, 700);
- 
-    // OR
-    this.ngxService.startBackground('do-background-things');
-    // Do something here...
-    this.ngxService.stopBackground('do-background-things');
- 
-    this.ngxService.startLoader('loader-01'); // start foreground spinner of the loader "loader-01" with 'default' taskId
-    // Stop the foreground loading after 5s
-    setTimeout(() => {
-      this.ngxService.stopLoader('loader-01'); // stop foreground spinner of the loader "loader-01" with 'default' taskId
-    }, 700);
+    
       if(error['error'].text=="Success")
      { 
+            this.ngxService.stop(); 
+       
           var x = document.getElementById("snackbar");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);
     }else{
          var x = document.getElementById("snackbar2");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);
     }
       });
 

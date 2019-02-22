@@ -87,43 +87,26 @@ if ($('#Disabled').prop("checked")== false && $('#Enabled').prop("checked")== fa
 }
 console.log(this.model);
   this.ResourceService.addResource(this.model).subscribe(data => {
- this.ngxService.start(); 
+ 
+       this.ngxService.start(); 
           setTimeout(() => {
             this.ngxService.stop(); 
-          }, 700);
-       
-          // OR
-          this.ngxService.startBackground('do-background-things');
-          // Do something here...
-          this.ngxService.stopBackground('do-background-things');
-       
-          this.ngxService.startLoader('loader-01'); 
-          setTimeout(() => {
-            this.ngxService.stopLoader('loader-01');
-          }, 700);  var x = document.getElementById("snackbar");
+          }, 300);
+           var x = document.getElementById("snackbar");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);  
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
     }),
 
 (error)=>
 {
    this.ngxService.start(); 
+          this.ngxService.start(); 
           setTimeout(() => {
             this.ngxService.stop(); 
-          }, 700);
-       
-          // OR
-          this.ngxService.startBackground('do-background-things');
-          // Do something here...
-          this.ngxService.stopBackground('do-background-things');
-       
-          this.ngxService.startLoader('loader-01'); 
-          setTimeout(() => {
-            this.ngxService.stopLoader('loader-01');
-          }, 700);  
+          }, 300);
            var x = document.getElementById("snackbar2");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);  
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
           console.log(error['error'].text)};
 }
 
@@ -255,7 +238,7 @@ comment()
  }
 })
 }
- Back()
+ back()
   {
   this.routers.navigate(['/pages/resources/active-resources']) 
   }

@@ -14,7 +14,7 @@ import * as $ from 'jquery';
 @Component({
   selector: 'ng-add-action-resources',
   templateUrl: './add-action-resources.component.html',
-  styleUrls: ['./add-action-resources.component.css'],
+  styleUrls: ['./add-action-resources.component.css','./add-action-resources.component.scss'],
        providers: [ ProcessusService]
 
 })
@@ -28,7 +28,7 @@ export class AddActionResourcesComponent{
    
    }
 	addProcessus(processus)
-  {
+  {console.log(this.model)
    // console.log($('#Manadatory_Manager').button('toggle')[0])
    if ($('#Manadatory_Manager').prop("checked")== false && $('#Optional_Manager').prop("checked")== false )
    {
@@ -84,41 +84,27 @@ export class AddActionResourcesComponent{
 
 
     this.ProcessusService.addProcessus(this.model).subscribe(data => {
-    	this.ngxService.start(); 
+    	 this.ngxService.start(); 
           setTimeout(() => {
             this.ngxService.stop(); 
-          }, 700);
-       
-          // OR
-          this.ngxService.startBackground('do-background-things');
-          // Do something here...
-          this.ngxService.stopBackground('do-background-things');
-       
-          this.ngxService.startLoader('loader-01'); 
-          setTimeout(() => {
-            this.ngxService.stopLoader('loader-01');
-          }, 700);  var x = document.getElementById("snackbar");
+          }, 300);
+          var x = document.getElementById("snackbar");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);  
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
     }),
 (error)=>
-{ this.ngxService.start(); 
+{  this.ngxService.start(); 
           setTimeout(() => {
             this.ngxService.stop(); 
-          }, 700);
-       
-          // OR
-          this.ngxService.startBackground('do-background-things');
-          // Do something here...
-          this.ngxService.stopBackground('do-background-things');
-       
-          this.ngxService.startLoader('loader-01'); 
-          setTimeout(() => {
-            this.ngxService.stopLoader('loader-01');
-          }, 700);  var x = document.getElementById("snackbar2");
+          }, 300);
+           var x = document.getElementById("snackbar2");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);  
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
   console.log(error);
 };
+  }
+  back()
+  {
+  this.routers.navigate(['/pages/resources/add-active-resources']) 
   }
 }

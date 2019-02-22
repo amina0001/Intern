@@ -42,6 +42,9 @@ const routes: Routes = [{
   },{
     path: 'settings',
     loadChildren: './settings/settings.module#SettingsModule',
+  },{
+    path: 'groups',
+    loadChildren: './groups/groups.module#GroupsModule',
   }, {
     path: 'users',
     loadChildren: './users/users.module#UsersModule',

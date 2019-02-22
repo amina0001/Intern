@@ -38,7 +38,8 @@
               "node_modules/angular-tree-component/dist/angular-tree-component.css",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "node_modules/leaflet/dist/leaflet.css",
-              "src/app/@theme/styles/styles.scss"
+              "src/app/@theme/styles/styles.scss",
+              "node_modules/jquery-ui-dist/jquery-ui.min.css"
             ],
             "scripts": [
               "node_modules/pace-js/pace.min.js",
@@ -51,7 +52,10 @@
               "node_modules/echarts/dist/extension/bmap.min.js",
               "node_modules/chart.js/dist/Chart.min.js",
               "node_modules/jquery/dist/jquery.min.js",
+
               "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/jquery-ui-dist/jquery-ui.min.js"
+
             ]
           },
           "configurations": {

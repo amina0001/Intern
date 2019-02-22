@@ -9,6 +9,10 @@ export class userdeleted {
   username;
   homephone;
 }
+export class userGroup {
+  UserName;
+  GroupeName;
+}
 @Injectable()
 
 export class UserService {
@@ -30,7 +34,7 @@ export class UserService {
   public activeUsers()
   {  
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
-    return this.http.get(this.apiUrl+'/formytek/public/api/userliste1' ,{ headers: reqHeader });
+    return this.http.get<any[]>(this.apiUrl+'/formytek/public/api/userliste1' ,{ headers: reqHeader });
   }
   public deleteUsers()
   {  
@@ -66,6 +70,17 @@ export class UserService {
      // {'username':user.username,'password':user.password,'lastname':user.lastname,'firstname':user.firstname,'company':user.company,'department':user.department,'jobTitle':user.jobTitle,'mail':user.mail,'officephone':user.officephone,'fax':user.fax,'cellphone':user.cellphone,'ddi':user.ddi,'homephone':user.homephone} 
     var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
     return this.http.post(this.apiUrl+'/formytek/public/api/AddusertoAD',JSON.stringify(user),{ headers: reqHeader });
+   }
+   public addUserToGroup(Username,Name)
+   {     const body: userGroup = {
+      UserName :Username,
+      GroupeName:Name,
+      
+    }
+     console.log(JSON.stringify(userGroup) )
+     // {'username':user.username,'password':user.password,'lastname':user.lastname,'firstname':user.firstname,'company':user.company,'department':user.department,'jobTitle':user.jobTitle,'mail':user.mail,'officephone':user.officephone,'fax':user.fax,'cellphone':user.cellphone,'ddi':user.ddi,'homephone':user.homephone} 
+    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
+    return this.http.post(this.apiUrl+'/formytek/public/api/addusergroupe',body,{ headers: reqHeader });
    }
    public uptadeUser(user)
    {   

@@ -34,21 +34,13 @@ export class AddScriptComponent{
        this.ngxService.start(); 
           setTimeout(() => {
             this.ngxService.stop(); 
-          }, 700);
+          }, 300);
        
-          // OR
-          this.ngxService.startBackground('do-background-things');
-          // Do something here...
-          this.ngxService.stopBackground('do-background-things');
-       
-          this.ngxService.startLoader('loader-01'); 
-          setTimeout(() => {
-            this.ngxService.stopLoader('loader-01');
-          }, 700);
+         
           
           var x = document.getElementById("snackbar");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);  
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
     },
   (error)=>
   { console.log(error['error'].text)
@@ -57,28 +49,20 @@ export class AddScriptComponent{
             this.ngxService.stop(); 
           }, 700);
        
-          // OR
-          this.ngxService.startBackground('do-background-things');
-          // Do something here...
-          this.ngxService.stopBackground('do-background-things');
-       
-          this.ngxService.startLoader('loader-01'); 
-          setTimeout(() => {
-            this.ngxService.stopLoader('loader-01');
-          }, 700);
+         
         if(error['error'].text=='Success')
         {
             
 
           var x = document.getElementById("snackbar");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);  
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
           console.log(error['error'].text)
          
         }else{
            var x = document.getElementById("snackbar2");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);
                  
         }
   });
