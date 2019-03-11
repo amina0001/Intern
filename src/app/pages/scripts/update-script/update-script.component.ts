@@ -43,7 +43,7 @@ export class UpdateScriptComponent  implements OnInit{
     },
   (error)=>
   {
-    console.log(error['error'].text)
+   // console.log(error['error'].text)
           this.ngxService.start(); 
           setTimeout(() => {
             this.ngxService.stop(); 
@@ -56,7 +56,7 @@ export class UpdateScriptComponent  implements OnInit{
           var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
-          console.log(error['error'].text)
+        //  console.log(error['error'].text)
          
         }else{
            var x = document.getElementById("snackbar2");
@@ -82,7 +82,7 @@ export class UpdateScriptComponent  implements OnInit{
         this.model.id = this.id
         this.model.Name = result.Name
         this.model.Body = result.Body
-     console.log(this.model.id);
+    // console.log(this.model.id);
       })
  
 

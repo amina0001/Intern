@@ -48,8 +48,8 @@ constructor( private http: HttpClient,
   }
   selectChangeHandler(event:any)
   {
-    console.log("ggh")
-    console.log(event.target.value )
+    //console.log("ggh")
+   // console.log(event.target.value )
   }
   addResource(resource){
 if ($('#Disabled').prop("checked")== false && $('#Enabled').prop("checked")== false )
@@ -85,7 +85,7 @@ if ($('#Disabled').prop("checked")== false && $('#Enabled').prop("checked")== fa
   this.model.Type ="Other"
  }
 }
-console.log(this.model);
+//console.log(this.model);
   this.ResourceService.addResource(this.model).subscribe(data => {
  
        this.ngxService.start(); 
@@ -107,42 +107,39 @@ console.log(this.model);
            var x = document.getElementById("snackbar2");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
-          console.log(error['error'].text)};
+         // console.log(error['error'].text)
+       };
 }
 
   
 gg()
-{console.log("here0")
+{
     $(document).ready(function(){
  var _Date =$('#NoDate').prop("checked")
- console.log(_Date)
  if (_Date==true) {
-   console.log("here#")
     $('.ExpirationDateClass').prop("disabled", true); 
   this.disabledDate = true
 
-    console.log($('#NoDate').parent().prop('className'))
 
   if($('#NoDate').parent().prop('className') =="btn btn-default btn-off")
-  { console.log("here1")
+  { 
     $('#NoDate').parent().addClass("active")
     $('#YesDate').parent().removeClass(" active");
   }  
   else 
     if($('#NoDate').parent().prop('className') =="btn btn-default btn-off active")
-    { console.log("here2")
+    {
       $('#NoDate').parent().addClass("active")
       $('#YesDate').parent().removeClass(" active");
  }
 }else
- {  console.log("here3")
+ {  
   if(_Date== false){
-       console.log("here4")
+       
 
  $('.ExpirationDateClass').prop("disabled", false); 
   this.disabledDate = false
-    console.log(this.disabledDate)
-
+   
   $("#NoDate").parent().removeClass(" active");
   $('#YesDate').parent().addClass("active");
 }
@@ -153,7 +150,6 @@ gg()
 {
   $(document).ready(function(){
  var _Reference =$('#NoReference').prop("checked")
-  console.log(_Reference)
  if (_Reference==true)
   {   $('.ReferenceClass').prop("disabled", true); 
 
@@ -173,7 +169,6 @@ gg()
   this.disabledReference = true
   }
  else{ if(_Reference== false)
-     console.log("llll")
 
    $('.ReferenceClass').prop("disabled", false); 
 
@@ -214,7 +209,6 @@ comment()
 {
    $(document).ready(function(){
  var _Comment =$('#Nocomment').prop("checked")
- console.log("true");
  if (_Comment==true) {
     $('.CommentClass').prop("disabled", true); 
 

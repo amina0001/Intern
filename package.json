@@ -53,6 +53,7 @@
     "@nebular/theme": "3.0.0",
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
     "@swimlane/ngx-charts": "^10.0.0",
+    "@types/underscore": "^1.8.9",
     "angular-tree-component": "7.2.0",
     "angular2-chartjs": "0.4.1",
     "angular2-toaster": "^6.1.0",
@@ -76,6 +77,7 @@
     "ng6-breadcrumbs": "^1.0.7",
     "ngx-echarts": "^4.0.1",
     "ngx-loading": "^3.0.1",
+    "ngx-pagination": "^3.2.1",
     "ngx-ui-loader": "^7.1.1",
     "normalize.css": "6.0.0",
     "pace-js": "1.0.2",
@@ -85,6 +87,7 @@
     "socicon": "3.0.5",
     "tinymce": "4.5.7",
     "typeface-exo": "0.0.22",
+    "underscore": "^1.9.1",
     "web-animations-js": "2.2.5",
     "zone.js": "^0.8.26"
   },

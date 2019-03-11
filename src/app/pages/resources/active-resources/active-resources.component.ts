@@ -101,10 +101,10 @@ constructor( private http: HttpClient,
         
       this.response =  this.ResourceService.getAllResources().subscribe(result => {
                            this.response = result;
-                           console.log("s"+this.response.id );
+                          // console.log("s"+this.response.id );
                             this.source.load(this.response);
                          });
-      console.log("hey"+this.response );
+     // console.log("hey"+this.response );
   
     }
 
@@ -115,7 +115,7 @@ constructor( private http: HttpClient,
   }
 onCustomAction(event) {
             this.routers.navigate(['/pages/resources/update', {p1: event.data.id}]) ;
-            console.log(event.data.Username);
+           // console.log(event.data.Username);
 
 }
 

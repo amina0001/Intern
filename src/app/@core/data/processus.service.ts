@@ -2,11 +2,14 @@
 import { Injectable } from '@angular/core';
 import { processus } from '../models/processus.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../@core/data/auth.service';
 
 @Injectable()
 export class ProcessusService {
+    apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient ) {}
+  constructor(private http: HttpClient, private _auth_service: AuthService ) {}
 
     addProcessus(processus ) {
       const body: processus = {
@@ -20,9 +23,9 @@ export class ProcessusService {
         Script_upload:processus.Script,
         IT_owner:processus.IT_owner
       }  
-      console.log(body);
-      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
-      return this.http.post('http://192.168.100.31:8081/formytek/public/api/Processus', body,{headers : reqHeader});
+    
+    var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
+      return this.http.post(this.apiUrl+'/formytek/public/api/Processus', body,{headers : reqHeader});
    }
 
 }

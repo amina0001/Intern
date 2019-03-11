@@ -5,7 +5,7 @@ import { MENU_ITEMS } from './pages-menu';
 @Component({
   selector: 'ngx-pages',
   styleUrls: ['pages.component.scss'],
-  template: `
+  template: `<ngx-ui-loader></ngx-ui-loader>
     <ngx-sample-layout>
       <nb-menu [items]="menu"></nb-menu>
       <router-outlet></router-outlet>

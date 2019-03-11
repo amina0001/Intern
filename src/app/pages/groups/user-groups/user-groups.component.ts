@@ -81,14 +81,12 @@ constructor(  private http: HttpClient,
     
       this.response =  this.GroupService.Group().subscribe(result => {
                            this.response = result;
-                           console.log("s"+this.response.id );
                             this.source.load(this.response);
                          });
    
     }
   onCustomAction(event) {
             this.routers.navigate(['/pages/groups/update-groupe', {p1: event.data.Name}]) ;
-            console.log(event.data.Username);
 
 }
 
@@ -111,11 +109,9 @@ constructor(  private http: HttpClient,
   this.event_id = event.data.Name;
     this.event_data =event.data;
 
-  console.log("event"+this.event_id);
 }
 
 deleteGroup(){
-   console.log("ssshhh"+this.event_id);
   this.GroupService.deleteGroup(this.event_id).subscribe();
   this.source.refresh();
      this.source.remove(this.event_data);

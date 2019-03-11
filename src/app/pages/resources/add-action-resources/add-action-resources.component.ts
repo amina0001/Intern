@@ -28,7 +28,7 @@ export class AddActionResourcesComponent{
    
    }
 	addProcessus(processus)
-  {console.log(this.model)
+  {//console.log(this.model)
    // console.log($('#Manadatory_Manager').button('toggle')[0])
    if ($('#Manadatory_Manager').prop("checked")== false && $('#Optional_Manager').prop("checked")== false )
    {
@@ -100,7 +100,7 @@ export class AddActionResourcesComponent{
            var x = document.getElementById("snackbar2");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
-  console.log(error);
+  //console.log(error);
 };
   }
   back()

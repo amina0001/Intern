@@ -37,11 +37,7 @@ export class UpdateGroupComponent implements OnInit{
     this.sub = this.route.snapshot.params['p1'];
       this.name = this.sub;
 
-    console.log("fff"+this.sub);
  this.GroupService.getGroup(this.sub).subscribe(data =>  {
-  console.log("dd"+data[0].Name)
-    console.log("dd"+data[0].Description)
-
    this.model.Name=data[0].Name
 this.model.Description =data[0].Description
 
@@ -50,21 +46,34 @@ this.model.Description =data[0].Description
   (error)=>
   {
   });
- console.log("out"+this.name);
   }
 
  updateGroup(){ 
-console.log(this.model)
       this.ngxService.start(); 
 
     this.GroupService.UpdateGroup(this.model).subscribe(data =>  {
 
-
+        this.ngxService.start(); 
+          setTimeout(() => {
+            this.ngxService.stop(); 
+          }, 700);
+       
+          // OR
+          this.ngxService.startBackground('do-background-things');
+          // Do something here...
+          this.ngxService.stopBackground('do-background-things');
+       
+          this.ngxService.startLoader('loader-01'); 
+          setTimeout(() => {
+            this.ngxService.stopLoader('loader-01');
+          }, 700);
+         var x = document.getElementById("snackbar");
+          x.className = "show";
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);  
      
   },
   (error)=>
   { 
-      console.log(error['error'].text);
     
       if(error['error'].text=="Success")
      { 

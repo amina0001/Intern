@@ -38,7 +38,7 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   saveSmtp()
   {  this.hidden=true
      this.hiddensmtp=true
-    console.log(this.model)
+   // console.log(this.model)
     this.smtp.to = this.model.mail
     this.smtp.password = this.model.Password
     this.smtp.port=this.model.Port
@@ -53,10 +53,10 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
       if(error['error'].text=='Message has been sent')
       {
         this.hidden=false
-        console.log("good")      
+      //  console.log("good")      
       }else
       {
-        console.log(error['error'].text)
+      //  console.log(error['error'].text)
         this.hidden=true
          this.hiddensmtp=false
 
@@ -72,18 +72,18 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
       this.adminDirectory.server = this.model.Service_account
       this.adminDirectory.password = this.model.passwordad
       this.adminDirectory.domain =  ""
-      console.log(this.adminDirectory)
+     // console.log(this.adminDirectory)
       this.settingService.verifyAdminDirectory(this.adminDirectory).subscribe(
-      	data=>{console.log("jhsfds")},
+      	data=>{},
       	error=>{
         if(error['error'].text=='successful')
         {
           this.hiddenAD=false
-          console.log(error['error'].text)
+         // console.log(error['error'].text)
          
         }else
         {
-          console.log(error['error'].text)
+         // console.log(error['error'].text)
           this.hiddenAD=true
           this.hiddenADF=false
 
@@ -93,10 +93,10 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   }
   addSetting(setting)
   {
-    console.log(setting)
+   // console.log(setting)
     this.settingService.addSetting(setting.value)
       .subscribe(data => {
-        console.log(setting.value)
+      //  console.log(setting.value)
               this.ngxService.start(); 
           setTimeout(() => {
             this.ngxService.stop(); 
@@ -105,7 +105,7 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
          
          },
   (error)=>
-  { console.log(error['error'].text)
+  {// console.log(error['error'].text)
         
         if(error['error'].text=='successful')
         {
@@ -114,7 +114,7 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
           var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
-          console.log(error['error'].text)
+         // console.log(error['error'].text)
          
         }else{
            var x = document.getElementById("snackbar2");

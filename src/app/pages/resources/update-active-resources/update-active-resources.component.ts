@@ -42,10 +42,7 @@ constructor( private http: HttpClient,
   ngOnInit() {
     this.sub = this.route.snapshot.params['p1'];
       this.id = this.sub;
-    console.log("fff"+this.sub);
  this.ResourceService.getResource(this.sub).subscribe(data =>  {
-console.log(data)
-console.log(data[0])
 
    this.model.id=data["id"]
 this.model.Status =data["Status"]
@@ -152,8 +149,6 @@ $("#NoDate").parent().addClass(" active");
   }
   selectChangeHandler(event:any)
   {
-    console.log("ggh")
-    console.log(event.target.value )
   }
 
 
@@ -210,37 +205,34 @@ EditResource(resource){
 }
   
 gg()
-{console.log("here0")
+{
     $(document).ready(function(){
  var _Date =$('#NoDate').prop("checked")
- console.log(_Date)
  if (_Date==true) {
-   console.log("here#")
     $('.ExpirationDateClass').prop("disabled", true); 
 $('#ExpirationDate').css('background','grey')
   this.disabledDate = true
 
-    console.log($('#NoDate').parent().prop('className'))
 
   if($('#NoDate').parent().prop('className') =="btn btn-default btn-off")
-  { console.log("here1")
+  { 
     $('#NoDate').parent().addClass("active")
     $('#YesDate').parent().removeClass(" active");
   }  
   else 
     if($('#NoDate').parent().prop('className') =="btn btn-default btn-off active")
-    { console.log("here2")
+    {
       $('#NoDate').parent().addClass("active")
       $('#YesDate').parent().removeClass(" active");
  }
 }else
- {  console.log("here3")
+ { 
   if(_Date== false){
-       console.log("here4")
+   
 
  $('.ExpirationDateClass').prop("disabled", false); 
   this.disabledDate = false
-    console.log(this.disabledDate)
+  
 
   $("#NoDate").parent().removeClass(" active");
   $('#YesDate').parent().addClass("active");
@@ -252,7 +244,6 @@ $('#ExpirationDate').css('background','grey')
 {
   $(document).ready(function(){
  var _Reference =$('#NoReference').prop("checked")
-  console.log(_Reference)
  if (_Reference==true)
   {   $('.ReferenceClass').prop("disabled", true); 
 
@@ -272,7 +263,6 @@ $('#ExpirationDate').css('background','grey')
   this.disabledReference = true
   }
  else{ if(_Reference== false)
-     console.log("llll")
 
    $('.ReferenceClass').prop("disabled", false); 
 
@@ -313,7 +303,6 @@ comment()
 {
    $(document).ready(function(){
  var _Comment =$('#Nocomment').prop("checked")
- console.log("true");
  if (_Comment==true) {
     $('.CommentClass').prop("disabled", true); 
 

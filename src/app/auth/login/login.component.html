@@ -1,0 +1,60 @@
+
+<div class="app-body" >
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto" style="    margin-top: 10%;">
+          <div class="card-group" style="width: 600px;">
+           <div class="card p-2" style="background-image: linear-gradient(to top left, #13547a ,  #80d0c7)"><h1 style="text-align: center;color: white;padding-top: 10%">Welcome to Formytek</h1></div>
+            <div class="card p-4">
+              <div class="card-body">
+                <form (ngSubmit)="onFormSubmit()" #UserForm="ngForm" novalidate>
+                  <h1>Login</h1>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="nb-person"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username"  #emailInput="ngModel" required name="emailInput" [(ngModel)]="_emailInput.value" >
+                        
+                  </div>
+                        <div *ngIf="emailInput.errors && (emailInput.dirty || emailInput.touched)" class="alert alert-danger">                     
+                                <div [hidden]="!emailInput.errors.required">
+                                  Username is required!
+                                </div>
+                                           
+                         </div>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="nb-locked"></i></span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Password" autocomplete="current-password" required name="passwordInput"  #passwordInput="ngModel"  [(ngModel)]="_passwordInput.value" >
+                  </div>
+                       <div *ngIf="passwordInput.errors && (passwordInput.dirty || passwordInput.touched)" class="alert alert-danger">                     
+                                <div [hidden]="!passwordInput.errors.required">
+                                  Password is required!
+                                </div>
+                                           
+                         </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <button   type="submit" class="btn btn-primary px-4" [disabled]="!UserForm.form.valid"> Login</button>
+                      <img *ngIf="loading" src="assets/my-spinner.gif" style="width: 30%" />
+                      </div>
+                      <br><br>
+                        <div [hidden]="invalid" class="alert alert-danger">
+                        <div >
+
+                          Username or Password is invalid    
+                         </div>
+                              </div>
+                   </div>
+                </form>
+              </div>
+            </div>
+       
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

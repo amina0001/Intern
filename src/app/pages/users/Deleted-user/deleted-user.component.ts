@@ -85,7 +85,7 @@ constructor( private http: HttpClient,
         
       this.response =  this.UserService.deleteUsers().subscribe(result => {
                            this.response = result;
-                           console.log("s"+this.response.id );
+                          // console.log("s"+this.response.id );
                             this.source.load(this.response);
                          });
        
@@ -146,7 +146,7 @@ ourshowAction(event) {
    this.model.username=event.data.Username
  
 this.UserService.User( this.model.username).subscribe(data =>  {
-   console.log("hey"+data[0]);
+//   console.log("hey"+data[0]);
 this.model.username=data[0].Username
 this.model.firstname =data[0].FirstName
 this.model.lastname =data[0].LastName

@@ -5,10 +5,10 @@ import {  NbWindowModule } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { GroupsRoutingModule, routedComponents } from './groups-routing.module';
-import { SmartTableService } from '../../@core/data/smart-table.service';
 import { NgxLoadingModule,ngxLoadingAnimationTypes  } from 'ngx-loading';
 import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { PagerService } from './_services/index';
 
 @NgModule({
   imports: [
@@ -17,13 +17,14 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     Ng2SmartTableModule,
     NgxLoadingModule,
      FormsModule,
-     DragDropModule
+     DragDropModule,
+      
   ],
   declarations: [
     ...routedComponents 
   ],
   providers: [
-    SmartTableService,
+PagerService
   ],
  
 })

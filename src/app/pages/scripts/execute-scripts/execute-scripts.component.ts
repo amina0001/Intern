@@ -117,7 +117,7 @@ executeScript()
    }
     this.Laoder = true 
     this.ScriptService.executeScript("powershell -command " +this.allScript).subscribe(data => {
-      console.log(data)   
+      //console.log(data)   
         if (data==null){
              var x = document.getElementById("snackbar");
           x.className = "show";
@@ -129,7 +129,7 @@ executeScript()
         {           this.hiddenSCP=false
 
                
-            console.log("not null")
+         //   console.log("not null")
 
           this.errooorSC=(error['error'].text)
          

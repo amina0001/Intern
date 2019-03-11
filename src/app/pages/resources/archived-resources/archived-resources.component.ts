@@ -1,7 +1,6 @@
 import { Component, TemplateRef, ViewChild  } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 
-import { ActiveResourcesService } from '../../../@core/data/active-resources.service';
 import { NbWindowService } from '@nebular/theme';
 
 @Component({
@@ -62,14 +61,12 @@ export class ArchivedResourcesComponent {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private service: ActiveResourcesService,private windowService: NbWindowService) {
-    const data = this.service.getData();
-    this.source.load(data);
+  constructor(private windowService: NbWindowService) {
+    
   }
 
   onCustomAction(event) {
   // alert(`Custom event '${event.action}' fired on row №: ${event.data.id}`);
-  console.log("hey");
 }
 
  onDeleteConfirm(event): void {

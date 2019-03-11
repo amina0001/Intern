@@ -2,9 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
-import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 
 const routes: Routes = [{
   path: '',
@@ -12,21 +10,9 @@ const routes: Routes = [{
   children: [{
     path: 'dashboard',
     component: ECommerceComponent,
-  }, {
-    path: 'auth',
-    loadChildren: './auth/auth.module#AuthModule',
   },  {
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
-  }, {
-    path: 'modal-overlays',
-    loadChildren: './modal-overlays/modal-overlays.module#ModalOverlaysModule',
-  }, {
-    path: 'extra-components',
-    loadChildren: './extra-components/extra-components.module#ExtraComponentsModule',
-  }, {
-    path: 'bootstrap',
-    loadChildren: './bootstrap/bootstrap.module#BootstrapModule',
   },{
     path: 'editors',
     loadChildren: './editors/editors.module#EditorsModule',
@@ -48,16 +34,14 @@ const routes: Routes = [{
   }, {
     path: 'users',
     loadChildren: './users/users.module#UsersModule',
-  }, {
-    path: 'miscellaneous',
-    loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
+  }, 
+   {
+    path: 'profiles',
+    loadChildren: './profiles/profiles.module#ProfilesModule',
   }, {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
-  }, {
-    path: '**',
-    component: NotFoundComponent,
   }],
 }];
 

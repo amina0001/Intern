@@ -13,26 +13,26 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
-    title: 'My access',
+    title: 'My Access',
     icon: 'nb-locked',
    
     children: [
      
       {
-        title: 'Active access',
+        title: 'Active Access',
         link: '#',
       },
       {
-        title: 'Pending access',
+        title: 'Pending Access',
         link: '#',
       },
     
       {
-        title: 'Deleted access',
+        title: 'Deleted Access',
         link: '#',
       },
       {
-        title: 'To validate',
+        title: 'To Validate',
         link: '#',
       },
      
@@ -62,7 +62,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/groups/users',
       },
       {
-        title: 'Add users To group ',
+        title: 'Add Users To Group ',
         link: '/pages/groups/add-users',
       }
     ],
@@ -103,6 +103,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
     'link': '/pages/scripts/scripts-power-shell',
    
   },
+   {
+    title: ' Profile',
+    icon: 'ion-document-text',
+    link: '/pages/profiles/profile',
+
+  },
+
   {
     title: ' Settings',
     icon: 'ion-settings',

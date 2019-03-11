@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import { StateService } from '../../../@core/data/state.service';
 
 @Component({
   selector: 'ngx-theme-settings',
@@ -36,7 +35,7 @@ export class ThemeSettingsComponent {
   layouts = [];
   sidebars = [];
 
-  constructor(protected stateService: StateService) {
+  c/*onstructor(protected stateService: StateService) {
     this.stateService.getLayoutStates()
       .subscribe((layouts: any[]) => this.layouts = layouts);
 
@@ -64,5 +63,5 @@ export class ThemeSettingsComponent {
     sidebars.selected = true;
     this.stateService.setSidebarState(sidebars);
     return false;
-  }
+  }*/
 }

@@ -34,9 +34,9 @@ export class UpdateUserComponent implements OnInit{
     this.sub = this.route.snapshot.params['p1'];
       this.usernames = this.sub;
       this.oldusername=this.sub;
-    console.log("fff"+this.sub);
+    //console.log("fff"+this.sub);
  this.UserService.User(this.sub).subscribe(data =>  {
-   console.log(data);
+   //console.log(data);
    this.usernames=data[0].Username;
    this.model.username=data[0].Username
 this.model.firstname =data[0].FirstName
@@ -47,17 +47,17 @@ this.model.mail =data[0].EMailAddress
 this.model.department=data[0].Department
 this.model.cellphone=data[0].Mobile
 this.model.JobTitle=data[0].JobTitle
-      console.log("usern"+data[0].Username);
+     // console.log("usern"+data[0].Username);
 
   },
   (error)=>
   {
   });
- console.log("out"+this.usernames);
+ //console.log("out"+this.usernames);
   }
 
  updateUser(){ 
-console.log(this.model)
+//console.log(this.model)
       this.ngxService.start(); 
 
     this.UserService.uptadeUser(this.model).subscribe(data =>  {
@@ -67,7 +67,7 @@ console.log(this.model)
   },
   (error)=>
   { 
-      console.log(error['error'].text);
+     // console.log(error['error'].text);
     
       if(error['error'].text=="Success")
      { 

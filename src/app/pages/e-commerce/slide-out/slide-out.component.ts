@@ -13,3 +13,4 @@ export class SlideOutComponent {
     this.showVisitorsStatistics = !this.showVisitorsStatistics;
   }
 }
+ 

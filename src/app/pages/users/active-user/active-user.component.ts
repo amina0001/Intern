@@ -83,20 +83,21 @@ constructor(  private http: HttpClient,
       
 
         
-      this.response =  this.UserService.activeUsers().subscribe(result => {
+     
+     /* this.response =  this.UserService.activeUsers().subscribe(result => {
                            this.response = result;
                            console.log("s"+this.response.id );
                             this.source.load(this.response);
                          });
             $(".cdk-overlay-container").css('display','none');
 
-      console.log("hey"+this.response );
+      console.log("hey"+this.response );*/
   
     }
 
   onCustomAction(event) {
             this.routers.navigate(['/pages/users/update', {p1: event.data.Username}]) ;
-            console.log(event.data.Username);
+           // console.log(event.data.Username);
 
 }
 
@@ -118,11 +119,11 @@ constructor(  private http: HttpClient,
   this.event_id = event.data.Username;
     this.event_data =event.data;
 
-  console.log("event"+this.event_id);
+  //console.log("event"+this.event_id);
 }
 
 deleteUser(){
-  console.log("ssshhh"+this.event_id);
+  //console.log("ssshhh"+this.event_id);
   this.UserService.deleteUser(this.event_id).subscribe();
   this.source.refresh();
      this.source.remove(this.event_data);
@@ -141,11 +142,18 @@ fade(){
 }
 
  ngOnInit() {
-      this.response =  this.UserService.activeUsers().subscribe(result => {
+
+   let active_users = this.UserService.activeUsers().toPromise()
+       .then(
+         (response) => {
+            this.response = response;
+             this.source.load(this.response);
+         });
+     /* this.response =  this.UserService.activeUsers().subscribe(result => {
                            this.response = result;
                            console.log("s"+this.response.id );
                             this.source.load(this.response);
-                         });
+                         });*/
  
   }
 

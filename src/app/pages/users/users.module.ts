@@ -4,7 +4,6 @@ import {  NbWindowModule } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { UsersRoutingModule, routedComponents } from './users-routing.module';
-import { SmartTableService } from '../../@core/data/smart-table.service';
 import { NgxLoadingModule,ngxLoadingAnimationTypes  } from 'ngx-loading';
 import { EqualValidator } from './equal-validator.directive';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +20,6 @@ import { FormsModule } from '@angular/forms';
     ...routedComponents, EqualValidator 
   ],
   providers: [
-    SmartTableService,
   ],
  
 })

@@ -48,9 +48,26 @@ export class AddGroupComponent {
 
     this.GroupService.AddGroup(this.model).subscribe(
       data =>  {
+        this.ngxService.start(); 
+          setTimeout(() => {
+            this.ngxService.stop(); 
+          }, 700);
+       
+          // OR
+          this.ngxService.startBackground('do-background-things');
+          // Do something here...
+          this.ngxService.stopBackground('do-background-things');
+       
+          this.ngxService.startLoader('loader-01'); 
+          setTimeout(() => {
+            this.ngxService.stopLoader('loader-01');
+          }, 700);
+         var x = document.getElementById("snackbar");
+          x.className = "show";
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);  
+         
     },
      error=>{
-         console.log(error['error'].text)
          this.hiddenUS=true
          this.ngxService.start(); 
           setTimeout(() => {
@@ -73,18 +90,15 @@ export class AddGroupComponent {
           var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);  
-          console.log(error['error'].text)
          
         }else if(error['error'].text=='UserName already exists')
         { this.hiddenUS=false
-          console.log(error['error'].text)
          
 
         }else{
            var x = document.getElementById("snackbar2");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);  
-          console.log(error['error'].text)
         }
       })
 }

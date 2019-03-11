@@ -44,12 +44,12 @@ export class AddUserComponent {
 //console.log(this.confirmPassword)
   // if(this.model.password ==this.confirmPassword)
   // {
-    console.log("okk")
+   // console.log("okk")
     this.UserService.addUser(this.model).subscribe(
       data =>  {
     },
      error=>{
-         console.log(error['error'].text)
+         //console.log(error['error'].text)
          this.hiddenUS=true
          this.ngxService.start(); 
           setTimeout(() => {
@@ -72,18 +72,18 @@ export class AddUserComponent {
           var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);  
-          console.log(error['error'].text)
+          //console.log(error['error'].text)
          
         }else if(error['error'].text=='UserName already exists')
         { this.hiddenUS=false
-          console.log(error['error'].text)
+          //console.log(error['error'].text)
          
 
         }else{
            var x = document.getElementById("snackbar2");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);  
-          console.log(error['error'].text)
+          //console.log(error['error'].text)
         }
       })
 

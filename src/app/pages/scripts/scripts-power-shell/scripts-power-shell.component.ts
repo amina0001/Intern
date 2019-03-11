@@ -122,7 +122,7 @@ export class ScriptsPowerShellComponent implements OnInit{
 }
 
 deleteScript(){
-  console.log("ssshhh"+this.script_id);
+  //console.log("ssshhh"+this.script_id);
   this.ScriptService.deleteScript(this.script_id).subscribe();
   this.source.remove(this.event_data);
     $(".cdk-overlay-container").css('display','none');
@@ -131,7 +131,7 @@ deleteScript(){
 }
    onExecuteConfirm(event): void {
    this.router.navigate(['pages/scripts/execute-scripts', {p1: event.data.id}]);
-     console.log("t"+event.data.id);
+   //  console.log("t"+event.data.id);
 
   }
 fade(){
@@ -142,7 +142,7 @@ fade(){
   ngOnInit() {
      this.response =  this.ScriptService.getAllScripts().subscribe(result => {
                            this.response = result;
-                           console.log("onInit");
+                         //  console.log("onInit");
                             this.source.load(this.response);
                          });
  

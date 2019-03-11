@@ -4,15 +4,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { login } from '../models/login.model';
 
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../../@core/data/auth.service';
 
 @Injectable()
 export class SettingService {
 apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient ) { }
+  constructor(private http: HttpClient, private _auth_service: AuthService) { }
   addSetting(setting ) {
-    console.log("setting")
-    console.log(setting)
+  // console.log("setting")
+   // console.log(setting)
     // const body: configuration_others = {
  
     // // Server_name:setting.Server_name,
@@ -27,22 +28,22 @@ apiUrl = environment.apiUrl;
  
     // }  
     //console.log(body)
-    var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
+    var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
     return this.http.post(this.apiUrl +'/formytek/public/api/ConfigurationOther', setting,{headers : reqHeader});
  }
  addSmtp(smtp)
  {
-  var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
+    var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
   return this.http.post(this.apiUrl +'/formytek/public/api/smtp', smtp,{headers : reqHeader});
  }
 
  verifyAdminDirectory(adminDirectory) 
  {
-   console.log(adminDirectory)
+   //console.log(adminDirectory)
    
-  var reqHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
+    var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
  
-   return this.http.post(this.apiUrl +'/formytek/public/api/verifyAD', JSON.stringify(adminDirectory) ,{headers : reqHeader})      
+   return this.http.post(this.apiUrl +'/formytek/public/api/verifyAD', adminDirectory ,{headers : reqHeader})      
  }
 
  getUser( ) {

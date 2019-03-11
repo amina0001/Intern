@@ -7,9 +7,10 @@ import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
-import { NbPasswordAuthStrategy, NbAuthModule } from '@nebular/auth';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,10 +19,20 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {BreadcrumbsModule} from "ng6-breadcrumbs";
 import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from  'ngx-ui-loader';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {NeedAuthGuard} from './auth.guard';
+
+import {RouterModule, Routes} from '@angular/router';
+
+import { AuthInterceptor } from '../app/_helpers/AuthInterceptor';
+import { LocalStorageService } from "./@core/data/local-storage.service";
+
+import { LoginComponent } from '../app/auth/login/login.component';
+
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
+  declarations: [AppComponent,   LoginComponent
+],
+  imports: [  
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -30,25 +41,28 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
- HttpClientModule, // import HttpClientModule
-    NgxUiLoaderModule, // import NgxUiLoaderModule
-    NgxUiLoaderHttpModule, // import NgxUiLoaderHttpModule. By default, it will show background loader.
+    HttpClientModule, // import HttpClientModule
+    NgxUiLoaderModule,
+ // import NgxUiLoaderHttpModule. By default, it will show background loader.
     // If you need to show foreground spinner, do as follow:
     // NgxUiLoaderHttpModule.forRoot({ showForeground: true })
     DragDropModule,
-   NbAuthModule.forRoot({
-         strategies: [
-           NbPasswordAuthStrategy.setup({
-             name: 'email',
-           }),
-         ],
-         forms: {},
-       }) 
+    ReactiveFormsModule,
   ],
 
   bootstrap: [AppComponent],
   providers: [
-    { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: APP_BASE_HREF, useValue: '/' }, 
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true
+      },
+        LocalStorageService,
+      {
+          provide: LocationStrategy,
+          useClass: HashLocationStrategy
+      },
   ],
 })
 export class AppModule {

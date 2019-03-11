@@ -43,7 +43,7 @@ export class AddScriptComponent{
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
     },
   (error)=>
-  { console.log(error['error'].text)
+  {// console.log(error['error'].text)
          this.ngxService.start(); 
           setTimeout(() => {
             this.ngxService.stop(); 
@@ -57,7 +57,7 @@ export class AddScriptComponent{
           var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
-          console.log(error['error'].text)
+        // console.log(error['error'].text)
          
         }else{
            var x = document.getElementById("snackbar2");
