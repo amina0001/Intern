@@ -13,13 +13,7 @@ const routes: Routes = [{
   },  {
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
-  },{
-    path: 'editors',
-    loadChildren: './editors/editors.module#EditorsModule',
   }, {
-    path: 'forms',
-    loadChildren: './forms/forms.module#FormsModule',
-  },{
     path: 'resources',
     loadChildren: './resources/resources.module#ResourcesModule',
   },{

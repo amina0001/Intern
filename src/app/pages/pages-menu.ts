@@ -106,7 +106,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
    {
     title: ' Profile',
     icon: 'ion-document-text',
-    link: '/pages/profiles/profile',
+    children: [
+      {
+        title: 'Manage Profiles',
+        link: '/pages/profiles/profile',
+      },
+     {
+        title: 'Add User To Profile',
+        link: '/pages/profiles/add-user-to-profile',
+      },
+    ],
 
   },
 

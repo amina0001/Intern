@@ -1,0 +1,203 @@
+<!-- <ngx-list-user-groups></ngx-list-user-groups>
+ -->
+ <nb-card>
+ 	<nb-card-body><style>
+  #sortable1, .sortable2, #sortable3 {
+    border: 1px solid #eee;
+    width: 200px;
+    max-width:200px;
+    min-height: 200px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0!important;
+    float: left;
+    margin-right: 10px;
+  max-height: 700px;
+
+/*overflow-y: scroll;
+*/  }
+  ::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+  #sortable1 li, .sortable2 li, #sortable3 li {
+    margin: 0 5px 5px 5px;
+
+    font-size: 1.2em;
+
+    width: 180px;
+        max-width: 180px;
+
+    word-wrap: break-word;
+  }
+  .rolldown-list {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+.rolldown-list li {
+  padding: 0.5em;
+  margin-bottom: 0px!important;
+  display: block;
+  list-style: none;
+  text-transform: uppercase;
+  color: black
+}
+
+.rolldown-list li {
+  visibility: hidden;
+  animation: rolldown .7s 1;
+  transform-origin: 50% 0;
+  animation-fill-mode: forwards;
+}
+
+.rolldown-list li:nth-child(2n) {
+  background-color: #CDD5DC;
+}
+
+.rolldown-list li:nth-child(2n+1) {
+  background-color: #DCDCDC;
+}
+
+
+@keyframes rolldown {
+  0% {
+    visibility: visible;
+    transform: rotateX(180deg) perspective(500px);
+  }
+  70% {
+    visibility: visible;
+    transform: rotateX(-20deg);
+  }
+  100% {
+    visibility: visible;
+    transform: rotateX(0deg);
+  }
+}
+
+h5 {
+  border-collapse: separate;
+  border-spacing: 16px 0;
+  border-spacing: 1rem 0;
+  color: #123;
+  display: table;
+  font-family: Merriweather;
+  font-size: 3em;
+  line-height: .25;
+
+  table-layout: auto;
+  text-align: center;
+  text-shadow: .0625em .0625em 0 rgba(0, 0, 0, .2);
+  white-space: nowrap;
+}
+.nb-close{
+  color: red
+}
+
+
+  </style>
+
+<div class="row">
+ <div class="col-md-3" >
+<ul id="sortable1" class="connectedSortable rolldown-list"  style="border-left:1px solid blue;position: fixed;background-color: #f4f4f4!important">
+    <h4  style="padding-left: 20%" > Active Users</h4>
+
+  <li class="ui-state-default" *ngFor="let item of todo" (click)="sortable($event)"><i class="nb-person"></i> {{item}}</li>
+
+</ul>
+</div>
+<div class="col-md-9">
+     <h5 style="padding-left: 20%">Profiles</h5><br><br>
+  <div class="row">
+
+
+<div class=" col-md-3 " style="margin-right: 5%" *ngFor="let profile of done, let i=index">
+    <h6 ><i class="nb-list"></i>{{profile.Name}}</h6>
+
+<ul id="id_{{i+1}}"  class="connectedSortable sortable2 rolldown-list"   style="margin-bottom: 5%">
+	<li class="ui-state-highlight" style="background: #F0F4F7;position: fixed;top:0px;display:none">{{profile.Members[0].profile_id}}</li>
+   <li class="ui-state-highlight" class="id_{{i+1}}" *ngFor="let item of profile.Members " (click)="deleteuser($event,item)" ><i class="nb-person"></i>{{item.Username}} </li>
+
+
+</ul>
+</div></div>
+</div>
+</div>
+<ng-template #contentTemplate let-data>
+  <p></p>
+</ng-template>
+
+<ng-template #disabledEsc>
+  Do you really want to delete this user from group?
+  <br>
+  <br>
+   <div class="row">
+  <div style="margin-left: 40%;">
+  <button class="btn btn-danger" (click)="deleteUser()">yes</button>&nbsp;
+      <button class="btn btn-default" (click)="fade()"  style="margin-left: 1%;background:#bfbdbd;color: white">no</button>&nbsp;
+
+</div>
+</div>
+</ng-template>
+</nb-card-body>
+ </nb-card>
+ <script>
+</script>
+<style type="text/css">#snackbar,#snackbar3,#snackbar2,#snackbar4 {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show,#snackbar2.show,#snackbar3.show,#snackbar4.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}</style>
+<div id="snackbar">User added to profile successfully</div>
+<div id="snackbar3">User deleted from profile successfully</div>
+<div id="snackbar2">Sorry something went wrong</div>
+<div id="snackbar4">Sorry user already exists</div>

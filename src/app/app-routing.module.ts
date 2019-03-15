@@ -12,11 +12,8 @@ const routes: Routes = [
     component: LoginComponent
 
   },
-  {
-    path: '',
-    component: LoginComponent
-
-  },
+ { path: '', redirectTo: 'pages', pathMatch: 'full' },
+{ path: '**', redirectTo: 'pages' },
 ];
 
 const config: ExtraOptions = {

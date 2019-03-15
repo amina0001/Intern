@@ -1,201 +1,38 @@
-<style type="text/css">
-  
 
-</style>
+
 
 <nb-card>
   <nb-card-header>
- <h3 class="box-title"> Profile</h3>
-    </nb-card-header>
+    Profile
+  </nb-card-header>
   <nb-card-body>
+  	
+  	<a routerLink="/pages/profiles/add_profile"  class="btn btn-primary " style="float: right;margin-bottom: 1%"  ><i class="fa fa-plus"></i> Add profile</a>
+    <ng2-smart-table class="resize" [settings]="settings" [source]="source" (custom)="onCustomAction($event)" (deleteConfirm)="onDeleteConfirm($event)">
+    </ng2-smart-table>
+
+
+<div >
+<ng-template #contentTemplate let-data >
+  <p></p>
+</ng-template>
+
+<ng-template #disabledEsc >
+  Do you really want to delete this profile?
+  <br>
+  <br>
+   <div class="row">
+  <div style="margin-left: 40%;">
    
-
-   
-    <form  #SettingForm="ngForm">
-     
-<br>
-<div class="row">
-        <div class="col-md-12">
-        <div class="box">
-            <div class="box-header with-border">
-              <div class="row">
-            <div class="col-md-1">Profile Name</div>
-            <div class="col-md-11"><input type="text" name="profile" class="form-control"></div>
-              </div>
-            </div><!-- /.box-header -->                 <hr>
-
-            <div class="box-body">
-              <div class="row">
-            <div class="col-md-2"><div class="row"><i class="nb-person" style="font-size: 27px;margin-left: 5%"></i> Users:</div></div>
-                 <div class="col-md-10">
-
-                        <div style="width:100%;" class="row">
-                          <div style="width: 25%">
-                             <nb-checkbox>Consult Users</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                             <nb-checkbox>Add Users</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                             <nb-checkbox>Update Users</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                              <nb-checkbox>Delete Users</nb-checkbox>
-                            </div>
-
-                         
-                        </div>
-                    </div>
-                 </div>
-                 <hr>
-                        <div class="row">
-            <div class="col-md-2"> <i class="nb-list" style="font-size: 22px"></i> Groups:</div>
-                 <div class="col-md-10">
-
-                       
-                        <div style="width:100%;" class="row">
-                          <div style="width: 25%">
-                             <nb-checkbox>Consult Groups</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                             <nb-checkbox>Add Groups</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                             <nb-checkbox>Update Groups</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                              <nb-checkbox>Delete Groups</nb-checkbox>
-                            </div>
-
-                         
-                        </div>
-                           <div style="width:100%;" class="row">
-                          <div style="width: 25%">
-                             <nb-checkbox>Add User To Group</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                             <nb-checkbox>Delete User From Group</nb-checkbox>
-                           </div>
-                          
-
-                         
-                        </div>
-                    </div>
-                 </div>
-                                  <hr>
-
-                        <div class="row">
-            <div class="col-md-2"><i class="nb-e-commerce" style="font-size: 22px"></i> Ressouces:</div>
-                 <div class="col-md-10">
-
-                          
-                        <div style="width:100%;" class="row">
-                          <div style="width: 25%">
-                             <nb-checkbox>Consult Ressouces</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                             <nb-checkbox>Add Ressouces</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                             <nb-checkbox>Update Ressouces</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                              <nb-checkbox>Delete Ressouces</nb-checkbox>
-                            </div>
-
-                         
-                        </div>
-                    </div>
-                 </div>
-                                  <hr>
-
-                        <div class="row">
-            <div class="col-md-2"><i class="nb-compose" style="font-size: 22px"></i> Scripts:</div>
-                 <div class="col-md-10">
-
-                          
-                        <div style="width:100%;" class="row">
-                          <div style="width: 25%">
-                             <nb-checkbox>Consult Scripts</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                             <nb-checkbox>Add Scripts</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                             <nb-checkbox>Update Scripts</nb-checkbox>
-                           </div>
-                           <div style="width: 25%">
-                              <nb-checkbox>Delete Scripts</nb-checkbox>
-                            </div>
-
-                         
-                        </div>
-                    </div>
-                 </div>
-
-            </div> <!-- /.box-body -->
-                             <hr>
-
-            <div class="box-footer">
-                <div class="row">
-                    <div class="col-md-12"  >
-                      <span class="pull-right">
-
-                        <button type="submit" class="btn btn-primary " style="margin-left: 81%"  [disabled]="!SettingForm.form.valid"><i class="ion-checkmark-round"></i> Save</button>
-                      </span>
-                    </div>
-                  </div>
-            </div><!-- /.box-footer -->
-
-        </div>   <!-- ./box -->
-        </div>
+  <button class="btn btn-danger" (click)="deleteProfile()">yes</button>&nbsp;
+   <button class="btn btn-default" (click)="fade()"  style="margin-left: 1%;background:#bfbdbd;color: white">no</button>&nbsp;
 </div>
-        </form>
-    <style>validation-checkboxes {
-    display: flex;
-    justify-content: space-between;
-
-    .custom-control {
-      margin-left: 1rem;
-    }
-  }
-
-  .demo-checkboxes {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-  }
-
-  .demo-radio {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-  }
-
-  .demo-disabled-checkbox-radio {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-  }
-
-  .demo-checkboxes-radio {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .demo-rating {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-</style>
-
-
+</div>
+</ng-template>
+</div>
   </nb-card-body>
 </nb-card>
-
-
-  <style type="text/css">#snackbar {
+<style type="text/css">#snackbar {
   visibility: hidden; /* Hidden by default. Visible on click */
   min-width: 250px; /* Set a default minimum width */
   margin-left: -125px; /* Divide value of min-width by 2 */
@@ -217,12 +54,6 @@
   However, delay the fade out process for 2.5 seconds */
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-/* Animations to fade the snackbar in and out */
-@-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;} 
-  to {bottom: 30px; opacity: 1;}
 }
 #snackbar2 {
   visibility: hidden; /* Hidden by default. Visible on click */
@@ -247,7 +78,6 @@
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
-
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
   from {bottom: 0; opacity: 0;} 
@@ -268,5 +98,5 @@
   from {bottom: 30px; opacity: 1;}
   to {bottom: 0; opacity: 0;}
 }</style>
-<div id="snackbar">Profile Saved successfully</div>
+<div id="snackbar">Profile deleted successfully</div>
 <div id="snackbar2">Sorry something went wrong</div>

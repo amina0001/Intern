@@ -1,0 +1,428 @@
+<style type="text/css">
+  
+.checkbox label:after, 
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    float: left;
+    margin-right: .5em;
+}
+
+.radio .cr {
+    border-radius: 50%;
+}
+
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+    left: 20%;
+}
+
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+    opacity: .5;
+}
+</style>
+
+<nb-card>
+  <nb-card-header>
+ <h3 class="box-title"> Profile</h3>
+    </nb-card-header>
+  <nb-card-body>
+   
+
+   
+    <form  #SettingForm="ngForm">
+     
+<br>
+<div class="row">
+        <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+              <div class="row">
+            <div class="col-md-1">Profile Name</div>
+            <div class="col-md-11"><input type="text" name="profile" [(ngModel)]="profile.Name" #ProfileName="ngModel" class="form-control" required>
+              <div *ngIf="ProfileName.errors && (ProfileName.dirty || ProfileName.touched)" class="alert alert-danger">
+                           Profile Name Is Required .
+               </div>
+            </div>
+              <br><br>
+                  <div class="checkbox" style="margin-left: 1%;margin-top: 2%">
+                      <label style="font-size: 1em">
+                          <input type="checkbox" id="check_all" value="1" (change)="check_all($event)" >
+                          <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                          Check All
+                      </label>
+                  </div>
+              </div>
+            </div><!-- /.box-header -->                 <hr>
+
+            <div class="box-body">
+              <div class="row">
+            <div class="col-md-2"> <h5>Users:</h5></div>
+                 <div class="col-md-10">
+
+                        <div style="width:100%;" class="row">
+                         
+                            <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" id="consult_user" value="" >
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                    Consult Users
+                                </label>
+                            </div>
+                             <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" id="add_user" value="" (change)="Add_user($event)">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                    Add Users
+                                </label>
+                            </div>
+                             <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox"  id="update_user" value=""  (change)="Update_user($event)">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                      Update Users
+                                  </label>
+                            </div>
+                            <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" id="delete_user" value="" (change)="Delete_user($event)">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                      Delete Users
+                                  </label>
+                            </div>
+                           
+                       
+
+                         
+                        </div>
+                    </div>
+                 </div>
+
+    
+                 <hr>
+                        <div class="row">
+            <div class="col-md-2"><h5> Groups:</h5></div>
+                 <div class="col-md-10">
+
+                       
+                        <div style="width:100%;" class="row">
+                          <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value=""  id="consult_group" >
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                      Consult Groups
+                                  </label>
+                            </div>
+                          <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value=""  id="add_group" (change)="Add_group($event)">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                      Add Groups
+                                  </label>
+                            </div>
+                           <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value="" id="update_group" (change)="Update_group($event)" >
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                      Update Groups
+                                  </label>
+                            </div>
+                         <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value="" id="delete_group" (change)="Delete_group($event)">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                      Delete Groups
+                                  </label>
+                            </div>
+                          
+
+                         
+                        </div>
+                           <div style="width:100%;" class="row">
+                             <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value="" id="add_user_group">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                      Add User To Group
+                                  </label>
+                            </div>
+                           <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value="" id="delete_user_group" >
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                     Delete User From Group
+                                  </label>
+                            </div>
+                          
+                          
+
+                         
+                        </div>
+                    </div>
+                 </div>
+                                  <hr>
+
+                        <div class="row">
+            <div class="col-md-2"><h5> Ressouces:</h5></div>
+                 <div class="col-md-10">
+
+                          
+                        <div style="width:100%;" class="row">
+                             <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value="" id="consult_ressource"  >
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                    Consult Ressouces
+                                  </label>
+                            </div>
+                          <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value="" id="add_ressource"  (change)="Add_ressource($event)" >
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                    Add Ressouces
+                                  </label>
+                            </div>
+                           <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value="" id="update_ressource" (change)="Update_ressource($event)" >
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                    Update Ressouces
+                                  </label>
+                            </div>
+                            <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value="" id="delete_ressource" (change)="Delete_ressources($event)">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                   Delete Ressouces
+                                  </label>
+                            </div>
+                          
+                         
+                        </div>
+                    </div>
+                 </div>
+                                  <hr>
+
+                        <div class="row">
+            <div class="col-md-2"><h5> Scripts:</h5></div>
+                 <div class="col-md-10">
+
+                          
+                        <div style="width:100%;" class="row">
+                          <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value=""  id="consult_script" >
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                   Consult Scripts
+                                  </label>
+                            </div>
+                         <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value="" id="add_script" (change)="Add_script($event)">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                  Add Scripts
+                                  </label>
+                            </div>
+                           <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value="" id="update_script" (change)="Update_script($event)">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                  Update Scripts
+                                  </label>
+                            </div>
+                             <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value="" id="execute_script" (change)="Execute_script($event)">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                  Execute Scripts
+                                  </label>
+                            </div>
+                            <div class="checkbox" style="width: 25%">
+                                <label style="font-size: 1em">
+                                    <input type="checkbox" value="" id="delete_script" (change)="Delete_script($event)">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                 Delete Scripts
+                                  </label>
+                            </div>
+                           
+                        </div>
+                    </div>
+                 </div>
+
+            </div> <!-- /.box-body -->
+                             <hr>
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-12"  >
+                      <span class="pull-right">
+
+                        <button type="submit" class="btn btn-primary " style="margin-left: 71%"  [disabled]="!SettingForm.form.valid" (click)="update_profile()"><i class="ion-checkmark-round"></i> Save</button>
+                        <button type="submit" class="btn btn-default "  style="background:grey!important;color: white!important;margin-left: 1%"  (click)="back()"> Cancel</button> 
+                      </span>
+                    </div>
+                  </div>
+            </div><!-- /.box-footer -->
+
+        </div>   <!-- ./box -->
+        </div>
+</div>
+ 
+        </form>
+    <style>validation-checkboxes {
+    display: flex;
+    justify-content: space-between;
+
+    .custom-control {
+      margin-left: 1rem;
+    }
+  }
+
+  .demo-checkboxes {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .demo-radio {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .demo-disabled-checkbox-radio {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .demo-checkboxes-radio {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .demo-rating {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+</style>
+
+
+  </nb-card-body>
+</nb-card>
+
+
+  <style type="text/css">#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+#snackbar2 {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar2.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}</style>
+<div id="snackbar">Profile Saved successfully</div>
+<div id="snackbar2">Sorry something went wrong</div>

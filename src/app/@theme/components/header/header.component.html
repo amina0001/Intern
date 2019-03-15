@@ -4,7 +4,7 @@ color: black;
  }</style>
 <div class="header-container"
      [class.left]="position === 'normal'"
-     [class.right]="position === 'inverse'">
+     [class.right]="position === 'inverse'" >
   <div class="logo-containter">
     <a (click)="toggleSidebar()" href="#" class="navigation"><i class="nb-menu"></i></a>
     <div class="logo" (click)="goToHome()">Formytek</div>
@@ -17,13 +17,14 @@ color: black;
     [class.right]="position === 'normal'"
     [class.left]="position === 'inverse'">
     <nb-action *nbIsGranted="['view', 'user']" >
-      <div ngbDropdown class="d-inline-block">
+    <!--   <div ngbDropdown class="d-inline-block">
       <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle style="background: white">{{Login}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1" style="background:#111218;">
         <button class="dropdown-item" (click)="logout()">Logout</button>
 
       </div>
-    </div>
+    </div> -->
+    <h4 style="color: white">{{Login}}</h4>
     </nb-action>
     <nb-action class="control-item" disabled icon="nb-notifications"></nb-action>
     <nb-action class="control-item" icon="nb-email"></nb-action>

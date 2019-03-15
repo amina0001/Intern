@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 //Services
 import { LocalStorageService } from "./local-storage.service";
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../../environments/environment';
 
 export class AuthenticationErrorClass {
 
@@ -86,8 +87,9 @@ export class AccountClass {
     providedIn: 'root'
 })
 export class AuthService {
+    apiUrl = environment.apiUrl;
 
-    private _baseUrl = 'http://192.168.100.31:8081/formytek/public/api';
+    private _baseUrl = this.apiUrl+"/formytek/public/api";
     private _currentAccount: AccountClass;
     private _authentication: AuthenticationClass;
     public invalid = true;
