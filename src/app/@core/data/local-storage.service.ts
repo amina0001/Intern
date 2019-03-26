@@ -23,6 +23,13 @@ export class LocalStorageService {
 		localStorage.setItem('user', user_data);
 	}
 
+	 /**
+     * storeUserData
+     */
+    public storeUserProfile(user_data: string) {
+		
+		localStorage.setItem('profile', user_data);
+	}
 
 	/**
 	 * retriveAuthentication
@@ -39,7 +46,10 @@ export class LocalStorageService {
 		
 		return JSON.parse(localStorage.getItem('user'));
 	}
-
+	public retriveUserProfile() {
+		
+		return JSON.parse(localStorage.getItem('profile'));
+	}
 
 
 	/**

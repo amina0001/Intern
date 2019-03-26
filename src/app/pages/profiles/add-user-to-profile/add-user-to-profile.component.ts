@@ -46,6 +46,7 @@ response:any;
 private allItems: any[];
 apiUrl = environment.apiUrl;
 reqHeader: any;
+destId:any;
 constructor(  private http: HttpClient,
                private routers: Router,
                private breadcrumbs:BreadcrumbsService,
@@ -67,17 +68,14 @@ this.done=[];
 this.LIST_IDS=[];
 this.count=0;
 this.counter=0;
- this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 300);
+
        
 
-      await this.http.get<any[]>(this.apiUrl+'/formytek/public/api/userliste1', { headers: this.reqHeader })
+      await this.http.get<any[]>(this.apiUrl+'/formytek/public/api/userProfileList', { headers: this.reqHeader })
          .toPromise().then(
            (res) => {
              res.forEach(element => {
-               this.todo.push(element.Username)
+               this.todo.push(element)
              });
            }).catch(
              (error) => {
@@ -124,14 +122,19 @@ start: function(e, ui) {
 
 update: function(event, ui) {
     // grabs the new positions now that we've finished sorting
+
     var new_position = ui.item.index();
 
-    var destId = ui.item.parent().attr("id");
+     this.destId = ui.item.parent().attr("id");
+    var item=ui.item;
+        var iditem=ui.item.attr("id");
+
     this.Name=""
      this.Username= ""
-     this.Name=$("#"+destId+" li:first-child").text()
+     this.Name=$("#"+this.destId+" li:first-child").text()
      this.Username= ui.item.text();
                 
+  $('#'+this.destId+'> li .crois').css('display','initial');
 
 
  self.ProfileService.addUserToProfile(this.Username,this.Name).subscribe(
@@ -142,8 +145,8 @@ update: function(event, ui) {
     },
      error=>{
 
-    // var  newItem = '<li _ngcontent-c16  class="ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)" style="padding:0.5em;margin: 0 5px 5px 5px;font-size: 1.2em;width: 180px;max-width: 180px; word-wrap: break-word;background-color: #DCDCDC;"><i class="nb-person"></i>'+this.Username+'</li>'
-     // $("#sortable1").append(newItem)
+     var  newItem = '<li _ngcontent-c16  class="ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)" style="padding:0.5em;margin: 0 5px 5px 5px;font-size: 1.2em;width: 180px;max-width: 180px; word-wrap: break-word;background-color: #DCDCDC;"><i class="nb-person"></i>'+this.Username+'</li>'
+      $("#sortable1").append(newItem)
 
         
         if(error['error'].text=='Success')
@@ -156,7 +159,7 @@ update: function(event, ui) {
          
         }else{
 
-                 $('#'+destId+' > li:contains('+this.Username+')').closest("li").remove();
+                 $('#'+this.destId+' > li:contains('+this.Username+')').closest("li").remove();
 
            var x = document.getElementById("snackbar4");
           x.className = "show";
@@ -175,7 +178,7 @@ update: function(event, ui) {
            $(".sortable2").sortable();   
 }
 deleteuser(event,item){
-  //console.log(item.attr('id'))
+  console.log("hereee")
    this.windowService.open(
       this.disabledEscTemplate,
       {
@@ -194,8 +197,21 @@ deleteuser(event,item){
      
 }
 deleteUser(){
- console.dir(this.Usernamed);
-   this.ProfileService.delteUserFromProfile(this.Usernamed.Username).subscribe(
+ console.dir("hh"+this.Usernamed);
+  console.dir("hh"+this.Usernamed.Username);
+if(this.Usernamed.Username){
+  var user=this.Usernamed.Username
+    console.dir("hh1"+user);
+
+}else{
+    console.dir("hh2"+user);
+
+    var user=this.Usernamed
+
+}
+  console.dir("hh"+user);
+
+   this.ProfileService.delteUserFromProfile(user).subscribe(
       data =>  {
     },
      error=>{
@@ -203,14 +219,16 @@ deleteUser(){
         
         if(error['error'].text=='Success')
         {
-       $('#'+this.classid+' > li:contains('+this.Usernamed.Username+')').remove();
+       $('#'+this.classid+'  li:contains('+this.Usernamed.Username+')').remove();
+         console.dir("this.destId"+this.destId);
+       $('li:contains('+this.Usernamed+')').remove();
 
 
           var x = document.getElementById("snackbar3");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);  
-           $('<li _ngcontent-c36 class="ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)"><i class="nb-person"></i>'+this.Usernamed+'</li>').hide();
-    
+     var  newItem = '<li _ngcontent-c16  class="ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)" style="padding:0.5em;margin: 0 5px 5px 5px;font-size: 1.2em;width: 180px;max-width: 180px; word-wrap: break-word;background-color: #DCDCDC;"><i class="nb-person"></i>'+user+'</li>'
+      $("#sortable1").append(newItem)    
 
         }else{
            var x = document.getElementById("snackbar2");

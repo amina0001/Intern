@@ -62,7 +62,7 @@ export class AccountClass {
 
     private _Login: string;
     private _Password: string;
- 
+
 
     constructor(data?: any,login?: number, password?: string) {
         if (data) {
@@ -88,12 +88,13 @@ export class AccountClass {
 })
 export class AuthService {
     apiUrl = environment.apiUrl;
+             private username: string;
 
     private _baseUrl = this.apiUrl+"/formytek/public/api";
     private _currentAccount: AccountClass;
     private _authentication: AuthenticationClass;
     public invalid = true;
-
+    public profile:any;
     constructor(private _http: HttpClient, private _local_storage: LocalStorageService, private _router: Router) {
 
         this._currentAccount = new AccountClass();
@@ -194,12 +195,35 @@ export class AuthService {
 
                 (response) => {
                      //console.log(response);
-                    // console.log( response['user']);
+                     console.log( response['user']);
 
                     this._currentAccount = response['user'];
                     this._local_storage.storeUserAccount(JSON.stringify(this._currentAccount));
                            // console.log("getuserdata2");
                     this._router.navigateByUrl('/pages/dashboard');
+
+                })
+                .catch(
+                (error) => {
+                     
+                 //   console.log(error);
+
+                }
+            );
+                console.log(this._currentAccount[0].Username);
+        this.username=this._currentAccount[0].Username;
+
+       await   this._http.get(`${this._baseUrl}/UserProfile/${this.username}`,{ headers: reqHeader })
+                          .toPromise().then(
+
+                (response) => {
+                     //console.log(response);
+                    console.log( response['profile']);
+
+                    this.profile = response['profile'];
+                    this._local_storage.storeUserProfile(JSON.stringify(this.profile));
+                           // console.log("getuserdata2");
+                   // this._router.navigateByUrl('/pages/dashboard');
 
                 })
                 .catch(
