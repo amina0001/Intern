@@ -18,6 +18,9 @@ import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 })
 export class AddScriptComponent{
 	  model:script = new script();
+    dragAndDropExample = ['C#', 'Java'];
+    items = ['Javascript', 'Typescript'];
+    inputText = 'text';
 
   constructor( private http: HttpClient,
                private router: Router,
@@ -75,5 +78,12 @@ export class AddScriptComponent{
   this.router.navigate(['/pages/scripts/scripts-power-shell']) 
   }
  
-   
+  insertInputTag(){
+    console.log(this.inputText)
+        if (this.inputText) {
+            this.items.push(this.inputText);
+
+            this.inputText = '';
+        }
+    }
 }

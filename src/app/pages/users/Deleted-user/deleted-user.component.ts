@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild   } from '@angular/core';
+import { Component, TemplateRef, ViewChild  ,OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 
 import { NbWindowService } from '@nebular/theme';
@@ -10,6 +10,9 @@ import { user } from '../../../@core/models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as $ from 'jquery';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
+import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../@core/data/auth.service';
 
 @Component({
   selector: 'deletd-user-table',
@@ -26,16 +29,29 @@ import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
    width: 100%!important;
    border-left:none!important;
     }
+
+    :host /deep/ .display {
+      display:none;
+      visibility: hidden;
+    }
+    :host /deep/ .width {
+           width: 100%!important;
+           border-right: none!important;
+    }
   }
   `],
      providers: [ UserService ]
 
 })
-export class DeletedUserComponent {
+export class DeletedUserComponent implements OnInit {
     response: any=[];
     event_data:any;
     event_id: any;
     model:user = new user();
+    profile:any;
+    reqHeader: any;
+    username: any;
+    apiUrl = environment.apiUrl;    
 
  @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
@@ -78,21 +94,77 @@ constructor( private http: HttpClient,
                private breadcrumbs:BreadcrumbsService,
                private UserService : UserService,
                private windowService: NbWindowService,
-               private route: ActivatedRoute) {
-             
-      
+               private route: ActivatedRoute,
+                private LocalStorageService: LocalStorageService,
+               private authservice: AuthService,
+               ) {
+               
+          this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
 
-        
-      this.response =  this.UserService.deleteUsers().subscribe(result => {
-                           this.response = result;
-                          // console.log("s"+this.response.id );
-                            this.source.load(this.response);
-                         });
+   
+
+    }
+  
+ async ngOnInit() {
+ this.username = this.LocalStorageService.retriveUserAccount();
+     await this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
+                          .toPromise().then(
+
+                (response) => {
+                    console.log( response['profile']);
+                    this.profile = response['profile'];
+                });
+              
+
+   this.http.get<any[]>(this.apiUrl+'/formytek/public/api/userliste2', { headers: this.reqHeader })
+         .subscribe(
+       
+         (response) => {
+            this.response = response;
+             this.source.load(this.response);
+             if(response[0].error!="Not allowed")
+
+{
+
+       
+           
        
       $(".cdk-overlay-container").css('display','none');
 
-  
+      if(this.profile['renew_user']==null){
+       setTimeout(function(){
+
+  $("table > tbody > tr >td:last-child").removeClass('ng-star-inserted').addClass('display');
+ $("table > thead > tr >th:last-child ").removeClass('ng-star-inserted').addClass('display');           
+
+    });
     }
+  
+
+        var prof=this.profile;
+        $(".ng2-smart-page-item").click(function(){
+
+      if(prof['renew_user']==null){
+       setTimeout(function(){
+
+
+  $("table > tbody > tr >td:last-child").removeClass('ng-star-inserted').addClass('display');
+ $("table > thead > tr >th:last-child").removeClass('ng-star-inserted').addClass('display');           
+           
+
+    });
+    }
+ 
+     
+   });
+
+}else{
+                 this.routers.navigate(['/pages/dashboard']) ;
+
+}
+         });
+
+ }
   onCustomAction(event) {
  this.windowService.open(
       this.disabledEscTemplate,

@@ -12,8 +12,9 @@
     padding: 5px 0 0 0!important;
     float: left;
     margin-right: 10px;
-  max-height: 700px;
-
+   max-height: 700px;
+   overflow-y: scroll;  
+   overflow-x: hidden!important;
 /*overflow-y: scroll;
 */  }
   ::-webkit-scrollbar-track {
@@ -35,7 +36,7 @@
     font-size: 1.2em;
 
     width: 180px;
-        max-width: 180px;
+    max-width: 180px;
 
     word-wrap: break-word;
   }
@@ -109,13 +110,15 @@ h5 {
   </style>
 
 <div class="row">
- <div class="col-md-3" >
-<ul id="sortable1" class="connectedSortable rolldown-list"  style="border-left:1px solid blue;position: fixed;background-color: #f4f4f4!important">
+ <div class="col-md-3" style="margin-top:6%;overflow-x: hidden!important">
+  <div style="position: fixed">
+<ul id="sortable1" class="connectedSortable sortable2 rolldown-list"  style="border-left:1px solid blue;background-color: #f4f4f4!important;">
     <h4  style="padding-left: 20%" > Active Users</h4>
 
   <li class="ui-state-default" *ngFor="let item of todo" (click)="sortable($event)"> <p style="width: 85%;    position: absolute;"><i class="nb-person"></i>{{item}}</p> <i class="ion-close-round crois" style="margin-left:70%;position: relative;width: 50px;display:none"  (click)="deleteuser($event,item)"></i> </li>
 
 </ul>
+</div>
 </div>
 <div class="col-md-9">
      <h5 style="padding-left: 20%">Profiles</h5><br><br>
@@ -125,12 +128,13 @@ h5 {
 <div class=" col-md-3 " style="margin-right: 5%" *ngFor="let profile of done, let i=index">
 <h6><i class="nb-list"></i>{{profile.Name}}</h6>
 
-<ul id="id_{{i+1}}"  class="connectedSortable sortable2 rolldown-list"   style="margin-bottom: 5%">
+<ul  id="id_{{i+1}}"  class="connectedSortable sortable2 rolldown-list"   style="margin-bottom: 5%">
 	<li class="ui-state-highlight" style="background: #F0F4F7;position: fixed;top:0px;display:none">{{profile.Members[0].profile_id}}</li>
+
   <ng-container *ngIf="profile.Members[0].Username">
    <li class="ui-state-highlight" class="id_{{i+1}}" *ngFor="let item of profile.Members "  (click)="deleteuser($event,item)"  ><p style="width: 50%;position: absolute;">{{item.Username}}</p> <i class="ion-close-round" style="margin-left:70%;position: relative;width: 50px"></i> </li>
     </ng-container>
-
+ 
 </ul>
 </div></div>
 </div>

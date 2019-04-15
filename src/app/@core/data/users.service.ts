@@ -31,7 +31,12 @@ export class UserService {
   {   //   console.log("user.."+username);
 
     var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
-    return this.http.get(this.apiUrl+`/formytek/public/api/User/${username}`, {headers: reqHeader}).pipe(map((response: Response) => {return response}));
+    return this.http.get(this.apiUrl+`/formytek/public/api/User/${username}`, {headers: reqHeader});
+  }
+  public profileName()
+  { 
+    var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
+    return this.http.get(this.apiUrl+`/formytek/public/api/ProfileName`, {headers: reqHeader});
   }
   public activeUsers()
   {  
@@ -68,7 +73,7 @@ export class UserService {
   }
    public addUser(user)
    {   
-    // console.log(JSON.stringify(user) )
+    console.log(JSON.stringify(user) )
      // {'username':user.username,'password':user.password,'lastname':user.lastname,'firstname':user.firstname,'company':user.company,'department':user.department,'jobTitle':user.jobTitle,'mail':user.mail,'officephone':user.officephone,'fax':user.fax,'cellphone':user.cellphone,'ddi':user.ddi,'homephone':user.homephone} 
     var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
     return this.http.post(this.apiUrl+'/formytek/public/api/AddusertoAD',user,{ headers: reqHeader });
@@ -109,6 +114,8 @@ export class UserService {
       officephone :user.officephone != "" ? user.officephone : "0",
       cellphone :user.cellphone != "" ? user.cellphone : "0",
       homephone :user.homephone != "" ? user.homephone : "0",
+      profile :user.profile != "" ? user.profile : "0",
+
     }
      
    // console.log(JSON.stringify(body))

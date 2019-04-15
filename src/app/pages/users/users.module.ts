@@ -12,9 +12,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     ThemeModule,
     UsersRoutingModule,
-    Ng2SmartTableModule,
-    NgxLoadingModule,
-     FormsModule
+    FormsModule
   ],
   declarations: [
     ...routedComponents, EqualValidator 

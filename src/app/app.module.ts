@@ -16,9 +16,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {BreadcrumbsModule} from "ng6-breadcrumbs";
-import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from  'ngx-ui-loader';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import {NeedAuthGuard} from './auth.guard';
 
 import {RouterModule, Routes} from '@angular/router';
@@ -37,16 +34,10 @@ import { LoginComponent } from '../app/auth/login/login.component';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    BreadcrumbsModule,
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
     HttpClientModule, // import HttpClientModule
-    NgxUiLoaderModule,
- // import NgxUiLoaderHttpModule. By default, it will show background loader.
-    // If you need to show foreground spinner, do as follow:
-    // NgxUiLoaderHttpModule.forRoot({ showForeground: true })
-    DragDropModule,
     ReactiveFormsModule,
   ],
 

@@ -5,6 +5,8 @@ import { user } from '../../../@core/models/user.model';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
+import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../@core/data/auth.service';
 
 @Component({
   selector: 'ng-update-user',
@@ -20,55 +22,67 @@ import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 
 })
 export class UpdateUserComponent implements OnInit{
-
-    model:user = new user();
-        sub:any;
-        usernames:string;
-        oldusername:string;
-
- constructor(  private routers: Router,private UserService :UserService,private route:ActivatedRoute,private ngxService: NgxUiLoaderService)
- {
+   apiUrl = environment.apiUrl;
+   reqHeader: any;
+   model:user = new user();
+   sub:any;
+   usernames:string;
+   oldusername:string;
+   profiles:any;
+   
+ constructor( private http: HttpClient, private authservice: AuthService,private routers: Router,private UserService :UserService,private route:ActivatedRoute,private ngxService: NgxUiLoaderService)
+ {                    
 
 }
-  ngOnInit() {
+async   ngOnInit() {
+    
     this.sub = this.route.snapshot.params['p1'];
-      this.usernames = this.sub;
-      this.oldusername=this.sub;
-    //console.log("fff"+this.sub);
- this.UserService.User(this.sub).subscribe(data =>  {
-   //console.log(data);
-   this.usernames=data[0].Username;
-   this.model.username=data[0].Username
-this.model.firstname =data[0].FirstName
-this.model.lastname =data[0].LastName
-this.model.company =data[0].Company
-this.model.officephone =data[0].OfficePhone
-this.model.mail =data[0].EMailAddress
-this.model.department=data[0].Department
-this.model.cellphone=data[0].Mobile
-this.model.JobTitle=data[0].JobTitle
-     // console.log("usern"+data[0].Username);
+    this.usernames = this.sub;
+    this.oldusername=this.sub;
 
-  },
-  (error)=>
-  {
-  });
- //console.log("out"+this.usernames);
+      this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
+           
+
+    await this.http.get(this.apiUrl+`/formytek/public/api/ProfileName`,{ headers: this.reqHeader })
+                          .toPromise().then(
+
+                data =>  {
+                    this.profiles=data;
+                })
+                     this.http.get(this.apiUrl+`/formytek/public/api/User/${this.usernames}`,{ headers: this.reqHeader })
+                          .subscribe(
+
+                data =>  {
+                    this.usernames=data[0].Username;
+                    this.model.username=data[0].Username
+                    this.model.firstname =data[0].FirstName
+                    this.model.lastname =data[0].LastName
+                    this.model.company =data[0].Company
+                    this.model.officephone =data[0].OfficePhone
+                    this.model.mail =data[0].EMailAddress
+                    this.model.department=data[0].Department
+                    this.model.cellphone=data[0].Mobile
+                    this.model.JobTitle=data[0].JobTitle
+                    this.model.profile=data[0].profile
+                })
+                       
+    
+                
+    /*   this.UserService.profileName()
+        .subscribe(  data =>  {
+          this.profiles=data;
+    });*/
+ 
+
   }
 
  updateUser(){ 
-//console.log(this.model)
-      this.ngxService.start(); 
-
+    this.ngxService.start(); 
     this.UserService.uptadeUser(this.model).subscribe(data =>  {
-
-
      
   },
   (error)=>
   { 
-     // console.log(error['error'].text);
-    
       if(error['error'].text=="Success")
      { 
             this.ngxService.stop(); 

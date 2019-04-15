@@ -7,6 +7,10 @@ import { ScriptsPowerShellService } from '../../../@core/data/scripts-power-shel
 import { NbWindowService } from '@nebular/theme';
 import { script } from '../../../@core/models/script.model';
 import { ButtonRenderComponent } from './button.render.component';
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
+import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../@core/data/auth.service';
+
 import * as $ from 'jquery';
 
 @Component({
@@ -48,12 +52,29 @@ import * as $ from 'jquery';
    :host /deep/ ng2-smart-table table tr.ng2-smart-titles td:nth-child(3) {
       width: 10%!important;
   }
+    :host /deep/ .display {
+      display:none;
+      visibility: hidden;
+    }
+    :host /deep/ .width {
+           width: 100%!important;
+           border-right: none!important;
+    }
   `],
 })
 export class ScriptsPowerShellComponent implements OnInit{
+  /* Declaration */
     response: any=[];
     script_id: string;
     event_data:any;
+    profile:any;
+    reqHeader: any;
+    apiUrl = environment.apiUrl;
+    username:any;
+
+ /* end of Declaration */
+
+ /*smart table*/
   @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;
   @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
   settings = {
@@ -90,13 +111,17 @@ export class ScriptsPowerShellComponent implements OnInit{
   };
 
   source: LocalDataSource = new LocalDataSource();
-
+/*end of smart table*/
   constructor( private http: HttpClient,
                private router: Router,
                private ScriptService : ScriptsPowerShellService,
                private windowService: NbWindowService,
-               private route: ActivatedRoute,) {
-   
+               private route: ActivatedRoute, 
+               private LocalStorageService: LocalStorageService,
+               private authservice: AuthService,) {
+
+               this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
+
                  $(".cdk-overlay-container").css('display','none');
 
 }
@@ -139,12 +164,210 @@ fade(){
 
 
 }
-  ngOnInit() {
-     this.response =  this.ScriptService.getAllScripts().subscribe(result => {
-                           this.response = result;
-                         //  console.log("onInit");
-                            this.source.load(this.response);
-                         });
- 
+  async ngOnInit() {
+
+
+       
+
+      this.username = this.LocalStorageService.retriveUserAccount();
+     await this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
+                          .toPromise().then(
+
+                (response) => {
+                    console.log( response['profile']);
+                    this.profile = response['profile'];
+
+                })
+
+  await this.http.get<any[]>(this.apiUrl+'/formytek/public/api/ScriptShs', { headers: this.reqHeader })
+         .toPromise().then(
+       
+         (response) => {
+            this.response = response;
+
+                 if(response[0].error!="Not allowed")
+
+{
+             this.source.load(this.response);
+          
+     
+
+
+        if(this.profile['update_script']==1 && this.profile['delete_script']==null){
+                   setTimeout(function(){
+
+               $("table > tbody > tr >td:last-child ").removeClass('display').addClass('ng-star-inserted');
+               $("table > thead > tr >th:last-child  ").removeClass('display').addClass('ng-star-inserted');
+                $("ng2-st-tbody-custom").addClass('width');
+                console.log("up1");});
+
+          
+        }else if(this.profile['update_script']==null) {
+         setTimeout(function(){
+                $("table > tbody > tr >td:last-child a.ng2-smart-action-custom-custom").removeClass('ng-star-inserted').addClass('display');
+                $("table > thead > tr >th:last-child a.ng2-smart-action-custom-custom").removeClass('ng-star-inserted').addClass('display');
+               $(" ng2-st-tbody-custom").removeClass('width');
+            });
+       }
+        if(this.profile['delete_script']==null && this.profile['update_script']==null ){
+            setTimeout(function(){
+                $("table > tbody > tr >td:last-child").removeClass('ng-star-inserted').addClass('display');
+                $("table > thead > tr >th:last-child").removeClass('ng-star-inserted').addClass('display');
+               $(" ng2-st-tbody-custom").removeClass('width');
+               console.log("h1");
+            });
+       }
+       if(this.profile['delete_script']==1 && this.profile['update_script']==1 ){
+           
+          setTimeout(function(){
+
+            $("table > tbody > tr >td:last-child ").removeClass('display').addClass('ng-star-inserted');
+               $("table > thead > tr >th:last-child  ").removeClass('display').addClass('ng-star-inserted');
+               $("ng2-st-tbody-edit-delete").removeClass('width');
+                           });
+
+
+        }
+        else if(this.profile['delete_script']==1 && this.profile['update_script']==null){
+             setTimeout(function(){
+             $("table > tbody > tr >td:last-child a.ng2-smart-action-custom-custom").removeClass('ng-star-inserted').addClass('display');
+              $("table > thead > tr >th:last-child a.ng2-smart-action-custom-custom").removeClass('ng-star-inserted').addClass('display');
+              $("ng2-st-tbody-edit-delete").addClass('width');
+              $("ng2-st-tbody-custom").css('border-right','none');
+              $("ng2-st-tbody-edit-delete").css('margin-left','0%');
+
+            console.log("heyy");
+            });
+             /* $("table > tbody > tr >td:last-child ").removeClass('display').addClass('ng-star-inserted');
+               $("table > thead > tr >th:last-child  ").removeClass('display').addClass('ng-star-inserted');
+               $("ng2-st-tbody-edit-delete").addClass('width');*/
+
+      }else if(this.profile['delete_script']==null ){
+         setTimeout(function(){
+                $("table > tbody > tr >td:last-child a.ng2-smart-action-delete-delete").removeClass('ng-star-inserted').addClass('display');
+                $("table > thead > tr >th:last-child a.ng2-smart-action-delete-delete").removeClass('ng-star-inserted').addClass('display');
+               $(" ng2-st-tbody-edit-delete").removeClass('width');
+                               console.log("del1");
+
+            });
+      }else if(this.profile['delete_script']==null && this.profile['update_script']==null ){
+            setTimeout(function(){
+                $("table > tbody > tr >td:last-child").removeClass('ng-star-inserted').addClass('display');
+                $("table > thead > tr >th:last-child").removeClass('ng-star-inserted').addClass('display');
+               $(" ng2-st-tbody-custom").removeClass('width');
+                              console.log("h1");
+
+            });
+       }
+              
+
+       if(this.profile['add_script']==1)
+       {
+          $(".add_script").css('display','initial');
+
+       }
+        else{
+         $(".add_script").addClass('display');
+
+        }
+
+       if(this.profile['execute_script']==1)
+       {
+         $("table > tbody > tr >td:nth-child(3)").removeClass('display').addClass('ng-star-inserted');
+         $("table > thead > tr >th:nth-child(3)").removeClass('display').addClass('ng-star-inserted');
+
+       }
+        else{
+         $("table > tbody > tr >td:nth-child(3)").removeClass('ng-star-inserted').addClass('display');
+          $("table > thead > tr >th:nth-child(3)").removeClass('ng-star-inserted').addClass('display');
+
+
+        }
+
+      var prof=this.profile;
+    $(".ng2-smart-page-item").click(function(){
+        if(prof['execute_script']==1)
+       {
+          $(".add_script").css('display','initial');
+
+       }
+        else{
+         $(".add_script").addClass('display');
+
+        }
+      if(prof['update_script']==1 && prof['delete_script']==null){
+                   setTimeout(function(){
+
+               $("table > tbody > tr >td:last-child ").removeClass('display').addClass('ng-star-inserted');
+               $("table > thead > tr >th:last-child  ").removeClass('display').addClass('ng-star-inserted');
+                $("ng2-st-tbody-custom").addClass('width');
+                console.log("up1");});
+
+          
+        }else if(prof['update_script']==null) {
+         setTimeout(function(){
+                $("table > tbody > tr >td:last-child a.ng2-smart-action-custom-custom").removeClass('ng-star-inserted').addClass('display');
+                $("table > thead > tr >th:last-child a.ng2-smart-action-custom-custom").removeClass('ng-star-inserted').addClass('display');
+               $(" ng2-st-tbody-custom").removeClass('width');
+            });
+       }
+        if(prof['delete_script']==null && prof['update_script']==null ){
+            setTimeout(function(){
+                $("table > tbody > tr >td:last-child").removeClass('ng-star-inserted').addClass('display');
+                $("table > thead > tr >th:last-child").removeClass('ng-star-inserted').addClass('display');
+               $(" ng2-st-tbody-custom").removeClass('width');
+               console.log("h1");
+            });
+       }
+       if(prof['delete_script']==1 && prof['update_script']==1 ){
+           
+          setTimeout(function(){
+
+            $("table > tbody > tr >td:last-child ").removeClass('display').addClass('ng-star-inserted');
+               $("table > thead > tr >th:last-child  ").removeClass('display').addClass('ng-star-inserted');
+               $("ng2-st-tbody-edit-delete").removeClass('width');
+                           });
+
+
+        }
+        else if(prof['delete_script']==1 && prof['update_script']==null){
+             setTimeout(function(){
+             $("table > tbody > tr >td:last-child a.ng2-smart-action-custom-custom").removeClass('ng-star-inserted').addClass('display');
+              $("table > thead > tr >th:last-child a.ng2-smart-action-custom-custom").removeClass('ng-star-inserted').addClass('display');
+              $("ng2-st-tbody-edit-delete").addClass('width');
+              $("ng2-st-tbody-custom").css('border-right','none');
+              $("ng2-st-tbody-edit-delete").css('margin-left','0%');
+
+            console.log("heyy");
+            });
+             /* $("table > tbody > tr >td:last-child ").removeClass('display').addClass('ng-star-inserted');
+               $("table > thead > tr >th:last-child  ").removeClass('display').addClass('ng-star-inserted');
+               $("ng2-st-tbody-edit-delete").addClass('width');*/
+
+      }else if(prof['delete_script']==null ){
+         setTimeout(function(){
+                $("table > tbody > tr >td:last-child a.ng2-smart-action-delete-delete").removeClass('ng-star-inserted').addClass('display');
+                $("table > thead > tr >th:last-child a.ng2-smart-action-delete-delete").removeClass('ng-star-inserted').addClass('display');
+               $(" ng2-st-tbody-edit-delete").removeClass('width');
+                               console.log("del1");
+
+            });
+      }else if(prof['delete_script']==null && prof['update_script']==null ){
+            setTimeout(function(){
+                $("table > tbody > tr >td:last-child").removeClass('ng-star-inserted').addClass('display');
+                $("table > thead > tr >th:last-child").removeClass('ng-star-inserted').addClass('display');
+               $(" ng2-st-tbody-custom").removeClass('width');
+                              console.log("h1");
+
+            });
+       }
+    });
+    }else{
+               this.router.navigate(['/pages/dashboard']) ;
+}
+
+        
+     });
+
   }
 }

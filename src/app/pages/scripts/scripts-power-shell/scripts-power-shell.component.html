@@ -4,7 +4,7 @@
     </nb-card-header>
   <nb-card-body>
   	
-  	<a href="#/pages/scripts/add-script" class="btn btn-primary " style="float: right;margin-bottom: 1%" ><i class="fa fa-plus"></i> Add Scripts</a>
+  	<a href="#/pages/scripts/add-script" class="add_script btn btn-primary " style="float: right;margin-bottom: 1%" ><i class="fa fa-plus"></i> Add Scripts</a>
 
     <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" 
     (custom)="onCustomAction($event)" (userRowSelect)="onExecuteConfirm($event)"></ng2-smart-table>

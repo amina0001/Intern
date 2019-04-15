@@ -17,6 +17,7 @@ import * as _ from 'underscore';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../@core/data/auth.service';
 
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
 
 @Component({
   selector: 'ngx-add-user-to-profile',
@@ -47,6 +48,8 @@ private allItems: any[];
 apiUrl = environment.apiUrl;
 reqHeader: any;
 destId:any;
+usernam:any;
+profile:any;
 constructor(  private http: HttpClient,
                private routers: Router,
                private breadcrumbs:BreadcrumbsService,
@@ -54,7 +57,9 @@ constructor(  private http: HttpClient,
                private route: ActivatedRoute,
                private _auth_service: AuthService,
                private ProfileService :ProfileService,
-               private ngxService: NgxUiLoaderService
+               private ngxService: NgxUiLoaderService,
+               private LocalStorageService: LocalStorageService,
+
             ) {
     
     this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
@@ -70,7 +75,16 @@ this.count=0;
 this.counter=0;
 
        
+     this.usernam = this.LocalStorageService.retriveUserAccount();
+     await this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.usernam[0].Username}`,{ headers: this.reqHeader })
+                          .toPromise().then(
 
+                (response) => {
+                    console.log( response['profile']);
+                    this.profile = response['profile'];
+                })
+      if(this.profile['add_user_profile']==1)
+      {
       await this.http.get<any[]>(this.apiUrl+'/formytek/public/api/userProfileList', { headers: this.reqHeader })
          .toPromise().then(
            (res) => {
@@ -106,6 +120,9 @@ this.counter=0;
               animationDelay: delay
             });
           });
+}else{
+               this.routers.navigate(['/pages/dashboard']) ;
+}
 
  }
 
@@ -126,6 +143,7 @@ update: function(event, ui) {
     var new_position = ui.item.index();
 
      this.destId = ui.item.parent().attr("id");
+     console.log("this"+this.destId)
     var item=ui.item;
         var iditem=ui.item.attr("id");
 
@@ -145,7 +163,7 @@ update: function(event, ui) {
     },
      error=>{
 
-     var  newItem = '<li _ngcontent-c16  class="ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)" style="padding:0.5em;margin: 0 5px 5px 5px;font-size: 1.2em;width: 180px;max-width: 180px; word-wrap: break-word;background-color: #DCDCDC;"><i class="nb-person"></i>'+this.Username+'</li>'
+     var  newItem = '<li _ngcontent-c16  class="ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)" style="padding:0.5em;margin: 0 5px 5px 5px;font-size: 1.2em;width: 180px;max-width: 180px; word-wrap: break-word;background-color: #DCDCDC;"><i class="nb-person"></i> <p style="width: 50%;position: absolute;">'+this.Username+'</p> <i class="ion-close-round" style="margin-left:70%;position: relative;width: 50px" (click)="deleteuser($event,item)"></i></li>'
       $("#sortable1").append(newItem)
 
         
@@ -210,7 +228,6 @@ if(this.Usernamed.Username){
 
 }
   console.dir("hh"+user);
-
    this.ProfileService.delteUserFromProfile(user).subscribe(
       data =>  {
     },
@@ -221,14 +238,21 @@ if(this.Usernamed.Username){
         {
        $('#'+this.classid+'  li:contains('+this.Usernamed.Username+')').remove();
          console.dir("this.destId"+this.destId);
-       $('li:contains('+this.Usernamed+')').remove();
+      $('li:contains('+this.Usernamed+')').remove();
 
 
           var x = document.getElementById("snackbar3");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);  
-     var  newItem = '<li _ngcontent-c16  class="ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)" style="padding:0.5em;margin: 0 5px 5px 5px;font-size: 1.2em;width: 180px;max-width: 180px; word-wrap: break-word;background-color: #DCDCDC;"><i class="nb-person"></i>'+user+'</li>'
-      $("#sortable1").append(newItem)    
+   //  var  newItem = '<li  _ngcontent-c16  class="ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)" style="height: 40px;padding:0.5em;margin: 0 5px 5px 5px;font-size: 1.2em;width: 180px;max-width: 180px; word-wrap: break-word;background-color: #DCDCDC;" ><p style="width: 85%;position: absolute;"><i class="nb-person"></i>'+user+'</p> <i   class="ion-close-round crois" style="margin-left:70%;position: relative;width: 50px;display:none" (click)="deleteUser()"></i></li>'
+    //  $("#sortable1").append(newItem)    
+
+     var  newItem = `<li _ngcontent-c16  class="ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)" style="padding:0.5em;margin: 0 5px 5px 5px;font-size: 1.2em;width: 180px;max-width: 180px; word-wrap: break-word;background-color: #DCDCDC;"><i class="nb-person"></i>`+user+`  <i   class="ion-close-round crois" style="margin-left:70%;position: relative;width: 50px;display:none" (click)="deleteuser(Event,user)"></i></li>`
+      $("#sortable1").append(newItem)
+     $("#sortable1").sortable(); 
+      $(".sortable2").sortable();
+
+  $( 'li .crois').css('display','none');
 
         }else{
            var x = document.getElementById("snackbar2");

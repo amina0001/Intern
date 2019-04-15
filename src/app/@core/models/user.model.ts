@@ -10,5 +10,6 @@ export class user {
      officephone :string;
      cellphone :string ;
      homephone :string="1";
+     profile:string;
  }
  

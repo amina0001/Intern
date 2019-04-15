@@ -18,6 +18,7 @@ import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../@core/data/auth.service';
 
  import { PagerService } from '../_services/index'
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
 
 @Component({
   selector: 'ngx-add-user-to-groups',
@@ -44,14 +45,17 @@ classid:string="";
 pagedItems: any[];
 LIST_IDS:string[]; 
 response:any;
+usernam:any;
 private allItems: any[];
 apiUrl = environment.apiUrl;
 reqHeader: any;
+profile:any;
+failed:any;
 constructor(  private http: HttpClient,
                private routers: Router,
                private breadcrumbs:BreadcrumbsService,
                private windowService: NbWindowService,
-               private route: ActivatedRoute, private _auth_service: AuthService,private UserService :UserService,private ngxService: NgxUiLoaderService,private pagerService: PagerService
+               private route: ActivatedRoute, private LocalStorageService: LocalStorageService,private _auth_service: AuthService,private UserService :UserService,private ngxService: NgxUiLoaderService,private pagerService: PagerService
             ) {
     
     this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
@@ -70,6 +74,21 @@ this.counter=0;
             this.ngxService.stop(); 
           }, 300);
        
+       this.usernam = this.LocalStorageService.retriveUserAccount();
+     await this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.usernam[0].Username}`,{ headers: this.reqHeader })
+                          .toPromise().then(
+
+                (response) => {
+                
+                      this.profile = response['profile'];
+
+                  
+         });
+
+       if(this.profile){
+
+
+     if(this.profile['add_user_group']==1 ){
 
       await this.http.get<any[]>(this.apiUrl+'/formytek/public/api/userliste1', { headers: this.reqHeader })
          .toPromise().then(
@@ -109,6 +128,16 @@ $('.rolldown-list li').each(function () {
   });
 });
 
+           $(".sortable2").sortable();   
+         }else{
+                       this.routers.navigate(['/pages/dashboard']) ;
+
+         }
+          }else{
+                       this.routers.navigate(['/pages/dashboard']) ;
+
+         }
+
  }
 
  sortable(){
@@ -139,7 +168,7 @@ update: function(event, ui) {
     },
      error=>{
 
-     var  newItem = '<li _ngcontent-c16  class="ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)" style="padding:0.5em;margin: 0 5px 5px 5px;font-size: 1.2em;width: 180px;max-width: 180px; word-wrap: break-word;background-color: #DCDCDC;"><i class="nb-person"></i>'+this.Username+'</li>'
+     var  newItem = '<li _ngcontent-c16  class=" click ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)" style="padding:0.5em;margin: 0 5px 5px 5px;font-size: 1.2em;width: 180px;max-width: 180px; word-wrap: break-word;background-color: #DCDCDC;"><i class="nb-person"></i>'+this.Username+'</li>'
       $("#sortable1").append(newItem)
 
         
@@ -169,7 +198,7 @@ update: function(event, ui) {
 
  
 })
-           $(".sortable2").sortable();   
+ 
 }
 deleteuser(event,item){
   //console.log(item.attr('id'))
@@ -206,8 +235,11 @@ deleteUser(){
           var x = document.getElementById("snackbar3");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);  
-           $('<li _ngcontent-c36 class="ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)"><i class="nb-person"></i>'+this.Usernamed+'</li>').hide();
-    
+           $('<li _ngcontent-c36 class="click ui-state-default ng-star-inserted ui-sortable-handle" (click)="sortable($event)"><i class="nb-person"></i>'+this.Usernamed+'</li>').hide();
+          
+          $( ".click" ).click(function() {
+            alert( "Handler for .click() called." );
+          });
 
         }else{
            var x = document.getElementById("snackbar2");

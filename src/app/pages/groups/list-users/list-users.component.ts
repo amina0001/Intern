@@ -49,37 +49,7 @@ this.todo=[];
 this.done=[];
 this.LIST_IDS=[];
 
-/*this.count=0;
-      await this.http.get('http://192.168.100.31:8081/formytek/public/api/userliste1')
-         .toPromise().then(
-           (res) => {
-             res.forEach(element => {
-               this.todo.push(element.Username)
-             });
-           }).catch(
-             (error) => {
-               console.log(error);
-             }
-           );
-            await this.http.get('http://192.168.100.31:8081/formytek/public/api/getAllGroupMember')
-         .toPromise().then(
-           (res) => {
-             res.forEach(element => {
-               this.count=this.count+1;
-                this.LIST_IDS.push('cdk-drop-list-' + this.count);
-                                this.LIST_IDS.push('cdk-drop-' + this.count);
 
-               this.done.push(element)
-
-             });
-           }).catch(
-             (error) => {
-               console.log(error);
-             }
-           );
-        console.log(this.todo);
-               console.log(this.LIST_IDS);
-                    console.log("111111"+ this.done);*/
 
 
         }

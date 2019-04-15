@@ -7,7 +7,7 @@
   </nb-card-header>
   <nb-card-body>
   	
-  	<a routerLink="/pages/profiles/add_profile"  class="btn btn-primary " style="float: right;margin-bottom: 1%"  ><i class="fa fa-plus"></i> Add profile</a>
+  	<a routerLink="/pages/profiles/add_profile"  class="add_profile btn btn-primary " style="float: right;margin-bottom: 1%"  ><i class="fa fa-plus"></i> Add profile</a>
     <ng2-smart-table class="resize" [settings]="settings" [source]="source" (custom)="onCustomAction($event)" (deleteConfirm)="onDeleteConfirm($event)">
     </ng2-smart-table>
 

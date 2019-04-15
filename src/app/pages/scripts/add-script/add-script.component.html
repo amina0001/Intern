@@ -31,20 +31,13 @@
                 <div class="col-md-8">
 
           <div class="row">
-                    <div class="col-md-2">  
-                        <label for="name" > Script <span style="color: red">(*)</span> </label>
-                    </div>
-                    <div class="col-md-10">  
-                        <textarea class="form-control" aria-label="With textarea" [(ngModel)]="model.Body"  name="Body"  required #Body="ngModel" ></textarea>
-                        <div *ngIf="Body.errors && (Body.dirty || Body.touched)" class="alert alert-danger">
-                        <div [hidden]="!Body.errors.required">
-                          Body is required!
-                        </div>
+             <div class="col-md-12">
 
-                    </div>
-                    </div>            
+
+           
                   </div>
                   </div>
+                     </div>
           </div>
       <br>
 
@@ -59,6 +52,15 @@
 
         </div>
               </form>
+  
+            <tag-input  [(ngModel)]="dragAndDropExample"
+                        [modelAsStrings]="true"
+                        [dragZone]="'zone1'"
+                        [editable]="true"
+                       >
+            </tag-input>
+     
+
 
  <nb-card-body>
   <style type="text/css">#snackbar {

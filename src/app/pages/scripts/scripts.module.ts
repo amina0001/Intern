@@ -5,12 +5,17 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { ScriptsRoutingModule, scriptsroutedComponents } from './scripts-routing.module';
 import { ScriptsPowerShellService } from '../../@core/data/scripts-power-shell.service';
 import { ButtonRenderComponent } from './scripts-power-shell/button.render.component';
+import { TagInputModule } from 'ngx-chips';
+
 
 @NgModule({
   imports: [
+    TagInputModule, 
     ThemeModule,
     Ng2SmartTableModule,
      ScriptsRoutingModule,
+            
+
   ],
   declarations: [ 
     ...scriptsroutedComponents,

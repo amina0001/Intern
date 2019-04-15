@@ -26,14 +26,16 @@ export class AddUserComponent {
 
     confirmPassword:string="";
     model:user = new user();
-      hiddenUS:boolean
-
+    hiddenUS:boolean
+    profiles:any;
  constructor(  private routers: Router,private UserService :UserService,private ngxService: NgxUiLoaderService)
  {       this.confirmPassword="";
+         this.hiddenUS=true
+        this.UserService.profileName()
+        .subscribe(  data =>  {
+          this.profiles=data;
+    });
 
-
-   this.hiddenUS=true
-  
  
 }
   addUser()
