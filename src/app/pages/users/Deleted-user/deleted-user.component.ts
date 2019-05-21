@@ -2,13 +2,12 @@ import { Component, TemplateRef, ViewChild  ,OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 
 import { NbWindowService } from '@nebular/theme';
-import {BreadcrumbsService} from "ng6-breadcrumbs";
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../../../@core/data/users.service';
 import { user } from '../../../@core/models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import * as $ from 'jquery';
+declare var $ : any;
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
 import { environment } from '../../../../environments/environment';
@@ -53,8 +52,6 @@ export class DeletedUserComponent implements OnInit {
     username: any;
     apiUrl = environment.apiUrl;    
 
- @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;
-  @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
   settings = {
   
 
@@ -91,7 +88,6 @@ export class DeletedUserComponent implements OnInit {
 
 constructor( private http: HttpClient,
                private routers: Router,
-               private breadcrumbs:BreadcrumbsService,
                private UserService : UserService,
                private windowService: NbWindowService,
                private route: ActivatedRoute,
@@ -107,6 +103,8 @@ constructor( private http: HttpClient,
   
  async ngOnInit() {
  this.username = this.LocalStorageService.retriveUserAccount();
+   if(this.username.Login !="Administrator"){
+
      await this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
                           .toPromise().then(
 
@@ -163,19 +161,18 @@ constructor( private http: HttpClient,
 
 }
          });
+       }  else if(this.username.Login =="Administrator"){
+     this.http.get<any[]>(this.apiUrl+'/formytek/public/api/userliste2', { headers: this.reqHeader })
+         .subscribe(
+       
+         (response) => {
+            this.response = response;
+            this.source.load(this.response);});
+  }
 
  }
   onCustomAction(event) {
- this.windowService.open(
-      this.disabledEscTemplate,
-      {
-        title: 'Delete user',
-        hasBackdrop: true,
-        closeOnEsc: true,
-      },
-    );
-
-      $(".cdk-overlay-container").css('display','initial');
+   $("#Modal").modal('show');
 
   
   this.event_id = event.data.Username;
@@ -202,18 +199,7 @@ fade(){
 }
 
 ourshowAction(event) {
-         $(".cdk-overlay-container").css('display','none');
-
-    this.windowService.open(
-      this.disabledEscTemplate,
-      {
-        title: 'User:',
         
-        hasBackdrop: true,
-        closeOnEsc: true,
-      },
-    );
-          $(".cdk-overlay-container").css('display','initial');
           
    this.model.username=event.data.Username
  

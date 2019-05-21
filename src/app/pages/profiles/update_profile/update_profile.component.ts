@@ -3,10 +3,12 @@ import { Component,OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { profile } from '../../../@core/models/profile.model';
 import { ProfileService } from '../../../@core/data/profiles.service';
-import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { NgxSpinnerService } from 'ngx-spinner';
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
+import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../@core/data/auth.service'
 @Component({
   selector: 'ngx-update-profile',
   templateUrl: './update_profile.component.html',
@@ -24,13 +26,17 @@ export class UpdateProfileComponent implements OnInit{
 		profile:profile = new profile();
 		id:any;
 		sub:any;
+		username:any;
+	    profil:any;
+	    reqHeader: any;
+	     apiUrl = environment.apiUrl;
  constructor(private ProfileService: ProfileService, private http: HttpClient,
                private routers: Router,
-               private route: ActivatedRoute,private ngxService: NgxUiLoaderService) {
+               private route: ActivatedRoute,private spinner: NgxSpinnerService,
+                private authservice: AuthService,private LocalStorageService: LocalStorageService,) {
    
    }
 	check_all(event){
-		console.dir(event)
 		if(event.target.checked==true){
 		$('#consult_user')[0].checked = true;
 		$('#delete_user')[0].checked = true;
@@ -226,8 +232,36 @@ export class UpdateProfileComponent implements OnInit{
 		}
 
 	}
+	validate_access(event){
+		if(event.target.checked==true){
+
+		$('#consult_to_validate')[0].checked = true;
+		}else{
+		$('#consult_to_validate')[0].checked = false;
+
+		}
+
+
+	}
+	reject_access(event){
+		if(event.target.checked==true){
+
+		$('#consult_active_access')[0].checked = true;
+		$('#consult_to_validate')[0].checked = true;
+
+		}else{
+		$('#consult_active_access')[0].checked = false;
+		$('#consult_to_validate')[0].checked = false;
+
+		}
+
+
+	}
 	update_profile(){
+				    this.spinner.show();
+
 		    this.profile.id = this.route.snapshot.params['p1'];
+		    this.spinner.show();
 
 		if($('#consult_user')[0].checked == true){
 			this.profile.consult_user="1";
@@ -305,33 +339,81 @@ export class UpdateProfileComponent implements OnInit{
 			this.profile.execute_script="1";
 
 		}
+		if($('#consult_active_access')[0].checked == true){
+			this.profile.consult_active_access="1";
+
+		}
+		if($('#Consult_pending_access')[0].checked == true){
+			this.profile.consult_pending_access="1";
+
+		}
+		if($('#Consult_deleted_access')[0].checked == true){
+			this.profile.consult_deleted_access="1";
+
+		}
+		if($('#consult_to_validate')[0].checked == true){
+			this.profile.consult_to_validate="1";
+
+		}
+		if($('#demand_access')[0].checked == true){
+			this.profile.demand_access="1";
+
+		}
+		if($('#validate_access')[0].checked == true){
+			this.profile.validate_access="1";
+
+		}
+		if($('#reject_access')[0].checked == true){
+			this.profile.reject_access="1";
+
+		}
 		  this.ProfileService.updateProfile(this.profile).subscribe(data => {
-    	 this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 300);
+    	   setTimeout(() => {
+			        
+			        this.spinner.hide();
+			});
           var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
     }),
-(error)=>
-{  this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 300);
-           var x = document.getElementById("snackbar2");
-          x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
-  //console.log(error);
-};
+		(error)=>
+		{   setTimeout(() => {
+					        
+					        this.spinner.hide();
+					});
+		           var x = document.getElementById("snackbar2");
+		          x.className = "show";
+		         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
+		};
 	}
-	 ngOnInit() {
+async	 ngOnInit() {
+	 	  this.username = this.LocalStorageService.retriveUserAccount();
+          this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
+
+       if(this.username.Login =="Administrator"){
+       
+      
+         }else if(this.username.Login !="Administrator"){
+               await  this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
+                
+                .toPromise().then(
+
+                (response) => {
+                    this.profil = response['profile'];
+                })
+
+                if(this.profil['update_profile']!=1)
+           {
+              this.routers.navigate(['/pages/dashboard']) ;
+
+           }
+            
+      }
+	  this.spinner.show();
     this.sub = this.route.snapshot.params['p1'];
       this.id = this.sub;
      this.ProfileService.GetProfile(this.sub).subscribe(data =>  {
- //  console.log(data[0].Name);
          let result:any=data;
-         console.log(result)
   			this.profile.Name=result.Name;
 		if(result.consult_user == 1){
 		$('#consult_user')[0].checked = true;
@@ -409,11 +491,17 @@ export class UpdateProfileComponent implements OnInit{
 			$('#execute_script')[0].checked = true
 
 		}
-     // console.log("usern"+data[0].Username);
-
+  setTimeout(() => {
+			        
+			        this.spinner.hide();
+			});
   },
   (error)=>
   {
+  	  setTimeout(() => {
+			        
+			        this.spinner.hide();
+			});
   });
  //console.log("out"+this.usernames);
   }

@@ -22,8 +22,10 @@ import {RouterModule, Routes} from '@angular/router';
 
 import { AuthInterceptor } from '../app/_helpers/AuthInterceptor';
 import { LocalStorageService } from "./@core/data/local-storage.service";
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { LoginComponent } from '../app/auth/login/login.component';
+import { TagInputModule } from 'ngx-chips';
 
 
 @NgModule({
@@ -39,6 +41,8 @@ import { LoginComponent } from '../app/auth/login/login.component';
     CoreModule.forRoot(),
     HttpClientModule, // import HttpClientModule
     ReactiveFormsModule,
+    TagInputModule,
+    NgxSpinnerModule
   ],
 
   bootstrap: [AppComponent],

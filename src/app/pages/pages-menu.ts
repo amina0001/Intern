@@ -20,20 +20,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
      
       {
         title: 'Active Access',
-        link: '#',
+        link: '/pages/access/active_access',
       },
       {
         title: 'Pending Access',
-        link: '#',
+        link: '/pages/access/pending_access',
       },
     
       {
         title: 'Deleted Access',
-        link: '#',
+        link: '/pages/access/deleted_access',
       },
       {
         title: 'To Validate',
-        link: '#',
+        link: '/pages/access/to-validate',
       },
      
     ],
@@ -55,7 +55,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
    
    {
     title: 'Groups',
-    icon: 'nb-list',
+    icon: 'nb-grid-a-outline',
     children: [
       {
         title: 'Manage Groups',
@@ -88,7 +88,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Reports',
-    icon: 'ion-folder',
+    icon: 'ion-bookmark',
     children: [
       {
         title: 'reports',
@@ -105,7 +105,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
    {
     title: ' Profile',
-    icon: 'ion-document-text',
+    icon: 'nb-power',
     children: [
       {
         title: 'Manage Profiles',

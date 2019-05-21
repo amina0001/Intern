@@ -7,6 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
+import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../@core/data/auth.service';
 
 @Component({
 
@@ -28,68 +32,103 @@ export class AddUserComponent {
     model:user = new user();
     hiddenUS:boolean
     profiles:any;
- constructor(  private routers: Router,private UserService :UserService,private ngxService: NgxUiLoaderService)
- {       this.confirmPassword="";
+    username:any;
+    profile:any;
+    reqHeader: any;
+     apiUrl = environment.apiUrl;
+
+ constructor( private http: HttpClient,private authservice: AuthService,private LocalStorageService: LocalStorageService,
+ private routers: Router,private spinner: NgxSpinnerService, 
+private UserService :UserService)
+ {      
+        
+ 
+}
+ async ngOnInit() {
+     this.username = this.LocalStorageService.retriveUserAccount();
+          this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
+
+       if(this.username.Login =="Administrator"){
+       
+      
+         }else if(this.username.Login !="Administrator"){
+               await  this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
+                
+                .toPromise().then(
+
+                (response) => {
+                    this.profile = response['profile'];
+                })
+
+               console.log("hey"+this.profile)
+                if(this.profile['add_user']!=1)
+           {
+              this.routers.navigate(['/pages/dashboard']) ;
+
+           }
+            
+      }
+         this.confirmPassword="";
          this.hiddenUS=true
-        this.UserService.profileName()
+         this.UserService.profileName()
         .subscribe(  data =>  {
           this.profiles=data;
-    });
-
- 
+          });
+         
 }
   addUser()
 { 
         
-
   this.hiddenUS=true
-//console.log(this.confirmPassword)
-  // if(this.model.password ==this.confirmPassword)
-  // {
-   // console.log("okk")
+    this.spinner.show();
+     
+
+       
     this.UserService.addUser(this.model).subscribe(
       data =>  {
+
     },
      error=>{
+     
          //console.log(error['error'].text)
          this.hiddenUS=true
-         this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 700);
-       
-          // OR
-          this.ngxService.startBackground('do-background-things');
-          // Do something here...
-          this.ngxService.stopBackground('do-background-things');
-       
-          this.ngxService.startLoader('loader-01'); 
-          setTimeout(() => {
-            this.ngxService.stopLoader('loader-01');
-          }, 700);
         if(error['error'].text=='Success')
-        {this.hiddenUS=true
-                
-
+        {
+                 setTimeout(() => {
+        
+        this.spinner.hide();
+});
+          this.hiddenUS=true     
           var x = document.getElementById("snackbar");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);  
-          //console.log(error['error'].text)
-         
-        }else if(error['error'].text=='UserName already exists')
-        { this.hiddenUS=false
-          //console.log(error['error'].text)
-         
-
-        }else{
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);  
+        }
+           else if(error['error'].text=='UserName already exists')
+        { 
+       setTimeout(() => {
+        
+        this.spinner.hide();
+});
+          this.hiddenUS=false
+          
+        }
+          else{
+                   setTimeout(() => {
+        
+        this.spinner.hide();
+});
            var x = document.getElementById("snackbar2");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);  
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);  
           //console.log(error['error'].text)
         }
+               setTimeout(() => {
+        
+        this.spinner.hide();
+});
       })
 
-
+          
 }
 
  Back()

@@ -6,6 +6,8 @@ import { ScriptsRoutingModule, scriptsroutedComponents } from './scripts-routing
 import { ScriptsPowerShellService } from '../../@core/data/scripts-power-shell.service';
 import { ButtonRenderComponent } from './scripts-power-shell/button.render.component';
 import { TagInputModule } from 'ngx-chips';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -13,8 +15,11 @@ import { TagInputModule } from 'ngx-chips';
     TagInputModule, 
     ThemeModule,
     Ng2SmartTableModule,
-     ScriptsRoutingModule,
-            
+    ScriptsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxSpinnerModule,
+
 
   ],
   declarations: [ 

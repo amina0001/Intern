@@ -7,11 +7,17 @@ import { UsersRoutingModule, routedComponents } from './users-routing.module';
 import { NgxLoadingModule,ngxLoadingAnimationTypes  } from 'ngx-loading';
 import { EqualValidator } from './equal-validator.directive';
 import { FormsModule } from '@angular/forms';
+import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from  'ngx-ui-loader';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   imports: [
     ThemeModule,
     UsersRoutingModule,
+        Ng2SmartTableModule,
+NgxUiLoaderModule,
+    NgxSpinnerModule,
+
     FormsModule
   ],
   declarations: [

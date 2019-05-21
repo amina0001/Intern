@@ -4,8 +4,6 @@ import { LocalDataSource } from 'ng2-smart-table';
 
 import { NbWindowService   } from '@nebular/theme';
 import { NbWindowRef } from '@nebular/theme';
-
-import {BreadcrumbsService} from "ng6-breadcrumbs";
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GroupService } from '../../../@core/data/group.service';
@@ -13,7 +11,7 @@ import { LocalStorageService } from '../../../../app/@core/data/local-storage.se
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../@core/data/auth.service';
 
-import * as $ from 'jquery';
+declare var $ : any;
 @Component({
   selector: 'ngx-user-groups',
   templateUrl: './user-groups.component.html',
@@ -49,8 +47,6 @@ export class UserGroupsComponent {
  apiUrl = environment.apiUrl;
  profile:any;
 
- @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;
-  @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
   settings = {
   delete: {
       deleteButtonContent: '<i class="ion-trash-a"></i>',
@@ -86,7 +82,6 @@ export class UserGroupsComponent {
 
 constructor(  private http: HttpClient,
                private routers: Router,
-               private breadcrumbs:BreadcrumbsService,
                private windowService: NbWindowService,
                private GroupService : GroupService,
                private route: ActivatedRoute,
@@ -99,34 +94,32 @@ constructor(  private http: HttpClient,
     }
   async   ngOnInit() {
 
-            this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
+        this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
+        this.username = this.LocalStorageService.retriveUserAccount();
+          if(this.username.Login !="Administrator"){
 
-   this.username = this.LocalStorageService.retriveUserAccount();
-     await this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
-                          .toPromise().then(
+           await this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
+                                .toPromise().then(
 
-                (response) => {
-                    console.log( response['profile']);
-                    this.profile = response['profile'];
-         });
+                      (response) => {
+                          console.log( response['profile']);
+                          this.profile = response['profile'];
+               });
 
-   this.http.get<any[]>(this.apiUrl+'/formytek/public/api/getAllGroup', { headers: this.reqHeader })
-         .subscribe(
-       
-         (response) => {
-            this.response = response;
-             this.source.load(this.response);
+         await this.http.get<any[]>(this.apiUrl+'/formytek/public/api/getAllGroup', { headers: this.reqHeader })
+               .subscribe(
+             
+               (response) => {
+                  this.response = response;
+                   this.source.load(this.response);
           
            if(response[0].error!="Not allowed")
 
-{
-
-       
-           
-   
-                          
+  {
+                  
    var prof=this.profile;
     $(".ng2-smart-page-item").click(function(){
+      console.log("heree"+prof)
       if(prof['update_group']==1 && prof['delete_group']==null){
                    setTimeout(function(){
 
@@ -172,10 +165,7 @@ constructor(  private http: HttpClient,
 
             console.log("heyy");
             });
-             /* $("table > tbody > tr >td:last-child ").removeClass('display').addClass('ng-star-inserted');
-               $("table > thead > tr >th:last-child  ").removeClass('display').addClass('ng-star-inserted');
-               $("ng2-st-tbody-edit-delete").addClass('width');*/
-
+            
       }else if(prof['delete_group']==null ){
          setTimeout(function(){
                 $("table > tbody > tr >td:last-child a.ng2-smart-action-delete-delete").removeClass('ng-star-inserted').addClass('display');
@@ -297,7 +287,14 @@ constructor(  private http: HttpClient,
 
 }
       });
+        }  else if(this.username.Login =="Administrator"){
+     this.http.get<any[]>(this.apiUrl+'/formytek/public/api/getAllGroup', { headers: this.reqHeader })
+         .subscribe(
        
+         (response) => {
+            this.response = response;
+            this.source.load(this.response);});
+  }
        
   }
 
@@ -309,39 +306,21 @@ constructor(  private http: HttpClient,
 
 
  onDeleteConfirm(event): void {
-         $(".cdk-overlay-container").css('display','none');
-
-  this.windowService.open(
-      this.disabledEscTemplate,
-      {
-        title: 'Delete user',
-        hasBackdrop: true,
-        closeOnEsc: true,
-      },
-    );
-
-      $(".cdk-overlay-container").css('display','initial');
+     
+  $("#Modal").modal('show');
 
   this.event_id = event.data.Name;
-    this.event_data =event.data;
+  this.event_data =event.data;
 
 }
 
 deleteGroup(){
   this.GroupService.deleteGroup(this.event_id).subscribe();
   this.source.refresh();
-     this.source.remove(this.event_data);
-
-    $(".cdk-overlay-container").css('display','none');
-
- var x = document.getElementById("snackbar");
-          x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);
-
-}
-fade(){
-     $(".cdk-overlay-container").css('display','none');
-
+  this.source.remove(this.event_data);
+  var x = document.getElementById("snackbar");
+  x.className = "show";
+ setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);
 
 }
 

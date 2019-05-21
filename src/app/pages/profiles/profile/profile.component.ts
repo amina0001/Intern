@@ -1,6 +1,6 @@
 import { Component,TemplateRef, ViewChild,OnInit } from '@angular/core';
 
-import * as $ from 'jquery';
+declare var $ : any;
 import { profile } from '../../../@core/models/profile.model';
 import { ProfileService } from '../../../@core/data/profiles.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
@@ -11,7 +11,6 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { NbWindowService   } from '@nebular/theme';
 import { NbWindowRef } from '@nebular/theme';
 
-import {BreadcrumbsService} from "ng6-breadcrumbs";
 import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../@core/data/auth.service';
@@ -35,7 +34,7 @@ import { AuthService } from '../../../@core/data/auth.service';
    :host /deep/  ng2-smart-table thead tr.ng2-smart-filters th:nth-child(1) {
            display:none!important;
 
-
+}
     :host /deep/ .display {
       display:none;
       visibility: hidden;
@@ -59,8 +58,7 @@ export class ProfileComponent {
     reqHeader: any;
     apiUrl = environment.apiUrl;
      username:any;
- @ViewChild('contentTemplate') contentTemplate: TemplateRef<any>;
-  @ViewChild('disabledEsc', { read: TemplateRef }) disabledEscTemplate: TemplateRef<HTMLElement>;
+
   settings = {
   delete: {
       deleteButtonContent: '<i class="ion-trash-a"></i>',
@@ -95,7 +93,6 @@ export class ProfileComponent {
     source: LocalDataSource = new LocalDataSource();
  constructor(private ProfileService: ProfileService,  private http: HttpClient,
                private routers: Router,
-               private breadcrumbs:BreadcrumbsService,
                private windowService: NbWindowService,
                private route: ActivatedRoute,
                private LocalStorageService: LocalStorageService,
@@ -108,6 +105,8 @@ export class ProfileComponent {
 
  async ngOnInit() {
  this.username = this.LocalStorageService.retriveUserAccount();
+       if(this.username.Login !="Administrator"){
+
      await this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
                           .toPromise().then(
 
@@ -280,40 +279,37 @@ export class ProfileComponent {
 }
 
          });
+       }  else if(this.username.Login =="Administrator"){
+        this.http.get<any[]>(this.apiUrl+'/formytek/public/api/Profile', { headers: this.reqHeader })
+         .subscribe(
        
+         (response) => {
+            this.response = response;
+                 this.source.load(this.response);
+        
+
+          
+
+  })
+}
   }
   onCustomAction(event) {
  this.routers.navigate(['pages/profiles/update', {p1: event.data.id}]);
 }
 
    onDeleteConfirm(event): void {
-  this.windowService.open(
-      this.disabledEscTemplate,
-      {
-        title: 'Delete Profile',
-        hasBackdrop: false,
-        closeOnEsc: true,
-      },
-    );
-        $(".cdk-overlay-container").css('display','initial');
+   $("#Modal").modal('show');
 
   this.profile_id=event.data.id;
   this.event_data =event.data;
 }
 
 deleteProfile(){
-  console.log("ssshhh"+this.profile_id);
  this.ProfileService.deletePo(this.profile_id).subscribe();
   this.source.remove(this.event_data);
-    $(".cdk-overlay-container").css('display','none');
-
- 
+  
 }
 	
-fade(){
-     $(".cdk-overlay-container").css('display','none');
 
-
-}
 
 }

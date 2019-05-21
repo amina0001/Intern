@@ -6,8 +6,10 @@ import { resource } from '../../../@core/models/resource.model';
 import { ResourceService } from '../../../@core/data/resources.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
-
+import { NgxSpinnerService } from 'ngx-spinner';
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
+import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../@core/data/auth.service';
 import * as $ from 'jquery';
 
 
@@ -28,21 +30,57 @@ export class UpdateActiveResourcesComponent implements OnInit {
   disabledComment : boolean
   sub:any;
   id:any;
+   username:any;
+    profile:any;
+    reqHeader: any;
+     apiUrl = environment.apiUrl;
 constructor( private http: HttpClient,
                private routers: Router,
                private ResourceService : ResourceService,
                private windowService: NbWindowService,
-               private route: ActivatedRoute,private ngxService: NgxUiLoaderService) {
+               private route: ActivatedRoute,private spinner: NgxSpinnerService,
+               private authservice: AuthService,private LocalStorageService: LocalStorageService,) {
              
       
 
   
     }
 
-  ngOnInit() {
+async  ngOnInit() {
+         
+
+
+
+     this.username = this.LocalStorageService.retriveUserAccount();
+          this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
+
+       if(this.username.Login =="Administrator"){
+       
+      
+         }else if(this.username.Login !="Administrator"){
+               await  this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
+                
+                .toPromise().then(
+
+                (response) => {
+                    this.profile = response['profile'];
+                })
+
+               console.log("hey"+this.profile)
+                if(this.profile['update_ressource']!=1)
+           {
+              this.routers.navigate(['/pages/dashboard']) ;
+
+           }
+            
+      }
+    
+         
+
+     this.spinner.show();
     this.sub = this.route.snapshot.params['p1'];
-      this.id = this.sub;
- this.ResourceService.getResource(this.sub).subscribe(data =>  {
+    this.id = this.sub;
+     this.ResourceService.getResource(this.sub).subscribe(data =>  {
 
    this.model.id=data["id"]
 this.model.Status =data["Status"]
@@ -141,9 +179,19 @@ $("#NoDate").parent().addClass(" active");
           $('.CommentClass').prop("disabled", true); 
 
     }
+
+                 setTimeout(() => {
+        
+        this.spinner.hide();
+});
   },
   (error)=>
   {
+
+                 setTimeout(() => {
+        
+        this.spinner.hide();
+});
   });
 
   }
@@ -154,7 +202,8 @@ $("#NoDate").parent().addClass(" active");
 
 
 EditResource(resource){
- 
+         this.spinner.show();
+
 // Status
  if ($('#Disabled').prop("checked")== true)
  {
@@ -183,21 +232,20 @@ EditResource(resource){
  }
   this.model.id =this.id.toString()
   this.ResourceService.EditResource(this.model).subscribe(data => {
-   
- this.ngxService.start(); 
           setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 300);
+        
+        this.spinner.hide();
+});
    var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000); 
   }),
 (error)=>
-{
-  this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 300);
+{          setTimeout(() => {
+        
+        this.spinner.hide();
+});
+ 
            var x = document.getElementById("snackbar2");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);  

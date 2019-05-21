@@ -3,10 +3,12 @@ import { Component,OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { profile } from '../../../@core/models/profile.model';
 import { ProfileService } from '../../../@core/data/profiles.service';
-import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { NgxSpinnerService } from 'ngx-spinner';
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
+import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../@core/data/auth.service';
 @Component({
   selector: 'ngx-add-profile',
   templateUrl: './add_profile.component.html',
@@ -22,11 +24,42 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AddProfileComponent {
 		profile:profile = new profile();
+		 username:any;
+	    profil:any;
+	    reqHeader: any;
+	     apiUrl = environment.apiUrl;
  constructor(private ProfileService: ProfileService, private http: HttpClient,
                private routers: Router,
-               private route: ActivatedRoute,private ngxService: NgxUiLoaderService) {
+               private route: ActivatedRoute,private spinner: NgxSpinnerService,
+               private authservice: AuthService,private LocalStorageService: LocalStorageService,) {
    
    }
+   async ngOnInit() {
+     this.username = this.LocalStorageService.retriveUserAccount();
+          this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
+
+       if(this.username.Login =="Administrator"){
+       
+      
+         }else if(this.username.Login !="Administrator"){
+               await  this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
+                
+                .toPromise().then(
+
+                (response) => {
+                    this.profil = response['profile'];
+                })
+
+               console.log("hey"+this.profile)
+                if(this.profil['add_profile']!=1)
+           {
+              this.routers.navigate(['/pages/dashboard']) ;
+
+           }
+            
+      }
+         }
+   
 	check_all(event){
 		console.dir(event)
 		if(event.target.checked==true){
@@ -208,6 +241,31 @@ export class AddProfileComponent {
 
 
 	}
+	validate_access(event){
+		if(event.target.checked==true){
+
+		$('#consult_to_validate')[0].checked = true;
+		}else{
+		$('#consult_to_validate')[0].checked = false;
+
+		}
+
+
+	}
+	reject_access(event){
+		if(event.target.checked==true){
+
+		$('#consult_active_access')[0].checked = true;
+		$('#consult_to_validate')[0].checked = true;
+
+		}else{
+		$('#consult_active_access')[0].checked = false;
+		$('#consult_to_validate')[0].checked = false;
+
+		}
+
+
+	}
 	Delete_script(event){
 		if(event.target.checked==true){
 		$('#consult_script')[0].checked = true;
@@ -225,6 +283,8 @@ export class AddProfileComponent {
 
 	}
 	save_profile(){
+		    this.spinner.show();
+
 		if($('#consult_user')[0].checked == true){
 			this.profile.consult_user="1";
 		}
@@ -300,25 +360,53 @@ export class AddProfileComponent {
 			this.profile.execute_script="1";
 
 		}
+		if($('#consult_active_access')[0].checked == true){
+			this.profile.consult_active_access="1";
+
+		}
+		if($('#Consult_pending_access')[0].checked == true){
+			this.profile.consult_pending_access="1";
+
+		}
+		if($('#Consult_deleted_access')[0].checked == true){
+			this.profile.consult_deleted_access="1";
+
+		}
+		if($('#consult_to_validate')[0].checked == true){
+			this.profile.consult_to_validate="1";
+
+		}
+		if($('#demand_access')[0].checked == true){
+			this.profile.demand_access="1";
+
+		}
+		if($('#validate_access')[0].checked == true){
+			this.profile.validate_access="1";
+
+		}
+		if($('#reject_access')[0].checked == true){
+			this.profile.reject_access="1";
+
+		}
 		  this.ProfileService.addProfile(this.profile).subscribe(data => {
-    	 this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 300);
+			   setTimeout(() => {
+			        
+			        this.spinner.hide();
+			});
           var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
-    }),
-(error)=>
-{  this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 300);
-           var x = document.getElementById("snackbar2");
-          x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
-  //console.log(error);
-};
+  			  }),
+			(error)=>
+			{  setTimeout(() => {
+			        
+			        this.spinner.hide();
+			});
+			           var x = document.getElementById("snackbar2");
+			          x.className = "show";
+			         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
+			  //console.log(error);
+			};
 	}
  back()
   {

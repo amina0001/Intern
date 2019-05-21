@@ -11,7 +11,7 @@ import { LocalStorageService } from '../../../../app/@core/data/local-storage.se
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../@core/data/auth.service';
 
-import * as $ from 'jquery';
+declare var $ : any;
 
 @Component({
   selector: 'scripts-power-shell',
@@ -87,7 +87,7 @@ export class ScriptsPowerShellComponent implements OnInit{
         add: false,
         edit: false,
 
-        custom: [{ name: 'ourCustomAction', title: '<i class="nb-compose " >' }],
+        custom: [{ name: 'ourCustomAction', title: '<i  tooltip="hhh" tooltip-append-to-body="true" class="nb-compose"></i>' }],
         position: 'right'
     },
     columns: {
@@ -132,15 +132,7 @@ export class ScriptsPowerShellComponent implements OnInit{
 
  
  onDeleteConfirm(event): void {
-  this.windowService.open(
-      this.disabledEscTemplate,
-      {
-        title: 'Delete user',
-        hasBackdrop: false,
-        closeOnEsc: true,
-      },
-    );
-        $(".cdk-overlay-container").css('display','initial');
+   $("#Modal").modal('show');
 
   this.script_id=event.data.id;
   this.event_data =event.data;
@@ -150,7 +142,6 @@ deleteScript(){
   //console.log("ssshhh"+this.script_id);
   this.ScriptService.deleteScript(this.script_id).subscribe();
   this.source.remove(this.event_data);
-    $(".cdk-overlay-container").css('display','none');
 
  
 }
@@ -159,17 +150,15 @@ deleteScript(){
    //  console.log("t"+event.data.id);
 
   }
-fade(){
-     $(".cdk-overlay-container").css('display','none');
 
-
-}
   async ngOnInit() {
 
 
        
 
       this.username = this.LocalStorageService.retriveUserAccount();
+      if(this.username.Login !="Administrator"){
+
      await this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
                           .toPromise().then(
 
@@ -214,7 +203,6 @@ fade(){
                 $("table > tbody > tr >td:last-child").removeClass('ng-star-inserted').addClass('display');
                 $("table > thead > tr >th:last-child").removeClass('ng-star-inserted').addClass('display');
                $(" ng2-st-tbody-custom").removeClass('width');
-               console.log("h1");
             });
        }
        if(this.profile['delete_script']==1 && this.profile['update_script']==1 ){
@@ -286,13 +274,17 @@ fade(){
 
       var prof=this.profile;
     $(".ng2-smart-page-item").click(function(){
-        if(prof['execute_script']==1)
+        
+       if(prof['execute_script']==1)
        {
-          $(".add_script").css('display','initial');
+         $("table > tbody > tr >td:nth-child(3)").removeClass('display').addClass('ng-star-inserted');
+         $("table > thead > tr >th:nth-child(3)").removeClass('display').addClass('ng-star-inserted');
 
        }
         else{
-         $(".add_script").addClass('display');
+         $("table > tbody > tr >td:nth-child(3)").removeClass('ng-star-inserted').addClass('display');
+          $("table > thead > tr >th:nth-child(3)").removeClass('ng-star-inserted').addClass('display');
+
 
         }
       if(prof['update_script']==1 && prof['delete_script']==null){
@@ -368,6 +360,17 @@ fade(){
 
         
      });
+}  else if(this.username.Login =="Administrator"){
+        await this.http.get<any[]>(this.apiUrl+'/formytek/public/api/ScriptShs', { headers: this.reqHeader })
+         .toPromise().then(
+       
+         (response) => {
+            this.response = response;
 
+             this.source.load(this.response);
+          
+
+  })
+}
   }
 }

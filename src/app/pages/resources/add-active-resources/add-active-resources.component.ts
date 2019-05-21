@@ -6,8 +6,11 @@ import { resource } from '../../../@core/models/resource.model';
 import { ResourceService } from '../../../@core/data/resources.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
+import { NgxSpinnerService } from 'ngx-spinner';
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
 
+import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../@core/data/auth.service';
 import * as $ from 'jquery';
 
 
@@ -26,25 +29,54 @@ export class AddActiveResourcesComponent implements OnInit {
   disabledReference :boolean
   disabledSerial:boolean
   disabledComment : boolean
+  username:any;
+  profile:any;
+  reqHeader: any;
+   apiUrl = environment.apiUrl;
 
 constructor( private http: HttpClient,
                private routers: Router,
                private ResourceService : ResourceService,
                private windowService: NbWindowService,
-               private route: ActivatedRoute,private ngxService: NgxUiLoaderService) {
+               private route: ActivatedRoute,private spinner: NgxSpinnerService,
+               private authservice: AuthService,
+               private LocalStorageService: LocalStorageService,) {
              
       
 
   
     }
 
-  ngOnInit() {
+async  ngOnInit() {
   
     this.disabledDate = true
     this.disabled = true
     this.disabledSerial = true
     this.disabledReference = true
     this.disabledComment = true
+        this.username = this.LocalStorageService.retriveUserAccount();
+          this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
+
+       if(this.username.Login =="Administrator"){
+       
+      
+         }else if(this.username.Login !="Administrator"){
+               await  this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
+                
+                .toPromise().then(
+
+                (response) => {
+                    this.profile = response['profile'];
+                })
+
+               console.log("hey"+this.profile)
+                if(this.profile['add_ressource']!=1)
+           {
+              this.routers.navigate(['/pages/dashboard']) ;
+
+           }
+            
+      }
   }
   selectChangeHandler(event:any)
   {
@@ -52,6 +84,8 @@ constructor( private http: HttpClient,
    // console.log(event.target.value )
   }
   addResource(resource){
+        this.spinner.show();
+
 if ($('#Disabled').prop("checked")== false && $('#Enabled').prop("checked")== false )
   { console.log("prop:"+$('#Disabled').prop("checked"));
     this.model.Status ="Disabled"
@@ -87,27 +121,23 @@ if ($('#Disabled').prop("checked")== false && $('#Enabled').prop("checked")== fa
 }
 //console.log(this.model);
   this.ResourceService.addResource(this.model).subscribe(data => {
- 
-       this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 300);
+ setTimeout(() => {
+        
+        this.spinner.hide();
+});
            var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
     }),
 
 (error)=>
-{
-   this.ngxService.start(); 
-          this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 300);
+{setTimeout(() => {
+        
+        this.spinner.hide();
+});
            var x = document.getElementById("snackbar2");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
-         // console.log(error['error'].text)
        };
 }
 

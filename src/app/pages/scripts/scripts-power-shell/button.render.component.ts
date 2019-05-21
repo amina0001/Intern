@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   template: `
-    <button style="background:transparent;border:none;font-size:30px;color:gray" class="btn-exec"><i class="nb-play " ></i></button>
+    <button style="background:transparent;border:none;font-size:30px;color:gray"   class="btn-exec"><i class="nb-play " ></i></button>
   `,
    styles: [`
   

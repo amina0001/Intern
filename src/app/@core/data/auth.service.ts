@@ -195,7 +195,7 @@ export class AuthService {
 
                 (response) => {
                      //console.log(response);
-                     console.log( response['user']);
+                     //console.log( response['user']);
 
                     this._currentAccount = response['user'];
                     this._local_storage.storeUserAccount(JSON.stringify(this._currentAccount));
@@ -210,7 +210,7 @@ export class AuthService {
 
                 }
             );
-                console.log(this._currentAccount[0].Username);
+              //  console.log(this._currentAccount[0].Username);
         this.username=this._currentAccount[0].Username;
 
        await   this._http.get(`${this._baseUrl}/UserProfile/${this.username}`,{ headers: reqHeader })
@@ -218,7 +218,7 @@ export class AuthService {
 
                 (response) => {
                      //console.log(response);
-                    console.log( response['profile']);
+                   // console.log( response['profile']);
 
                     this.profile = response['profile'];
                     this._local_storage.storeUserProfile(JSON.stringify(this.profile));

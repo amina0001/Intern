@@ -32,6 +32,9 @@ const routes: Routes = [{
    {
     path: 'profiles',
     loadChildren: './profiles/profiles.module#ProfilesModule',
+  },{
+    path: 'access',
+    loadChildren: './access/access.module#AccessModule',
   }, {
     path: '',
     redirectTo: 'dashboard',

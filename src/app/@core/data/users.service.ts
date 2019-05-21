@@ -38,6 +38,11 @@ export class UserService {
     var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
     return this.http.get(this.apiUrl+`/formytek/public/api/ProfileName`, {headers: reqHeader});
   }
+  public UserProfile(username)
+  { 
+    var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
+    return this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${username}`, {headers: reqHeader});
+  }
   public activeUsers()
   {  
     var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});

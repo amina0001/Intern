@@ -4,10 +4,13 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GroupService } from '../../../@core/data/group.service';
 import { group } from '../../../@core/models/group.model';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
+import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../@core/data/auth.service';
 
 @Component({
 
@@ -28,77 +31,81 @@ export class AddGroupComponent {
     confirmPassword:string="";
     model:group = new group();
       hiddenUS:boolean
+   username:any;
+    profile:any;
+    reqHeader: any;
+     apiUrl = environment.apiUrl;
 
- constructor(  private routers: Router,private ngxService: NgxUiLoaderService,private GroupService :GroupService,)
- {       this.confirmPassword="";
-
-
-   this.hiddenUS=true
+ constructor(  private http: HttpClient,private authservice: AuthService,private LocalStorageService: LocalStorageService, private routers: Router, private spinner: NgxSpinnerService,private GroupService :GroupService,)
+ { 
+    this.confirmPassword="";
+    this.hiddenUS=true
   
  
+}
+ async ngOnInit() {
+     this.username = this.LocalStorageService.retriveUserAccount();
+          this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
+
+       if(this.username.Login =="Administrator"){
+       
+         }else if(this.username.Login !="Administrator"){
+               await  this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
+                
+                .toPromise().then(
+
+                (response) => {
+                    this.profile = response['profile'];
+                })
+
+                if(this.profile['add_group']!=1)
+           {
+              this.routers.navigate(['/pages/dashboard']) ;
+
+           }
+            
+      }
+         
 }
   addGroup()
 { 
       
 
   this.hiddenUS=true
-//console.log(this.confirmPassword)
-  // if(this.model.password ==this.confirmPassword)
-  // {
-
+ setTimeout(() => {
+             this.spinner.show();
+});
     this.GroupService.AddGroup(this.model).subscribe(
       data =>  {
-        this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 700);
-       
-          // OR
-          this.ngxService.startBackground('do-background-things');
-          // Do something here...
-          this.ngxService.stopBackground('do-background-things');
-       
-          this.ngxService.startLoader('loader-01'); 
-          setTimeout(() => {
-            this.ngxService.stopLoader('loader-01');
-          }, 700);
+
          var x = document.getElementById("snackbar");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);  
-         
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 4000);  
+                   this.spinner.hide();
+
     },
      error=>{
          this.hiddenUS=true
-         this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 700);
-       
-          // OR
-          this.ngxService.startBackground('do-background-things');
-          // Do something here...
-          this.ngxService.stopBackground('do-background-things');
-       
-          this.ngxService.startLoader('loader-01'); 
-          setTimeout(() => {
-            this.ngxService.stopLoader('loader-01');
-          }, 700);
+         
         if(error['error'].text=='Success')
         {this.hiddenUS=true
                 
 
           var x = document.getElementById("snackbar");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);  
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 4000);  
          
         }else if(error['error'].text=='UserName already exists')
         { this.hiddenUS=false
-         
+                   this.spinner.hide();
+
 
         }else{
            var x = document.getElementById("snackbar2");
           x.className = "show";
-         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9000);  
+         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 4000);  
+                   this.spinner.hide();
+
         }
       })
 }

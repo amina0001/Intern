@@ -80,6 +80,17 @@ export class ResourceService {
     var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
     return this.http.get(this.apiUrl+"/formytek/public/api/userressourcesDelete/"+id, { headers: reqHeader }) 
    }
+    DemandAccess( res_id)
+   {  
+
+     const  body_id = {
+      id:res_id,
+     
+
+      } 
+    var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
+    return this.http.post(this.apiUrl+"/formytek/public/api/ressource-to-validate",body_id, { headers: reqHeader }) 
+   }
 }
 
   

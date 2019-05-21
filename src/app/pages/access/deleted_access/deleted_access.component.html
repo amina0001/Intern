@@ -1,0 +1,30 @@
+<nb-card>
+      <nb-card-header>
+        Deleted Access
+      </nb-card-header>
+      <nb-card-body>
+        
+            <ng2-smart-table class="resize" [settings]="settings" [source]="source">
+            </ng2-smart-table>
+
+
+            <div >
+              <ng-template #contentTemplate let-data >
+              </ng-template>
+
+              <ng-template #disabledEsc >
+                Do you really want to delete this user?
+               <br>
+                <br>
+                 <div class="row">
+                <div style="margin-left: 40%;">
+                <button class="btn btn-danger"(click)="refuseAccess(event_id)">yes</button>&nbsp;
+                    <button class="btn btn-default" (click)="fade()"  style="margin-left: 1%;background:#bfbdbd;color: white">no</button>&nbsp;
+
+              </div>
+              </div>
+              </ng-template>
+                        
+              </div>
+      </nb-card-body>
+</nb-card>

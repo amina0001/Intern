@@ -1,10 +1,18 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple">
+ <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
 <nb-card>
   <nb-card-header>
     Update Scripts
     </nb-card-header>
   <nb-card-body>
-     <form  #ScriptForm="ngForm" >
 <div class="col-md-12">
+        <form  #UserForm="ngForm" novalidate>
+
           <div class="row">
             
               <div class="col-md-4">
@@ -35,14 +43,27 @@
                         <label for="name" > Script<span style="color: red">(*)</span></label>
                     </div>
                     <div class="col-md-11">  
-                        <textarea class="form-control" aria-label="With textarea"  [(ngModel)]="model.Body"  name="Body"  required #Body="ngModel" ></textarea>
+                      <!--   <textarea class="form-control" aria-label="With textarea"  [(ngModel)]="model.Body"  name="Body"  required #Body="ngModel" ></textarea>
                         <div *ngIf="Body.errors && (Body.dirty || Body.touched)" class="alert alert-danger">
                         <div [hidden]="!Body.errors.required">
                           Body is required!
                         </div>
+                         </div> -->
 
-                    </div>
-                    </div>            
+                         <tag-input  
+                            [(ngModel)]="model.Body"
+                              [modelAsStrings]="true"
+                              [dragZone]="'zone1'"
+                              [editable]="true"
+                              [placeholder]="''"
+                              [secondaryPlaceholder]="'Add New Script'"
+                               name="scripts"
+                             >
+                             <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="autocompleteItems">
+                           </tag-input-dropdown>
+                         </tag-input>
+           
+                                       </div>            
                   </div>
                   </div>
           </div>
@@ -50,15 +71,14 @@
 
           <div class="row">
           <div class="col-md-12"  >
-              <button type="submit" class="btn btn-primary" style="margin-left: 77%" [disabled]="!ScriptForm.form.valid" (click)="update()">Update</button>
+              <button type="submit" class="btn btn-primary" style="margin-left: 77%" [disabled]="!UserForm.form.valid" (click)="update()">Update</button>
            
               <button type="reset" class="btn btn-default" (click)="Back()" style="background:grey!important;color: white!important;margin-left: 1%">Cancel</button>           
           </div>
           </div> <!-- /.row -->
-
+</form>
 
         </div>
-              </form>
 
  <nb-card-body>
   <style type="text/css">#snackbar {

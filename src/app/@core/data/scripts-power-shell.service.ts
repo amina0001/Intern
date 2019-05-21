@@ -38,7 +38,7 @@ export class ScriptsPowerShellService {
     return this.http.get(this.apiUrl+'/formytek/public/api/ScriptSh/'+id, { headers: reqHeader });
   }
   executeScript(cmd)
-  {
+  { console.log(cmd);
    
     var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
     return this.http.post(this.apiUrl+'/formytek/public/api/PowerShell', {"cmd":cmd} ,{headers : reqHeader})

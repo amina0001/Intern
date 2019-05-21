@@ -1,8 +1,8 @@
 export class profile {
    id:string
    Name: string;
-  consult_user:string;
-  add_user :string;
+   consult_user:string;
+   add_user :string;
    update_user :string;
    delete_user :string;
    consult_ressource :string;
@@ -19,6 +19,12 @@ export class profile {
    add_script :string;
    update_script :string;
    delete_script :string;
-    execute_script :string;
-
+   execute_script :string;
+   consult_to_validate:string;
+   consult_deleted_access:string;
+   consult_pending_access:string;
+   consult_active_access:string;
+   demand_access:string;
+   reject_access:string;
+   validate_access:string;
 }

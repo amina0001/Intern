@@ -33,7 +33,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
    this.crid=this.LocalStorageService.retriveUserAccount();
- 
   if(this.crid.Login){
   this.Login=this.crid.Login;
   }else if(this.crid[0].Login){

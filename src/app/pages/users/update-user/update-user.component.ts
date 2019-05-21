@@ -2,9 +2,10 @@ import { Component,OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../@core/data/users.service';
 import { user } from '../../../@core/models/user.model';
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
+import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../@core/data/auth.service';
 
@@ -29,18 +30,44 @@ export class UpdateUserComponent implements OnInit{
    usernames:string;
    oldusername:string;
    profiles:any;
-   
- constructor( private http: HttpClient, private authservice: AuthService,private routers: Router,private UserService :UserService,private route:ActivatedRoute,private ngxService: NgxUiLoaderService)
+   profile:any;
+   username:any;
+
+ constructor( private http: HttpClient, private authservice: AuthService,private routers: Router,
+   private UserService :UserService,private LocalStorageService: LocalStorageService,private route:ActivatedRoute, private spinner: NgxSpinnerService)
  {                    
+          this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
 
 }
 async   ngOnInit() {
-    
+     this.username = this.LocalStorageService.retriveUserAccount();
+
+       if(this.username.Login =="Administrator"){
+      
+
+         }else if(this.username.Login !="Administrator"){
+               await  this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
+                
+                .toPromise().then(
+
+                (response) => {
+                    this.profile = response['profile'];
+                })
+
+               console.log("hey"+this.profile)
+                if(this.profile['update_user']!=1)
+           {
+              this.routers.navigate(['/pages/dashboard']) ;
+
+           }
+            
+      }
+
     this.sub = this.route.snapshot.params['p1'];
     this.usernames = this.sub;
     this.oldusername=this.sub;
+    this.spinner.show();
 
-      this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
            
 
     await this.http.get(this.apiUrl+`/formytek/public/api/ProfileName`,{ headers: this.reqHeader })
@@ -48,6 +75,7 @@ async   ngOnInit() {
 
                 data =>  {
                     this.profiles=data;
+
                 })
                      this.http.get(this.apiUrl+`/formytek/public/api/User/${this.usernames}`,{ headers: this.reqHeader })
                           .subscribe(
@@ -64,9 +92,11 @@ async   ngOnInit() {
                     this.model.cellphone=data[0].Mobile
                     this.model.JobTitle=data[0].JobTitle
                     this.model.profile=data[0].profile
+
                 })
                        
-    
+                       this.spinner.hide();
+
                 
     /*   this.UserService.profileName()
         .subscribe(  data =>  {
@@ -77,7 +107,8 @@ async   ngOnInit() {
   }
 
  updateUser(){ 
-    this.ngxService.start(); 
+       this.spinner.show();
+
     this.UserService.uptadeUser(this.model).subscribe(data =>  {
      
   },
@@ -85,16 +116,21 @@ async   ngOnInit() {
   { 
       if(error['error'].text=="Success")
      { 
-            this.ngxService.stop(); 
+                              this.spinner.hide();
+
        
           var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);
     }else{
+                         this.spinner.hide();
+
          var x = document.getElementById("snackbar2");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);
     }
+                       this.spinner.hide();
+
       });
 
 }

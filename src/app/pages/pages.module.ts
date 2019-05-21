@@ -5,7 +5,7 @@ import { ECommerceModule } from './e-commerce/e-commerce.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from  'ngx-ui-loader';
-
+import {NbTooltipModule} from '@nebular/theme';
 const PAGES_COMPONENTS = [
   PagesComponent,
 ];
@@ -15,11 +15,13 @@ const PAGES_COMPONENTS = [
     PagesRoutingModule,
     ThemeModule,
     ECommerceModule,
-        NgxUiLoaderModule,
+    NgxUiLoaderModule,
+    NbTooltipModule,
 
   ],
   declarations: [
     ...PAGES_COMPONENTS,
+
   ],
 })
 export class PagesModule {

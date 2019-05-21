@@ -9,16 +9,16 @@ import { NgxLoadingModule,ngxLoadingAnimationTypes  } from 'ngx-loading';
 import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PagerService } from './_services/index';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   imports: [
     ThemeModule,
     GroupsRoutingModule,
     Ng2SmartTableModule,
-    NgxLoadingModule,
      FormsModule,
      DragDropModule,
-      
+      NgxSpinnerModule
   ],
   declarations: [
     ...routedComponents 

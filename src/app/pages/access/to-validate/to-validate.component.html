@@ -1,0 +1,101 @@
+<nb-card>
+      <nb-card-header>
+        To Validate
+      </nb-card-header>
+      <nb-card-body>
+        
+            <ng2-smart-table class="resize" [settings]="settings" [source]="source" (custom)="onCustomAction($event)" (deleteConfirm)="onDeleteConfirm($event)">
+            </ng2-smart-table>
+
+
+        
+               <div >                 
+       <div  class="modal fade" id="Modal" style="position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%); width: 600px;max-width: 100%; height: 400px; max-height: 100%;" >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+            
+              <h5 class="modal-title" id="exampleModalLabel">   Do you really want to reject access to this ressource?
+              </h5>
+            </div>
+          
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" (click)="refuseAccess(event_id) " data-dismiss="modal" style="background-color: #183559!important;    border: 0.125rem solid #e3e9ee;">yes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">no</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </nb-card-body>
+</nb-card>
+<style type="text/css">#snackbar,#snackbar3 {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show,#snackbar3.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+#snackbar2 {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar2.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}</style>
+<div id="snackbar">Access Demand Rejected </div>
+<div id="snackbar3">Access Demand Accpeted </div>
+<div id="snackbar2">Sorry something went wrong</div>

@@ -4,9 +4,6 @@ import { LocalDataSource } from 'ng2-smart-table';
 
 import { NbWindowService   } from '@nebular/theme';
 import { NbWindowRef } from '@nebular/theme';
-import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
-
-import {BreadcrumbsService} from "ng6-breadcrumbs";
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GroupService } from '../../../@core/data/group.service';
@@ -19,6 +16,7 @@ import { AuthService } from '../../../@core/data/auth.service';
 
  import { PagerService } from '../_services/index'
 import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'ngx-add-user-to-groups',
@@ -53,9 +51,13 @@ profile:any;
 failed:any;
 constructor(  private http: HttpClient,
                private routers: Router,
-               private breadcrumbs:BreadcrumbsService,
                private windowService: NbWindowService,
-               private route: ActivatedRoute, private LocalStorageService: LocalStorageService,private _auth_service: AuthService,private UserService :UserService,private ngxService: NgxUiLoaderService,private pagerService: PagerService
+               private route: ActivatedRoute,
+                private LocalStorageService: LocalStorageService,
+                private _auth_service: AuthService,
+                private UserService :UserService,
+                private spinner: NgxSpinnerService,
+                private pagerService: PagerService
             ) {
     
     this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
@@ -63,18 +65,19 @@ constructor(  private http: HttpClient,
     }
 
 async ngOnInit(){
-
+   setTimeout(() => {
+             this.spinner.show();
+});
 this.todo=[];
 this.done=[];
 this.LIST_IDS=[];
 this.count=0;
 this.counter=0;
- this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 300);
+
        
        this.usernam = this.LocalStorageService.retriveUserAccount();
+             if(this.usernam.Login !="Administrator"){
+
      await this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.usernam[0].Username}`,{ headers: this.reqHeader })
                           .toPromise().then(
 
@@ -112,31 +115,79 @@ this.counter=0;
               this.LIST_IDS.push('#id_' + this.count);
    
                this.done.push(element)
-                               //this.setPage(1);
 
              });
            }).catch(
              (error) => {
              }
            );
-$('.rolldown-list li').each(function () {
-  var delay = ($(this).index() / 4) + 's';
-  $(this).css({
-    webkitAnimationDelay: delay,
-    mozAnimationDelay: delay,
-    animationDelay: delay
-  });
-});
+            $('.rolldown-list li').each(function () {
+              var delay = ($(this).index() / 4) + 's';
+              $(this).css({
+                webkitAnimationDelay: delay,
+                mozAnimationDelay: delay,
+                animationDelay: delay
+              });
+            });
+                     this.spinner.hide();
 
            $(".sortable2").sortable();   
          }else{
+                   this.spinner.hide();
+
                        this.routers.navigate(['/pages/dashboard']) ;
 
          }
           }else{
+                    this.spinner.hide();
+
                        this.routers.navigate(['/pages/dashboard']) ;
 
          }
+  }  else if(this.usernam.Login =="Administrator"){
+      await this.http.get<any[]>(this.apiUrl+'/formytek/public/api/userliste1', { headers: this.reqHeader })
+         .toPromise().then(
+           (res) => {
+             res.forEach(element => {
+               this.todo.push(element.Username)
+             });
+           }).catch(
+             (error) => {
+             //  console.log(error);
+             }
+           );
+            await this.http.get<any[]>(this.apiUrl+'/formytek/public/api/getAllGroupMember', { headers: this.reqHeader })
+
+         .toPromise().then(
+           (res) => {
+              this.allItems = res;
+             res.forEach(element => {
+              this.count=this.count+1;
+             // console.log("ddd"+this.count)
+              this.LIST_IDS.push('#id_' + this.count);
+   
+               this.done.push(element)
+
+             });
+           }).catch(
+             (error) => {
+             }
+           );
+            $('.rolldown-list li').each(function () {
+              var delay = ($(this).index() / 4) + 's';
+              $(this).css({
+                webkitAnimationDelay: delay,
+                mozAnimationDelay: delay,
+                animationDelay: delay
+              });
+            });
+                     this.spinner.hide();
+
+           $(".sortable2").sortable();
+  
+       
+          }
+
 
  }
 

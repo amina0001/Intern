@@ -29,7 +29,6 @@ export class ProfileService {
       profile_id:profile_id,
       
     }
-  console.log(body)
     var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
     return this.http.post(this.apiUrl+'/formytek/public/api/adduserprofile', body ,{headers : reqHeader});
   }
@@ -51,7 +50,7 @@ export class ProfileService {
     return this.http.get(this.apiUrl+`/formytek/public/api/GetProfil/${id}`,{headers : reqHeader});
   }
    updateProfile(profile)
-  { console.log(profile)
+  {
     var reqHeader = new HttpHeaders({"Authorization": "Bearer " + this._auth_service.authentication.token});
     return this.http.post(this.apiUrl+'/formytek/public/api/UpdateProfil',profile,{headers : reqHeader});
   }     

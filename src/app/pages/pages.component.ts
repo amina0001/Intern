@@ -10,7 +10,7 @@ import { AuthService } from '../@core/data/auth.service';
 @Component({
   selector: 'ngx-pages',
   styleUrls: ['pages.component.scss'],
-  template: `<ngx-ui-loader></ngx-ui-loader>
+  template: `
     <ngx-sample-layout>
       <nb-menu [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
@@ -36,6 +36,7 @@ import { AuthService } from '../@core/data/auth.service';
      providers: [ LocalStorageService]
 
 })
+//<ngx-ui-loader></ngx-ui-loader>
 export class PagesComponent implements OnInit {
    apiUrl = environment.apiUrl;
    private username: any;

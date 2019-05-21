@@ -1,10 +1,18 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple">
+ <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
 <nb-card>
   <nb-card-header>
     New Scripts
     </nb-card-header>
   <nb-card-body>
-     <form  #ScriptForm="ngForm" >
 <div class="col-md-12">
+      <form  #UserForm="ngForm" novalidate>
+
           <div class="row">
             
               <div class="col-md-4">
@@ -16,50 +24,54 @@
                   <div class="col-md-9">  
                    <input type="text" class="form-control"  [(ngModel)]="model.Name" name="Name" required #Name="ngModel"/>
 
-<div *ngIf="Name.errors && (Name.dirty || Name.touched)" class="alert alert-danger">
-        <div [hidden]="!Name.errors.required">
-          Name is required!
-        </div>
-
-
-</div>
+                  <div *ngIf="Name.errors && (Name.dirty || Name.touched)" class="alert alert-danger">
+                          <div [hidden]="!Name.errors.required">
+                            Name is required!
+                          </div>
+                  </div>
 
 
                   </div>
-  </div>
+             </div>
                 </div>
                 <div class="col-md-8">
 
-          <div class="row">
-             <div class="col-md-12">
+                <div class="row">
+                   <div class="col-md-12">
 
-
+                         <tag-input  
+                            [(ngModel)]="dragAndDropExample"
+                              [modelAsStrings]="true"
+                              [dragZone]="'zone1'"
+                              [editable]="true"
+                              [placeholder]="''"
+                              [secondaryPlaceholder]="'Add New Script'"
+                               [onAdding]="onAdd"
+                               name="scripts"
+                             >
+                             <tag-input-dropdown [focusFirstElement]="true" [autocompleteItems]="autocompleteItems">
+                           </tag-input-dropdown>
+                         </tag-input>
            
-                  </div>
-                  </div>
-                     </div>
+                 
+                        </div>
+                        </div>
+              </div>
           </div>
       <br>
 
           <div class="row">
           <div class="col-md-12"  >
-              <button type="submit" class="btn btn-primary" style="margin-left: 80%" [disabled]="!ScriptForm.form.valid" (click)="save()">Save</button>
+              <button type="submit" class="btn btn-primary" style="margin-left:75%"  [disabled]="!UserForm.form.valid"  (click)="save()">Save</button>
            
               <button type="reset" class="btn btn-default" (click)="Back()" style="background:grey!important;color: white!important;margin-left: 1%">Cancel</button>           
           </div>
           </div> <!-- /.row -->
-
+</form>
 
         </div>
-              </form>
   
-            <tag-input  [(ngModel)]="dragAndDropExample"
-                        [modelAsStrings]="true"
-                        [dragZone]="'zone1'"
-                        [editable]="true"
-                       >
-            </tag-input>
-     
+         
 
 
  <nb-card-body>

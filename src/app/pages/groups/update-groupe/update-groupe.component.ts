@@ -8,7 +8,10 @@ import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GroupService } from '../../../@core/data/group.service';
 import { group } from '../../../@core/models/group.model';
-
+import { NgxSpinnerService } from 'ngx-spinner';
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
+import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../@core/data/auth.service';
 @Component({
 
   selector: 'ng-update-group',
@@ -26,47 +29,64 @@ import { group } from '../../../@core/models/group.model';
 export class UpdateGroupComponent implements OnInit{
 
     model:group = new group();
-        sub:any;
+    sub:any;
     name:string;
+    profile:any;
+    reqHeader: any;
+    username:any;
+    apiUrl = environment.apiUrl;
 
- constructor(  private routers: Router,private GroupService :GroupService,private route:ActivatedRoute,private ngxService: NgxUiLoaderService)
+ constructor(  private routers: Router,private GroupService :GroupService,private http: HttpClient,private authservice: AuthService,private LocalStorageService: LocalStorageService,private route:ActivatedRoute, private spinner: NgxSpinnerService)
  {
 
 }
-  ngOnInit() {
-    this.sub = this.route.snapshot.params['p1'];
-      this.name = this.sub;
+  async ngOnInit() {
+     this.username = this.LocalStorageService.retriveUserAccount();
+          this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
 
- this.GroupService.getGroup(this.sub).subscribe(data =>  {
+       if(this.username.Login =="Administrator"){
+       
+         }else if(this.username.Login !="Administrator"){
+               await  this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
+                
+                .toPromise().then(
+
+                (response) => {
+                    this.profile = response['profile'];
+                })
+
+                if(this.profile['update_group']!=1)
+           {
+              this.routers.navigate(['/pages/dashboard']) ;
+
+           }
+            
+      }
+         
+    this.sub = this.route.snapshot.params['p1'];
+    this.name = this.sub;
+    this.spinner.show();
+   this.GroupService.getGroup(this.sub).subscribe(data =>  {
    this.model.Name=data[0].Name
-this.model.Description =data[0].Description
+   this.model.Description =data[0].Description
+                   this.spinner.hide();
 
 
   },
   (error)=>
   {
+                       this.spinner.hide();
+
   });
   }
 
  updateGroup(){ 
-      this.ngxService.start(); 
-
+setTimeout(() => {
+             this.spinner.show();
+});
     this.GroupService.UpdateGroup(this.model).subscribe(data =>  {
+                   this.spinner.hide();
 
-        this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 700);
-       
-          // OR
-          this.ngxService.startBackground('do-background-things');
-          // Do something here...
-          this.ngxService.stopBackground('do-background-things');
-       
-          this.ngxService.startLoader('loader-01'); 
-          setTimeout(() => {
-            this.ngxService.stopLoader('loader-01');
-          }, 700);
          var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);  
@@ -76,17 +96,20 @@ this.model.Description =data[0].Description
   { 
     
       if(error['error'].text=="Success")
-     { 
-            this.ngxService.stop(); 
-       
+     {                    this.spinner.hide();
+
           var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);
     }else{
+                         this.spinner.hide();
+
          var x = document.getElementById("snackbar2");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);
     }
+                       this.spinner.hide();
+
       });
 
 }

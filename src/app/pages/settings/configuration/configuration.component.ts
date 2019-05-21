@@ -6,7 +6,6 @@ import { Smtp } from '../../../@core/models/smtp.model';
 import { SettingService } from '../../../@core/data/settings.service';
 import { FormsModule ,ReactiveFormsModule}   from '@angular/forms';
 import { AdminDirectory } from '../../../@core/models/AdminDirectory.model';
-import {BreadcrumbsService} from "ng6-breadcrumbs";
 import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
 import { Router,ActivatedRoute } from '@angular/router';
 
@@ -32,7 +31,7 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   hiddenADF:boolean 
   hiddenAD:boolean
   
-  constructor(  private router: Router, private breadcrumbs:BreadcrumbsService,private settingService: SettingService,private ngxService: NgxUiLoaderService) { 
+  constructor(  private router: Router,private settingService: SettingService,private ngxService: NgxUiLoaderService) { 
            
                }
   saveSmtp()
@@ -131,13 +130,7 @@ emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
     this.hiddensmtp=true
     this.hiddenADF=true
     this.hiddenAD=true
-    this.breadcrumbs.storePrefixed(
-    	{
-    		label: 'settings' ,
-    		 url: '/settings',
-    		  params: []
-    }
-    );
+   
   }
 
 }

@@ -3,7 +3,11 @@ import {FormControl, FormArray, FormGroupDirective, NgForm, Validators, FormGrou
 import { Router,ActivatedRoute } from '@angular/router';
 import { script } from '../../../@core/models/script.model';
 import { ScriptsPowerShellService } from '../../../@core/data/scripts-power-shell.service';
-import { NgxUiLoaderService } from 'ngx-ui-loader'; // Import NgxUiLoaderService
+import { NgxSpinnerService } from 'ngx-spinner';
+import { LocalStorageService } from '../../../../app/@core/data/local-storage.service';
+import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../@core/data/auth.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import * as $ from 'jquery';
 
@@ -31,17 +35,27 @@ export class ExecuteScriptComponent implements OnInit {
   errooorSC:string=""
   hiddenSCP:boolean
     hiddenNull:boolean
-
+    username:any;
+    profile:any;
+    reqHeader: any;
+     apiUrl = environment.apiUrl;
   c:number=0
     invoiceForm: FormGroup;
-
-    constructor(
+      autocompleteItems = ['get', '-c', '-u', 'Get ','-Help' ,'-Name' ,'-Service','Parameter ','Name','update',
+         'New','-ADComputer','-Name','-SamAccountName','-Path' ,'-ADGroup','-GroupCategory','Security', '-GroupScope',
+          'Global' ,'-DisplayName','-Description','-ADUser','-SamAccountName','-AccountPassword','-AsPlainText', '-Force','-DisplayName'
+          ,'-Enabled', '-GivenName','"CN=Users,,DC=Domain,DC=com"', '-Server','-Surname','-UserPrincipalName','-ADOrganizationalUnit'
+          ,'"DC=Domain,DC=com"','-ADGroupMember','-Members','Remove','SecurityGroupName' ,'-AdmPwdPassword', '-ComputerName',
+          '-Credential', '-Restart', '-Force','Enable','-ADAccount', '-Identity','Disable','Unlock','Search','-AccountDisabled'
+          ,'Test','-ComputerSecureChannel','New-ADComputer -Name' ,'New-ADGroup -Name','New-ADUser -Name' ,'New-ADOrganizationalUnit -Name',
+          ,'Add-ADGroupMember SecurityGroupName -Members','Add','Get-AdmPwdPassword -ComputerName','Add-Computer -DomainName'
+          ,'Enable-ADAccount','Disable-ADAccount','Unlock-ADAccount','Search-ADAccount','Test-ComputerSecureChannel','get-command'
+          ,'Get-ADDomainController','Get-ADFineGrainedPasswordPolicy','-filter','Get-ADDefaultDomainPasswordPolicy'
+          ,'invoke-command','-Properties','Get-ADUser','Find-Module'];
+    constructor( private http: HttpClient,
                private _fb: FormBuilder,  private ScriptService : ScriptsPowerShellService,
-               private router: Router,private route:ActivatedRoute,private ngxService: NgxUiLoaderService) {
-        this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 300);
+               private router: Router,private route:ActivatedRoute,private spinner: NgxSpinnerService,
+               private authservice: AuthService,private LocalStorageService: LocalStorageService,) {
        
          
            this.hiddenSCP=true
@@ -95,7 +109,10 @@ deleteRow(index: number)
   control.removeAt(index);
 }
 executeScript()
-{             this.hiddenSCP=true
+{   
+             this.spinner.show();
+          
+   this.hiddenSCP=true
              this.hiddenNull=true
 
   if(this.TotalLine!=0)
@@ -103,11 +120,10 @@ executeScript()
       $("#BtnAdd").hide();
   }
   this.allScript = "" 
-  if( $("#script").val()!=undefined)
-  {
-    this.Command =$("#script").val();
-    this.allScript= this.allScript +$("#script").val()
-  }
+ 
+    this.Command =this.model.Body.join(" ");
+    this.allScript= this.allScript + this.model.Body.join(" ");
+  
    for(this.c=0; this.c<this.TotalLine;this.c++)
    {     
       if( $("#script"+this.c).val() != undefined)
@@ -116,13 +132,19 @@ executeScript()
       } 
    }
     this.Laoder = true 
+ 
+   
+       
     this.ScriptService.executeScript("powershell -command " +this.allScript).subscribe(data => {
-      //console.log(data)   
+             this.spinner.show();
         if (data==null){
              var x = document.getElementById("snackbar");
           x.className = "show";
          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2900);  
         } 
+           setTimeout(() => {
+        this.spinner.hide();
+          });
       },
    error=>{
     if(error['error'].text)
@@ -134,12 +156,12 @@ executeScript()
           this.errooorSC=(error['error'].text)
          
         }
+           setTimeout(() => {
+        this.spinner.hide();
+          });
       })
-   this.ngxService.start(); 
-          setTimeout(() => {
-            this.ngxService.stop(); 
-          }, 300);
-
+                  
+          
 
     
   }   
@@ -147,7 +169,34 @@ executeScript()
   {
   this.router.navigate(['/pages/scripts/scripts-power-shell']) 
   }
- ngOnInit() {
+ async ngOnInit() {
+     this.username = this.LocalStorageService.retriveUserAccount();
+          this.reqHeader = new HttpHeaders({"Authorization": "Bearer " + this.authservice.authentication.token});
+
+       if(this.username.Login =="Administrator"){
+       
+      
+         }else if(this.username.Login !="Administrator"){
+               await  this.http.get(this.apiUrl+`/formytek/public/api/UserProfile/${this.username[0].Username}`,{ headers: this.reqHeader })
+                
+                .toPromise().then(
+
+                (response) => {
+                    this.profile = response['profile'];
+                })
+
+               console.log("hey"+this.profile)
+                if(this.profile['execute_script']!=1)
+           {
+              this.router.navigate(['/pages/dashboard']) ;
+
+           }
+            
+      }
+          setTimeout(() => {
+             this.spinner.show();
+
+       
     this.invoiceForm = this._fb.group({
       itemRows: this._fb.array([this.initItemRows()]) // here
     });
@@ -159,10 +208,11 @@ executeScript()
         this.model.id = result.Id
         this.model.Name = result.Name
         this.model.Body = result.Body
-     
+        
+        this.spinner.hide();
       })
  
-
+          });
 }
  
 }
